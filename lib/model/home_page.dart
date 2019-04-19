@@ -74,19 +74,21 @@ class _MyHomePageState extends State<MyHomePage> {
     final calendarDays = getCalendarDays(daysToShow);
     var punchDay = Padding(
       padding: const EdgeInsets.all(4.0),
-      child: InkWell(
-        child: Container(
-          child: Center(
-            child: Text(
-              calendarDays['dayOfToday'].toString(),
-              style: TextStyle(color: Colors.white),
-            ),
+      child: ButtonTheme(
+        minWidth: 50.0,
+        height: 50.0,
+        child: RaisedButton(
+          child: Text(
+            calendarDays['dayOfToday'].toString(),
           ),
-          padding: const EdgeInsets.all(8.0),
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, color: Colors.blueGrey),
-          width: 50.0,
-          height: 50.0,
+          textColor: Colors.white,
+          shape: CircleBorder(),
+          color: Theme.of(context).accentColor,
+          disabledElevation: 0.0,
+          disabledTextColor: Colors.white,
+          elevation: 4.0,
+          // set to null once it's pressed.
+          onPressed: () {},
         ),
       ),
     );
@@ -109,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             padding: const EdgeInsets.all(8.0),
             decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.blueGrey),
+                BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
             width: 32.0,
             height: 32.0,
           ),
