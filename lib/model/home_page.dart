@@ -1,5 +1,7 @@
 // import 'package:darka/database/database.dart';
 // import 'package:darka/model/task.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 // import 'package:uuid/uuid.dart';
 
@@ -22,39 +24,79 @@ class _MyHomePageState extends State<MyHomePage> {
   //   db.initDb();
   // }
 
+  List<Task> taskList = [];
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView(
-        children: <Widget>[
-          singleTask(),
-        ],
+      body: ListView.builder(
+        itemCount: taskList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: <Widget>[
+              _buildTask(index),
+              Divider(
+                height: 8.0,
+              )
+            ],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => null,
+        onPressed: _addNewTask,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            title: Text('Tasks'),
+            icon: Icon(Icons.chat),
+          ),
+          BottomNavigationBarItem(
+            title: Text('Chart'),
+            icon: Icon(Icons.history),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget singleTask() {
+  Widget _buildTask(int index) {
+    print(taskList.length);
+    if (index >= taskList.length) {
+      return null;
+    }
     var taskName = Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('I am your first task. Please keep punching.'),
+            child: Text(taskList[index].name),
           )
         ],
       ),
     );
+    var viewDetailButton = GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 50.0, 8.0, 0.0),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Icon(
+            Icons.keyboard_arrow_right,
+            color: Theme.of(context).buttonColor,
+          ),
+        ),
+      ),
+      onTap: () {},
+    );
     return Container(
       child: Stack(
         children: <Widget>[
+          taskName,
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 35.0, 8.0, 8.0),
             child: Row(
@@ -62,15 +104,16 @@ class _MyHomePageState extends State<MyHomePage> {
               children: constructCalendar(),
             ),
           ),
-          taskName,
+          viewDetailButton,
         ],
       ),
     );
   }
 
   List<Widget> constructCalendar() {
+    // TODO: change past days to list view
     final daysToShow = 8;
-    var cal = List<Widget>();
+    List<Widget> cal = [];
     final calendarDays = getCalendarDays(daysToShow);
     var punchDay = Padding(
       padding: const EdgeInsets.all(4.0),
@@ -141,4 +184,58 @@ class _MyHomePageState extends State<MyHomePage> {
   //       Task(uuid: uuid, taskName: taskName, isDeleted: false, isVisible: true);
   //   await db.createTask(task);
   // }
+
+  void _addNewTask() {
+    _showTaskInput(context).then((String value) {
+      var task = Task(value);
+      print(task.name);
+      setState(() {
+        taskList.insert(0, task);
+      });
+    });
+  }
+
+  Future<String> _showTaskInput(BuildContext context) async {
+    String taskName = "";
+    var inputText = AlertDialog(
+      title: Text('Task name'),
+      content: TextField(
+        autofocus: true,
+        decoration: InputDecoration(
+          hintText: 'Give a short name to track your task.',
+        ),
+        onChanged: (text) {
+          taskName = text;
+        },
+      ),
+      actions: <Widget>[
+        FlatButton(
+          child: const Text('Confirm'),
+          onPressed: () {
+            Navigator.of(context).pop(taskName);
+          },
+        ),
+        FlatButton(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Navigator.of(context).pop(null);
+          },
+        )
+      ],
+    );
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return inputText;
+      },
+    );
+  }
+}
+
+class Task {
+  String name;
+
+  Task(String name) {
+    this.name = name;
+  }
 }
