@@ -22,6 +22,7 @@ dependencies:
   sqflite: ^1.0.0
   path_provider: ^0.5.0
   uuid: ^1.0.0
+  flutter_calendar: ^0.0.8
 
 
 dev_dependencies:

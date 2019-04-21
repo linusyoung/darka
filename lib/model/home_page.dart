@@ -1,8 +1,10 @@
 // import 'package:darka/database/database.dart';
-// import 'package:darka/model/task.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
+import 'package:darka/model/task.dart';
+import 'package:darka/model/task_detail.dart';
 // import 'package:uuid/uuid.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -89,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: constructCalendar(),
+            children: constructCalendar(index, context),
           ),
         ),
         Divider(
@@ -99,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  List<Widget> constructCalendar() {
+  List<Widget> constructCalendar(int index, BuildContext context) {
     // TODO: change past days to list view
     final daysToShow = 7;
     List<Widget> cal = [];
@@ -124,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
-
+    var task = taskList[index];
     var viewDetailButton = GestureDetector(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 8.0, 8.0, 0.0),
@@ -136,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      onTap: () {},
+      onTap: () => _viewTaskDetail(task),
     );
 
     for (var i = 0; i < daysToShow; i++) {
@@ -155,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(4.0),
             decoration:
                 BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
             width: 32.0,
@@ -191,12 +193,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
-      var task = Task(value);
+      var task = Task(name: value);
       print(task.name);
       setState(() {
         taskList.insert(0, task);
       });
     });
+  }
+
+  void _viewTaskDetail(Task task) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => TaskDetail(task)));
   }
 
   Future<String> _showTaskInput(BuildContext context) async {
@@ -233,13 +240,5 @@ class _MyHomePageState extends State<MyHomePage> {
         return inputText;
       },
     );
-  }
-}
-
-class Task {
-  String name;
-
-  Task(String name) {
-    this.name = name;
   }
 }
