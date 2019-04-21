@@ -27,6 +27,9 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Task> taskList = [];
 
   Widget build(BuildContext context) {
+    var snackBar = SnackBar(
+      content: Text('Task is removed.'),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -34,14 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: taskList.length,
         itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: <Widget>[
-              _buildTask(index),
-              Divider(
-                height: 8.0,
-              )
-            ],
-          );
+          return Dismissible(
+              key: Key(taskList[index].name ?? 'null'),
+              onDismissed: (direction) {
+                taskList.removeAt(index);
+                Scaffold.of(context).showSnackBar(snackBar);
+              },
+              child: _buildTask(index));
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -80,39 +82,26 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
-    var viewDetailButton = GestureDetector(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 50.0, 8.0, 0.0),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: Icon(
-            Icons.keyboard_arrow_right,
-            color: Theme.of(context).buttonColor,
+    return Column(
+      children: <Widget>[
+        taskName,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: constructCalendar(),
           ),
         ),
-      ),
-      onTap: () {},
-    );
-    return Container(
-      child: Stack(
-        children: <Widget>[
-          taskName,
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 35.0, 8.0, 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: constructCalendar(),
-            ),
-          ),
-          viewDetailButton,
-        ],
-      ),
+        Divider(
+          height: 8.0,
+        ),
+      ],
     );
   }
 
   List<Widget> constructCalendar() {
     // TODO: change past days to list view
-    final daysToShow = 8;
+    final daysToShow = 7;
     List<Widget> cal = [];
     final calendarDays = getCalendarDays(daysToShow);
     var punchDay = Padding(
@@ -134,6 +123,20 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {},
         ),
       ),
+    );
+
+    var viewDetailButton = GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 8.0, 0.0),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Icon(
+            Icons.keyboard_arrow_right,
+            color: Theme.of(context).buttonColor,
+          ),
+        ),
+      ),
+      onTap: () {},
     );
 
     for (var i = 0; i < daysToShow; i++) {
@@ -162,6 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ));
     }
     cal.add(punchDay);
+    cal.add(viewDetailButton);
     return cal;
   }
 
