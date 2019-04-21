@@ -33,6 +33,7 @@ class TaskDetail extends StatelessWidget {
                 ],
               ),
             ),
+            // TODO: format summary
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
