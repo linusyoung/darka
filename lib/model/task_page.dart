@@ -10,16 +10,16 @@ import 'package:darka/model/task_detail.dart';
 
 const holePunchAudioPath = 'sound/hole_punch.mp3';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class TaskPage extends StatefulWidget {
+  TaskPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _TaskPageState createState() => _TaskPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _TaskPageState extends State<TaskPage> {
   // DarkaDatabase db;
 
   static AudioCache player = AudioCache();
@@ -35,39 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
   //   //   db.initDb();
   // }
 
+  @override
   Widget build(BuildContext context) {
-    var newTaskButton = FloatingActionButton(
-      child: Icon(Icons.add),
-      onPressed: _addNewTask,
-    );
-    return Scaffold(
-      appBar: AppBar(
-        title: _currentPageIndex == 0 ? Text(widget.title) : Text('Summary'),
-      ),
-      body: _currentPageIndex == 0 ? taskPage(context) : summaryPage(),
-      floatingActionButtonLocation: _currentPageIndex == 0
-          ? FloatingActionButtonLocation.centerDocked
-          : null,
-      floatingActionButton: _currentPageIndex == 0 ? newTaskButton : null,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentPageIndex,
-        onTap: (int index) {
-          setState(() {
-            _currentPageIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            title: Text('Tasks'),
-            icon: Icon(Icons.chat),
-          ),
-          BottomNavigationBarItem(
-            title: Text('Chart'),
-            icon: Icon(Icons.history),
-          ),
-        ],
-      ),
-    );
+    var page = _currentPageIndex == 0 ? taskPage(context) : summaryPage();
+    return page;
   }
 
   Widget _buildTask(int index) {
@@ -290,8 +261,12 @@ class _MyHomePageState extends State<MyHomePage> {
     var snackBar = SnackBar(
       content: Text('Task is removed.'),
     );
+    var newTaskButton = FloatingActionButton(
+      child: Icon(Icons.add),
+      onPressed: _addNewTask,
+    );
 
-    return ListView.builder(
+    var taskListView = ListView.builder(
       itemCount: taskList.length,
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
@@ -303,6 +278,17 @@ class _MyHomePageState extends State<MyHomePage> {
             child: _buildTask(index));
       },
     );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: newTaskButton,
+      floatingActionButtonAnimator: CustomFabAnimation(),
+      body: taskListView,
+      bottomNavigationBar: bottomNavBar(),
+    );
   }
 
   Widget summaryPage() {
@@ -311,95 +297,102 @@ class _MyHomePageState extends State<MyHomePage> {
     **  # individual task summary  
     */
 
+    var summaryTitleBar = SliverAppBar(
+      expandedHeight: 180.0,
+      flexibleSpace: FlexibleSpaceBar(
+        title: Text('Summary'),
+      ),
+      pinned: true,
+      floating: false,
+    );
+
+    var summaryList = SliverList(
+      delegate: SliverChildListDelegate([
+        Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: <Widget>[
+                  Text('# of tasks'),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text('1'),
+                      Text('punched: 10'),
+                      Icon(Icons.info),
+                    ],
+                  ),
+                  Text('211'),
+                ],
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+              ),
+            )
+          ],
+        )
+      ]),
+    );
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      children: <Widget>[
-                        Text('# of tasks'),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text('1'),
-                            Text('punched: 10'),
-                            Icon(Icons.info),
-                          ],
-                        ),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                        Text('1'),
-                        Text('211'),
-                      ],
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                    ),
-                  )
-                ],
-              )
-            ]),
-          ),
+          summaryTitleBar,
+          summaryList,
         ],
       ),
+      bottomNavigationBar: bottomNavBar(),
     );
+  }
+
+  Widget bottomNavBar() {
+    var navigationBarItems = [
+      BottomNavigationBarItem(
+        title: Text('Tasks'),
+        icon: Icon(Icons.chat),
+      ),
+      BottomNavigationBarItem(
+        title: Text('Chart'),
+        icon: Icon(Icons.history),
+      ),
+    ];
+    return BottomNavigationBar(
+        currentIndex: _currentPageIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentPageIndex = index;
+          });
+        },
+        items: navigationBarItems);
+  }
+}
+
+class CustomFabAnimation extends FloatingActionButtonAnimator {
+  double _x;
+  double _y;
+  @override
+  Offset getOffset({Offset begin, Offset end, double progress}) {
+    // _x = begin.dx + (end.dx - begin.dx) * progress;
+    // _y = begin.dy + (end.dy - begin.dy) * progress;
+    _x = end.dx;
+    _y = end.dy;
+    return Offset(_x, _y);
+  }
+
+  @override
+  Animation<double> getRotationAnimation({Animation<double> parent}) {
+    return Tween<double>(begin: 1.0, end: 1.0).animate(parent);
+  }
+
+  @override
+  Animation<double> getScaleAnimation({Animation<double> parent}) {
+    return Tween<double>(begin: 1.0, end: 1.0).animate(parent);
   }
 }

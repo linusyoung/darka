@@ -1,4 +1,4 @@
-import 'package:darka/model/home_page.dart';
+import 'package:darka/model/task_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +14,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Darka',
       theme: ThemeData(primarySwatch: Colors.deepOrange),
-      home: MyHomePage(
+      home: TaskPage(
         title: 'Darka',
       ),
     );
