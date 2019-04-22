@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Task> taskList = [];
   List<Widget> pageList = [];
+
   var _currentPageIndex = 0;
   // @override
   // void initState() {
@@ -35,22 +36,19 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   Widget build(BuildContext context) {
-    pageList.add(taskPage(context));
-
+    var newTaskButton = FloatingActionButton(
+      child: Icon(Icons.add),
+      onPressed: _addNewTask,
+    );
     return Scaffold(
       appBar: AppBar(
         title: _currentPageIndex == 0 ? Text(widget.title) : Text('Summary'),
       ),
       body: _currentPageIndex == 0 ? taskPage(context) : summaryPage(),
-      floatingActionButton: _currentPageIndex == 0
-          ? FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: _addNewTask,
-            )
-          : null,
       floatingActionButtonLocation: _currentPageIndex == 0
           ? FloatingActionButtonLocation.centerDocked
           : null,
+      floatingActionButton: _currentPageIndex == 0 ? newTaskButton : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentPageIndex,
         onTap: (int index) {
@@ -221,11 +219,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
-      var task = Task(name: value, punchedToday: false);
-      task.recentPunched = [true, false, false, true, true, false, true, false];
-      setState(() {
-        taskList.insert(0, task);
-      });
+      if (value != null) {
+        var task = Task(name: value, punchedToday: false);
+        task.recentPunched = [
+          true,
+          false,
+          false,
+          true,
+          true,
+          false,
+          true,
+          false
+        ];
+        setState(() {
+          taskList.insert(0, task);
+        });
+      }
     });
   }
 
@@ -243,8 +252,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String> _showTaskInput(BuildContext context) async {
     String taskName;
-    // bool isConfirmDisabled = true;
-
     var inputText = AlertDialog(
       title: Text('Task name'),
       content: TextField(
@@ -257,15 +264,15 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       actions: <Widget>[
-        // TODO: handle null in task name input field and disable confirm when pop up.
         FlatButton(
           child: const Text('Cancel'),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        RaisedButton(
           child: const Text('Confirm'),
+          textColor: Colors.white,
           onPressed: () => Navigator.of(context).pop(taskName),
         ),
       ],
