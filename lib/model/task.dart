@@ -2,11 +2,12 @@
 
 class Task {
   final String name;
+  bool punchedToday;
   // bool isDeleted;
   // bool isVisible;
   // final Uuid uuid;
 
-  Task({this.name});
+  Task({this.name, this.punchedToday});
 
   // Map<String, dynamic> toMap() {
   //   var map = Map<String, dynamic>();

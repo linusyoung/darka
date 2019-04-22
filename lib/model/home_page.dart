@@ -2,10 +2,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 import 'package:darka/model/task.dart';
 import 'package:darka/model/task_detail.dart';
 // import 'package:uuid/uuid.dart';
+
+const holePunchAudioPath = 'sound/hole_punch.mp3';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -19,41 +22,42 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // DarkaDatabase db;
 
+  static AudioCache player = AudioCache();
+
+  List<Task> taskList = [];
+  List<Widget> pageList = [];
+  var _currentPageIndex = 0;
   // @override
   // void initState() {
   //   super.initState();
-  //   db = DarkaDatabase();
-  //   db.initDb();
+  //   //   db = DarkaDatabase();
+  //   //   db.initDb();
   // }
 
-  List<Task> taskList = [];
-
   Widget build(BuildContext context) {
-    var snackBar = SnackBar(
-      content: Text('Task is removed.'),
-    );
+    pageList.add(taskPage(context));
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: _currentPageIndex == 0 ? Text(widget.title) : Text('Summary'),
       ),
-      body: ListView.builder(
-        itemCount: taskList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Dismissible(
-              key: Key(taskList[index].name ?? 'null'),
-              onDismissed: (direction) {
-                taskList.removeAt(index);
-                Scaffold.of(context).showSnackBar(snackBar);
-              },
-              child: _buildTask(index));
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: _addNewTask,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: _currentPageIndex == 0 ? taskPage(context) : summaryPage(),
+      floatingActionButton: _currentPageIndex == 0
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: _addNewTask,
+            )
+          : null,
+      floatingActionButtonLocation: _currentPageIndex == 0
+          ? FloatingActionButtonLocation.centerDocked
+          : null,
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentPageIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentPageIndex = index;
+          });
+        },
         items: [
           BottomNavigationBarItem(
             title: Text('Tasks'),
@@ -69,7 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildTask(int index) {
-    print(taskList.length);
     if (index >= taskList.length) {
       return null;
     }
@@ -103,7 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> constructCalendar(int index, BuildContext context) {
     // TODO: change past days to list view
-    final daysToShow = 7;
+    final daysToShow = 8;
+    bool isPunchedToday = taskList[index].punchedToday;
     List<Widget> cal = [];
     final calendarDays = getCalendarDays(daysToShow);
     var punchDay = Padding(
@@ -121,8 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
           disabledElevation: 0.0,
           disabledTextColor: Colors.white,
           elevation: 4.0,
-          // set to null once it's pressed.
-          onPressed: () {},
+          onPressed: isPunchedToday ? null : () => _punchTask(index),
         ),
       ),
     );
@@ -148,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
           : showDay;
 
       cal.add(Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(3.0),
         child: InkWell(
           child: Container(
             child: Center(
@@ -174,7 +177,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Map getCalendarDays(int daysToShow) {
     var calendarDays = Map();
     var dayOfToday = DateTime.now().day;
-    dayOfToday = 7;
     var today = DateTime.now();
     var lastDayOfLastMonth = DateTime(today.year, today.month, 0).day;
     var startDay = dayOfToday - daysToShow;
@@ -193,11 +195,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
-      var task = Task(name: value);
-      print(task.name);
+      var task = Task(name: value, punchedToday: false);
       setState(() {
         taskList.insert(0, task);
       });
+    });
+  }
+
+  void _punchTask(int index) {
+    player.play(holePunchAudioPath);
+    setState(() {
+      taskList[index].punchedToday = true;
     });
   }
 
@@ -207,7 +215,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<String> _showTaskInput(BuildContext context) async {
-    String taskName = "";
+    String taskName;
+    // bool isConfirmDisabled = true;
+
     var inputText = AlertDialog(
       title: Text('Task name'),
       content: TextField(
@@ -220,25 +230,142 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       actions: <Widget>[
-        FlatButton(
-          child: const Text('Confirm'),
-          onPressed: () {
-            Navigator.of(context).pop(taskName);
-          },
-        ),
+        // TODO: handle null in task name input field and disable confirm when pop up.
         FlatButton(
           child: const Text('Cancel'),
           onPressed: () {
-            Navigator.of(context).pop(null);
+            Navigator.of(context).pop();
           },
-        )
+        ),
+        FlatButton(
+          child: const Text('Confirm'),
+          onPressed: () => Navigator.of(context).pop(taskName),
+        ),
       ],
     );
+
     return showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return inputText;
       },
+    );
+  }
+
+  Widget taskPage(BuildContext context) {
+    var snackBar = SnackBar(
+      content: Text('Task is removed.'),
+    );
+
+    return ListView.builder(
+      itemCount: taskList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Dismissible(
+            key: Key(taskList[index].name ?? 'null'),
+            onDismissed: (direction) {
+              taskList.removeAt(index);
+              Scaffold.of(context).showSnackBar(snackBar);
+            },
+            child: _buildTask(index));
+      },
+    );
+  }
+
+  Widget summaryPage() {
+    /*  # of tasks
+    **  # of tasks did last week, last month
+    **  # individual task summary  
+    */
+
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text('# of tasks'),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Text('1'),
+                            Text('punched: 10'),
+                            Icon(Icons.info),
+                          ],
+                        ),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                        Text('1'),
+                        Text('211'),
+                      ],
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                    ),
+                  )
+                ],
+              )
+            ]),
+          ),
+        ],
+      ),
     );
   }
 }
