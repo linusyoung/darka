@@ -3,6 +3,7 @@
 class Task {
   final String name;
   bool punchedToday;
+  List<bool> recentPunched;
   // bool isDeleted;
   // bool isVisible;
   // final Uuid uuid;

@@ -110,23 +110,36 @@ class _MyHomePageState extends State<MyHomePage> {
     bool isPunchedToday = taskList[index].punchedToday;
     List<Widget> cal = [];
     final calendarDays = getCalendarDays(daysToShow);
+    var punchButton = RaisedButton(
+      child: Container(
+        width: 25.0,
+        height: 25.0,
+        decoration: isPunchedToday
+            ? ShapeDecoration(
+                shape: CircleBorder(),
+                color: Colors.white,
+              )
+            : null,
+        child: Center(
+          child: Text(
+            calendarDays['dayOfToday'].toString(),
+            style: isPunchedToday ? null : TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+      shape: CircleBorder(),
+      // color: Theme.of(context).accentColor,
+      disabledElevation: 0.0,
+      disabledTextColor: Colors.white,
+      elevation: 4.0,
+      onPressed: isPunchedToday ? null : () => _punchTask(index),
+    );
     var punchDay = Padding(
       padding: const EdgeInsets.all(4.0),
       child: ButtonTheme(
         minWidth: 50.0,
         height: 50.0,
-        child: RaisedButton(
-          child: Text(
-            calendarDays['dayOfToday'].toString(),
-          ),
-          textColor: Colors.white,
-          shape: CircleBorder(),
-          color: Theme.of(context).accentColor,
-          disabledElevation: 0.0,
-          disabledTextColor: Colors.white,
-          elevation: 4.0,
-          onPressed: isPunchedToday ? null : () => _punchTask(index),
-        ),
+        child: punchButton,
       ),
     );
     var task = taskList[index];
@@ -145,29 +158,42 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     for (var i = 0; i < daysToShow; i++) {
-      var showDay = calendarDays['startDay'] + i;
+      int showDay = calendarDays['startDay'] + i;
       showDay = showDay > calendarDays['lastDayOfLastMonth']
           ? showDay - calendarDays['lastDayOfLastMonth']
           : showDay;
+      bool isPunched = taskList[index].recentPunched[i];
 
-      cal.add(Padding(
-        padding: const EdgeInsets.all(3.0),
+      var historyDay = Padding(
+        padding: const EdgeInsets.all(2.5),
         child: InkWell(
           child: Container(
             child: Center(
-              child: Text(
-                showDay.toString(),
-                style: TextStyle(color: Colors.white),
+              child: Container(
+                width: 18.0,
+                height: 18.0,
+                decoration: isPunched
+                    ? ShapeDecoration(
+                        shape: CircleBorder(),
+                        color: Colors.white,
+                      )
+                    : null,
+                child: Center(
+                  child: Text(
+                    showDay.toString(),
+                    style: isPunched ? null : TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ),
-            padding: const EdgeInsets.all(4.0),
             decoration:
                 BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
             width: 32.0,
             height: 32.0,
           ),
         ),
-      ));
+      );
+      cal.add(historyDay);
     }
     cal.add(punchDay);
     cal.add(viewDetailButton);
@@ -175,11 +201,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Map getCalendarDays(int daysToShow) {
-    var calendarDays = Map();
-    var dayOfToday = DateTime.now().day;
-    var today = DateTime.now();
-    var lastDayOfLastMonth = DateTime(today.year, today.month, 0).day;
-    var startDay = dayOfToday - daysToShow;
+    Map calendarDays = Map();
+    int dayOfToday = DateTime.now().day;
+    DateTime today = DateTime.now();
+    int lastDayOfLastMonth = DateTime(today.year, today.month, 0).day;
+    int startDay = dayOfToday - daysToShow;
     startDay = startDay >= 1 ? startDay : startDay + lastDayOfLastMonth;
     calendarDays['dayOfToday'] = dayOfToday;
     calendarDays['startDay'] = startDay;
@@ -196,6 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
       var task = Task(name: value, punchedToday: false);
+      task.recentPunched = [true, false, false, true, true, false, true, false];
       setState(() {
         taskList.insert(0, task);
       });
