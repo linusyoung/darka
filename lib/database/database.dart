@@ -1,10 +1,28 @@
-// import 'dart:async';
+import 'dart:async';
 // import 'dart:io';
 
-// import 'package:darka/model/task.dart';
+import 'package:darka/model/task.dart';
 // import 'package:path/path.dart';
 // import 'package:path_provider/path_provider.dart';
 // import 'package:sqflite/sqflite.dart';
+
+class DarkaDatabase {
+  List<Task> taskList;
+
+  DarkaDatabase() {
+    var _task = Task(name: 'task from db1', punchedToday: false);
+    this.taskList = [];
+    this.taskList.add(_task);
+    _task = Task(name: 'task from db2', punchedToday: true);
+    this.taskList.add(_task);
+  }
+
+  Future<List<Task>> getTasks() async {
+    await Future.delayed(Duration(seconds: 3));
+
+    return this.taskList;
+  }
+}
 
 // class DarkaDatabase {
 //   static final DarkaDatabase _instance = DarkaDatabase._internal();

@@ -19,11 +19,10 @@ class Task {
   //   return map;
   // }
 
-  // factory Task.fromDb(Map map) {
-  //   return Task(
-  //       uuid: map['uid'],
-  //       taskName: map['task_name'],
-  //       isDeleted: map['is_deleted'],
-  //       isVisible: map['is_visible']);
-  // }
+  factory Task.fromDb(Map map) {
+    return Task(
+        // uuid: map['uid'],
+        name: map['task_name'],
+        punchedToday: map['punchedToday']);
+  }
 }

@@ -1,11 +1,15 @@
 // import 'package:darka/database/database.dart';
 import 'dart:async';
 
+import 'package:darka/animations/custom_fab_animation.dart';
+import 'package:darka/pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 
 import 'package:darka/model/task.dart';
-import 'package:darka/model/task_detail.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:darka/blocs/blocs.dart';
 // import 'package:uuid/uuid.dart';
 
 const holePunchAudioPath = 'sound/hole_punch.mp3';
@@ -23,17 +27,24 @@ class _TaskPageState extends State<TaskPage> {
   // DarkaDatabase db;
 
   static AudioCache player = AudioCache();
+  TaskBloc _taskBloc;
 
   List<Task> taskList = [];
   List<Widget> pageList = [];
 
   var _currentPageIndex = 0;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   //   db = DarkaDatabase();
-  //   //   db.initDb();
-  // }
+  @override
+  void initState() {
+    _taskBloc = BlocProvider.of<TaskBloc>(context);
+    _taskBloc.dispatch(LoadTasks());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _taskBloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +52,14 @@ class _TaskPageState extends State<TaskPage> {
     return page;
   }
 
-  Widget _buildTask(int index) {
-    if (index >= taskList.length) {
-      return null;
-    }
+  Widget _buildTask(Task task) {
     var taskName = Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(taskList[index].name),
+            child: Text(task.name),
           )
         ],
       ),
@@ -63,7 +71,7 @@ class _TaskPageState extends State<TaskPage> {
           padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: constructCalendar(index, context),
+            children: _constructCalendar(task, context),
           ),
         ),
         Divider(
@@ -73,10 +81,10 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  List<Widget> constructCalendar(int index, BuildContext context) {
+  List<Widget> _constructCalendar(Task task, BuildContext context) {
     // TODO: change past days to list view
     final daysToShow = 8;
-    bool isPunchedToday = taskList[index].punchedToday;
+    bool isPunchedToday = task.punchedToday;
     List<Widget> cal = [];
     final calendarDays = getCalendarDays(daysToShow);
     var punchButton = RaisedButton(
@@ -101,7 +109,8 @@ class _TaskPageState extends State<TaskPage> {
       disabledElevation: 0.0,
       disabledTextColor: Colors.white,
       elevation: 4.0,
-      onPressed: isPunchedToday ? null : () => _punchTask(index),
+      onPressed: null,
+      //  isPunchedToday ? null : () => _punchTask(index),
     );
     var punchDay = Padding(
       padding: const EdgeInsets.all(4.0),
@@ -111,7 +120,6 @@ class _TaskPageState extends State<TaskPage> {
         child: punchButton,
       ),
     );
-    var task = taskList[index];
     var viewDetailButton = GestureDetector(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 8.0, 8.0, 0.0),
@@ -131,7 +139,8 @@ class _TaskPageState extends State<TaskPage> {
       showDay = showDay > calendarDays['lastDayOfLastMonth']
           ? showDay - calendarDays['lastDayOfLastMonth']
           : showDay;
-      bool isPunched = taskList[index].recentPunched[i];
+      // bool isPunched = task.recentPunched[i];
+      bool isPunched = false;
 
       var historyDay = Padding(
         padding: const EdgeInsets.all(2.5),
@@ -266,18 +275,18 @@ class _TaskPageState extends State<TaskPage> {
       onPressed: _addNewTask,
     );
 
-    var taskListView = ListView.builder(
-      itemCount: taskList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Dismissible(
-            key: Key(taskList[index].name ?? 'null'),
-            onDismissed: (direction) {
-              taskList.removeAt(index);
-              Scaffold.of(context).showSnackBar(snackBar);
-            },
-            child: _buildTask(index));
-      },
-    );
+    // var taskListView = ListView.builder(
+    //   itemCount: taskList.length,
+    //   itemBuilder: (BuildContext context, int index) {
+    //     return Dismissible(
+    //         key: Key(taskList[index].name ?? 'null'),
+    //         onDismissed: (direction) {
+    //           taskList.removeAt(index);
+    //           Scaffold.of(context).showSnackBar(snackBar);
+    //         },
+    //         child: _buildTask(index));
+    //   },
+    // );
 
     return Scaffold(
       appBar: AppBar(
@@ -286,7 +295,31 @@ class _TaskPageState extends State<TaskPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: newTaskButton,
       floatingActionButtonAnimator: CustomFabAnimation(),
-      body: taskListView,
+      body: BlocBuilder(
+        bloc: _taskBloc,
+        builder: (
+          BuildContext context,
+          TasksState state,
+        ) {
+          if (state is TasksLoading) {
+            return CircularProgressIndicator();
+          } else if (state is TasksLoaded) {
+            final tasks = state.tasks;
+            return ListView.builder(
+              itemCount: tasks.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Dismissible(
+                    key: Key(tasks[index].name ?? 'null'),
+                    onDismissed: (direction) {
+                      taskList.removeAt(index);
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    },
+                    child: _buildTask(tasks[index]));
+              },
+            );
+          }
+        },
+      ),
       bottomNavigationBar: bottomNavBar(),
     );
   }
@@ -371,28 +404,5 @@ class _TaskPageState extends State<TaskPage> {
           });
         },
         items: navigationBarItems);
-  }
-}
-
-class CustomFabAnimation extends FloatingActionButtonAnimator {
-  double _x;
-  double _y;
-  @override
-  Offset getOffset({Offset begin, Offset end, double progress}) {
-    // _x = begin.dx + (end.dx - begin.dx) * progress;
-    // _y = begin.dy + (end.dy - begin.dy) * progress;
-    _x = end.dx;
-    _y = end.dy;
-    return Offset(_x, _y);
-  }
-
-  @override
-  Animation<double> getRotationAnimation({Animation<double> parent}) {
-    return Tween<double>(begin: 1.0, end: 1.0).animate(parent);
-  }
-
-  @override
-  Animation<double> getScaleAnimation({Animation<double> parent}) {
-    return Tween<double>(begin: 1.0, end: 1.0).animate(parent);
   }
 }
