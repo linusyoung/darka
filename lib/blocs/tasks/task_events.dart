@@ -15,6 +15,20 @@ class AddTask extends TaskEvent {
   String toString() => 'AddTask { task: $task.name }';
 }
 
-class UpdateTask extends TaskEvent {}
+class UpdateTask extends TaskEvent {
+  final Task updatedTask;
 
-class DeleteTask extends TaskEvent {}
+  UpdateTask(this.updatedTask);
+
+  @override
+  String toString() => 'UpdateTask { task: $updatedTask.punchedDay }';
+}
+
+class DeleteTask extends TaskEvent {
+  final Task deletedTask;
+
+  DeleteTask(this.deletedTask);
+
+  @override
+  String toString() => 'DeleteTask { task: $deletedTask.punchedDay }';
+}

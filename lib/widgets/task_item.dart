@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class TaskItem extends StatelessWidget {
   final GestureTapCallback viewDetail;
   final DismissDirectionCallback onDismissed;
-  final void punchTooday;
+  final Function punchToday;
   final Task task;
 
   TaskItem({
     @required this.task,
     @required this.viewDetail,
-    @required this.punchTooday,
+    @required this.punchToday,
     @required this.onDismissed,
   });
 
@@ -66,7 +66,9 @@ class TaskItem extends StatelessWidget {
         child: Center(
           child: Text(
             calendarDays['dayOfToday'].toString(),
-            style: isPunchedToday ? null : TextStyle(color: Colors.white),
+            style: isPunchedToday
+                ? TextStyle(color: Colors.black)
+                : TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -75,7 +77,7 @@ class TaskItem extends StatelessWidget {
       disabledElevation: 0.0,
       disabledTextColor: Colors.white,
       elevation: 4.0,
-      onPressed: isPunchedToday ? null : () => punchTooday,
+      onPressed: isPunchedToday ? null : punchToday,
     );
     var punchDay = Padding(
       padding: const EdgeInsets.all(4.0),

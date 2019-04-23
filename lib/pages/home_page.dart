@@ -24,8 +24,6 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
-  // DarkaDatabase db;
-
   static AudioCache player = AudioCache();
   final TabBloc _tabBloc = TabBloc();
   TaskBloc _taskBloc;
@@ -77,27 +75,56 @@ class _TaskPageState extends State<TaskPage> {
         });
   }
 
+  Widget taskPage(BuildContext context) {
+    var snackBar = SnackBar(
+      content: Text('Task is removed.'),
+    );
+
+    return BlocBuilder(
+      bloc: _taskBloc,
+      builder: (
+        BuildContext context,
+        TasksState state,
+      ) {
+        if (state is TasksLoading) {
+          return CircularProgressIndicator();
+        } else if (state is TasksLoaded) {
+          final tasks = state.tasks;
+          return ListView.builder(
+            itemCount: tasks.length,
+            itemBuilder: (BuildContext context, int index) {
+              Task task = tasks[index];
+              return TaskItem(
+                task: task,
+                viewDetail: () => _viewTaskDetail(task),
+                punchToday: () => _punchTask(task),
+                onDismissed: (direction) {
+                  _taskBloc.dispatch(DeleteTask(task));
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+              );
+            },
+          );
+        }
+      },
+    );
+  }
+
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
       if (value != null) {
-        var task = Task(name: value, punchedToday: false);
-        task.recentPunched = [
-          true,
-          false,
-          false,
-          true,
-          true,
-          false,
-          true,
-          false
-        ];
+        var task = Task(value, punchedToday: false);
         _taskBloc.dispatch(AddTask(task));
       }
     });
   }
 
   void _punchTask(Task task) {
-    if (task.punchedToday) {
+    print(!task.punchedToday);
+    print(task.copyWith(punchedToday: !task.punchedToday).toString());
+    if (!task.punchedToday) {
+      _taskBloc.dispatch(
+          UpdateTask(task.copyWith(punchedToday: !task.punchedToday)));
       player.play(holePunchAudioPath);
     }
   }
@@ -139,41 +166,6 @@ class _TaskPageState extends State<TaskPage> {
       context: context,
       builder: (BuildContext context) {
         return inputText;
-      },
-    );
-  }
-
-  Widget taskPage(BuildContext context) {
-    var snackBar = SnackBar(
-      content: Text('Task is removed.'),
-    );
-
-    return BlocBuilder(
-      bloc: _taskBloc,
-      builder: (
-        BuildContext context,
-        TasksState state,
-      ) {
-        if (state is TasksLoading) {
-          return CircularProgressIndicator();
-        } else if (state is TasksLoaded) {
-          final tasks = state.tasks;
-          return ListView.builder(
-            itemCount: tasks.length,
-            itemBuilder: (BuildContext context, int index) {
-              Task task = tasks[index];
-              return TaskItem(
-                task: task,
-                viewDetail: () => _viewTaskDetail(task),
-                punchTooday: () => _punchTask(task),
-                onDismissed: (direction) {
-                  // tasks.removeAt(index);
-                  Scaffold.of(context).showSnackBar(snackBar);
-                },
-              );
-            },
-          );
-        }
       },
     );
   }

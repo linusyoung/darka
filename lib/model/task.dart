@@ -8,8 +8,23 @@ class Task {
   // bool isVisible;
   // final Uuid uuid;
 
-  Task({this.name, this.punchedToday});
+  Task(this.name, {this.punchedToday = false}) {
+    this.recentPunched = List.filled(8, false);
+  }
 
+  Task copyWith({String name, bool punchedToday, List<bool> recentPunched}) {
+    Task _task = Task(
+      name ?? this.name,
+      punchedToday: punchedToday ?? this.punchedToday,
+    );
+
+    _task.recentPunched = recentPunched;
+
+    return _task;
+  }
+
+  @override
+  String toString() => 'name: $name, punchedToday: $punchedToday';
   // Map<String, dynamic> toMap() {
   //   var map = Map<String, dynamic>();
   //   map['uid'] = uuid;
@@ -22,7 +37,7 @@ class Task {
   factory Task.fromDb(Map map) {
     return Task(
         // uuid: map['uid'],
-        name: map['task_name'],
+        map['task_name'],
         punchedToday: map['punchedToday']);
   }
 }

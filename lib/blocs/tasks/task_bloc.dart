@@ -22,6 +22,10 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
       yield* _mapLoadTasksToState();
     } else if (event is AddTask) {
       yield* _mapAddTaskToState(currentState, event);
+    } else if (event is UpdateTask) {
+      yield* _mapUpdateTaskToState(currentState, event);
+    } else if (event is DeleteTask) {
+      yield* _mapDeleteTaskToState(currentState, event);
     }
   }
 
@@ -46,6 +50,32 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
       yield TasksLoaded(updatedTasks);
       // TODO: add to db
       // _saveTasks(updatedTasks);
+    }
+  }
+
+  Stream<TasksState> _mapUpdateTaskToState(
+    TasksState currentState,
+    UpdateTask event,
+  ) async* {
+    if (currentState is TasksLoaded) {
+      final List<Task> updatedTasks = currentState.tasks.map((task) {
+        return task.name == event.updatedTask.name ? event.updatedTask : task;
+      }).toList();
+      yield TasksLoaded(updatedTasks);
+      // TODO: add to db
+      // _saveTasks(updatedTasks);
+    }
+  }
+
+  Stream<TasksState> _mapDeleteTaskToState(
+    TasksState currentState,
+    DeleteTask event,
+  ) async* {
+    if (currentState is TasksLoaded) {
+      final updatedTasks = currentState.tasks
+          .where((task) => task.name != event.deletedTask.name)
+          .toList();
+      yield TasksLoaded(updatedTasks);
     }
   }
 

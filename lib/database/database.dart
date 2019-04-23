@@ -10,10 +10,10 @@ class DarkaDatabase {
   List<Task> taskList;
 
   DarkaDatabase() {
-    var _task = Task(name: 'task from db1', punchedToday: false);
+    var _task = Task('task from db1');
     this.taskList = [];
     this.taskList.add(_task);
-    _task = Task(name: 'task from db2', punchedToday: true);
+    _task = Task('task from db2', punchedToday: true);
     this.taskList.add(_task);
   }
 
