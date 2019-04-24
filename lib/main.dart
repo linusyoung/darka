@@ -23,7 +23,17 @@ class _DarkaAppState extends State<DarkaApp> {
       bloc: taskBloc,
       child: MaterialApp(
         title: 'Darka',
-        theme: ThemeData(primarySwatch: Colors.deepOrange),
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+          textTheme: TextTheme(
+              title: TextStyle(
+                fontSize: 20.0,
+              ),
+              subtitle: TextStyle(
+                fontSize: 18.0,
+                color: Colors.black,
+              )),
+        ),
         home: TaskPage(
           title: 'Darka',
         ),

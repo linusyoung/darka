@@ -17,12 +17,18 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var taskName = Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 4.0),
       child: Row(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(task.name),
+            padding: const EdgeInsets.only(
+              left: 12.0,
+              top: 4.0,
+            ),
+            child: Text(
+              task.name,
+              style: Theme.of(context).textTheme.title,
+            ),
           )
         ],
       ),
@@ -54,22 +60,27 @@ class TaskItem extends StatelessWidget {
     List<Widget> cal = [];
     final calendarDays = getCalendarDays(daysToShow);
     var punchButton = RaisedButton(
-      child: Container(
-        width: 25.0,
-        height: 25.0,
-        decoration: isPunchedToday
-            ? ShapeDecoration(
-                shape: CircleBorder(),
-                color: Colors.white,
-              )
-            : null,
-        child: Center(
-          child: Text(
-            calendarDays['dayOfToday'].toString(),
-            style: isPunchedToday
-                ? TextStyle(color: Colors.black)
-                : TextStyle(color: Colors.white),
-          ),
+      child: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              calendarDays['dayOfToday'].toString(),
+              style: Theme.of(context).textTheme.subtitle,
+            ),
+            isPunchedToday
+                ? Center(
+                    child: Container(
+                      width: 10.0,
+                      height: 10.0,
+                      decoration: ShapeDecoration(
+                        shape: CircleBorder(),
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                : Container(),
+          ],
         ),
       ),
       shape: CircleBorder(),
@@ -106,36 +117,40 @@ class TaskItem extends StatelessWidget {
       showDay = showDay > calendarDays['lastDayOfLastMonth']
           ? showDay - calendarDays['lastDayOfLastMonth']
           : showDay;
-      // TODO: update recentPunched list
-      bool isPunched = task.recentPunched[i] ?? false;
+      bool isPunched = task.recentPunched[i];
 
       var historyDay = Padding(
         padding: const EdgeInsets.all(2.5),
-        child: InkWell(
-          child: Container(
-            child: Center(
-              child: Container(
-                width: 18.0,
-                height: 18.0,
-                decoration: isPunched
-                    ? ShapeDecoration(
-                        shape: CircleBorder(),
-                        color: Colors.white,
-                      )
-                    : null,
-                child: Center(
-                  child: Text(
-                    showDay.toString(),
-                    style: isPunched ? null : TextStyle(color: Colors.white),
+        child: Container(
+          child: Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Text(
+                  showDay.toString(),
+                  style: TextStyle(
+                    color: Colors.black,
                   ),
                 ),
-              ),
+                isPunched
+                    ? Container(
+                        width: 6.0,
+                        height: 6.0,
+                        decoration: ShapeDecoration(
+                          shape: CircleBorder(),
+                          color: Colors.white,
+                        ),
+                      )
+                    : Container(),
+              ],
             ),
-            decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
-            width: 32.0,
-            height: 32.0,
           ),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.grey,
+          ),
+          width: 32.0,
+          height: 32.0,
         ),
       );
       cal.add(historyDay);

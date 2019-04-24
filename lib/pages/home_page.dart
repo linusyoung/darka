@@ -55,6 +55,7 @@ class _TaskPageState extends State<TaskPage> {
               appBar: AppBar(
                 title:
                     activeTab == AppTab.tasks ? Text('Darka') : Text('Summary'),
+                centerTitle: true,
               ),
               body: activeTab == AppTab.tasks ? taskPage(context) : Summary(),
               floatingActionButtonLocation: activeTab == AppTab.tasks
