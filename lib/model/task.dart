@@ -9,7 +9,7 @@ class Task {
   // final Uuid uuid;
 
   Task(this.name, {this.punchedToday = false}) {
-    this.recentPunched = List.filled(8, false);
+    this.recentPunched = List.filled(8, true);
   }
 
   Task copyWith({String name, bool punchedToday, List<bool> recentPunched}) {

@@ -13,7 +13,6 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
   TaskBloc({@required this.darkaDb});
 
   @override
-  // TODO: implement initialState
   TasksState get initialState => TasksLoading();
 
   @override
