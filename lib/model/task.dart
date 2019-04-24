@@ -18,7 +18,7 @@ class Task {
       punchedToday: punchedToday ?? this.punchedToday,
     );
 
-    _task.recentPunched = recentPunched;
+    _task.recentPunched = recentPunched ?? this.recentPunched;
 
     return _task;
   }

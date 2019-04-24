@@ -107,8 +107,7 @@ class TaskItem extends StatelessWidget {
           ? showDay - calendarDays['lastDayOfLastMonth']
           : showDay;
       // TODO: update recentPunched list
-      // bool isPunched = task.recentPunched[i];
-      bool isPunched = false;
+      bool isPunched = task.recentPunched[i] ?? false;
 
       var historyDay = Padding(
         padding: const EdgeInsets.all(2.5),

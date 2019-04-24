@@ -87,7 +87,9 @@ class _TaskPageState extends State<TaskPage> {
         TasksState state,
       ) {
         if (state is TasksLoading) {
-          return CircularProgressIndicator();
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         } else if (state is TasksLoaded) {
           final tasks = state.tasks;
           return ListView.builder(
