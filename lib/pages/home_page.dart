@@ -93,21 +93,30 @@ class _TaskPageState extends State<TaskPage> {
           );
         } else if (state is TasksLoaded) {
           final tasks = state.tasks;
-          return ListView.builder(
-            itemCount: tasks.length,
-            itemBuilder: (BuildContext context, int index) {
-              Task task = tasks[index];
-              return TaskItem(
-                task: task,
-                viewDetail: () => _viewTaskDetail(task),
-                punchToday: () => _punchTask(task),
-                onDismissed: (direction) {
-                  _taskBloc.dispatch(DeleteTask(task));
-                  Scaffold.of(context).showSnackBar(snackBar);
-                },
-              );
-            },
+          return Center(
+            child: tasks.length > 0
+                ? ListView.builder(
+                    itemCount: tasks.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Task task = tasks[index];
+                      return TaskItem(
+                        task: task,
+                        viewDetail: () => _viewTaskDetail(task),
+                        punchToday: () => _punchTask(task),
+                        onDismissed: (direction) {
+                          _taskBloc.dispatch(DeleteTask(task));
+                          Scaffold.of(context).showSnackBar(snackBar);
+                        },
+                      );
+                    },
+                  )
+                : Text(
+                    'Add your first task',
+                    style: Theme.of(context).textTheme.display1,
+                  ),
           );
+        } else if (state is TasksNotLoaded) {
+          // TODO: handle load error.
         }
       },
     );

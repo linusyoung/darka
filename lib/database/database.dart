@@ -10,11 +10,11 @@ class DarkaDatabase {
   List<Task> taskList;
 
   DarkaDatabase() {
-    var _task = Task('task from db1');
+    // var _task = Task('task from db1');
     this.taskList = [];
-    this.taskList.add(_task);
-    _task = Task('task from db2', punchedToday: true);
-    this.taskList.add(_task);
+    // this.taskList.add(_task);
+    // _task = Task('task from db2', punchedToday: true);
+    // this.taskList.add(_task);
   }
 
   Future<List<Task>> getTasks() async {
