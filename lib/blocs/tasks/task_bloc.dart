@@ -57,7 +57,7 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
   ) async* {
     if (currentState is TasksLoaded) {
       final List<Task> updatedTasks = currentState.tasks.map((task) {
-        return task.name == event.updatedTask.name ? event.updatedTask : task;
+        return task.uuid == event.updatedTask.uuid ? event.updatedTask : task;
       }).toList();
       yield TasksLoaded(updatedTasks);
       // TODO: add to db

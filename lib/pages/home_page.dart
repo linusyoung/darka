@@ -1,16 +1,16 @@
 // import 'package:darka/database/database.dart';
 import 'dart:async';
 
-import 'package:darka/animations/custom_fab_animation.dart';
-import 'package:darka/pages/pages.dart';
-import 'package:darka/widgets/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:audioplayers/audio_cache.dart';
 
 import 'package:darka/model/models.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:darka/animations/custom_fab_animation.dart';
+import 'package:darka/pages/pages.dart';
+import 'package:darka/widgets/widgets.dart';
 import 'package:darka/blocs/blocs.dart';
-// import 'package:uuid/uuid.dart';
 
 const holePunchAudioPath = 'sound/hole_punch.mp3';
 
@@ -117,7 +117,7 @@ class _TaskPageState extends State<TaskPage> {
           );
         } else if (state is TasksNotLoaded) {
           // TODO: handle load error.
-          Text('not loaded');
+          return Text('not loaded');
         }
       },
     );
@@ -126,7 +126,7 @@ class _TaskPageState extends State<TaskPage> {
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
       if (value != null) {
-        var task = Task(value, punchedToday: false);
+        var task = Task(Uuid().v4().toString(), value, punchedToday: false);
         _taskBloc.dispatch(AddTask(task));
       }
     });

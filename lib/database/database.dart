@@ -44,6 +44,7 @@ class DarkaDatabase {
 
   void _onCreate(Database db, int version) async {
     await db.execute('''CREATE TABLE TASK_LIST (
+      uuid TEXT PRIMARY KEY,
       task_name TEXT,
       is_deleted BIT,
       punched_today BIT)''');
