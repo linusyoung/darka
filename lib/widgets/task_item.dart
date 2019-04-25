@@ -43,7 +43,7 @@ class TaskItem extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: _constructCalendar(task, context),
+              children: _constructCalendar(context),
             ),
           ),
           Divider(
@@ -54,8 +54,11 @@ class TaskItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _constructCalendar(Task task, BuildContext context) {
-    final daysToShow = 8;
+  List<Widget> _constructCalendar(BuildContext context) {
+    // TODO: days to show needs to be adjusted based on screen size.
+
+    print(MediaQuery.of(context).size.width);
+    final daysToShow = MediaQuery.of(context).size.width <= 360 ? 7 : 8;
     bool isPunchedToday = task.punchedToday;
     List<Widget> cal = [];
     final calendarDays = getCalendarDays(daysToShow);
@@ -90,11 +93,11 @@ class TaskItem extends StatelessWidget {
       elevation: 4.0,
       onPressed: isPunchedToday ? null : punchToday,
     );
-    var punchDay = Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: ButtonTheme(
-        minWidth: 50.0,
-        height: 50.0,
+    var punchDay = ButtonTheme(
+      minWidth: 50.0,
+      height: 50.0,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 1.0),
         child: punchButton,
       ),
     );
