@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:darka/darka_utils.dart';
 import 'package:darka/model/task.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -27,6 +28,7 @@ class DarkaDatabase {
   initDb() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, "main.db");
+    print(path);
     var theDb = await openDatabase(
       path,
       version: 1,
@@ -50,11 +52,11 @@ class DarkaDatabase {
       is_deleted BIT,
       punched_today BIT)''');
 
-    // await db.execute('''CREATE TABLE PUNCH_LIST(
-    //   uid TEXT PRIMARY KEY,
-    //   task_id TEXT FOREIGN KEY,
-    //   date TEXT,
-    //   is_punched BIT)''');
+    await db.execute('''CREATE TABLE PUNCH_LIST(
+      uuid TEXT PRIMARY KEY,
+      task_id TEXT,
+      date TEXT,
+      FOREIGN KEY (task_id) REFERENCES TASK_LIST(uuid))''');
   }
 
   Future<int> createTask(Task task) async {
@@ -66,22 +68,48 @@ class DarkaDatabase {
     return res;
   }
 
-  Future<int> updateTask(Task task) async {
+  Future<void> updateTask(Task task) async {
     var dbClient = await db;
 
-    int res = await dbClient.update("TASK_LIST", task.toMap(),
+    await dbClient.update("TASK_LIST", task.toMap(),
         where: "uuid = ?", whereArgs: [task.uuid]);
-    return res;
+    var punchValue = Map<String, dynamic>();
+    punchValue['uuid'] = DarkaUtils().generateV4();
+    punchValue['task_id'] = task.uuid;
+    punchValue['date'] = DarkaUtils().dateFormat(DateTime.now());
+
+    int res = await dbClient.insert("PUNCH_LIST", punchValue);
+    print(res);
   }
 
   Future<List<Task>> getTasks() async {
     var dbClient = await db;
-    List<Map> storedTask = await dbClient
+    List<Map> storedTasks = await dbClient
         .query("TASK_LIST", where: "is_deleted = ?", whereArgs: [0]);
 
-    return storedTask.length > 0
-        ? storedTask.map((task) => Task.fromDb(task)).toList()
-        : [];
+    List<Task> tasks = [];
+    if (storedTasks.length > 0) {
+      List<Task> returnTasks = [];
+      List<Task> tasks = storedTasks.map((task) => Task.fromDb(task)).toList();
+      for (var task in tasks) {
+        List<bool> recentPunch = List.filled(8, false);
+        for (var i = 8; i > 0; i--) {
+          var recentDate = DarkaUtils()
+              .dateFormat(DateTime.now().subtract(Duration(days: i)));
+          List<Map> punched = await dbClient.query("PUNCH_LIST",
+              where: "task_id = ? and date = ?",
+              whereArgs: [task.uuid, recentDate]);
+          if (punched.length > 0) {
+            recentPunch[8 - i] = true;
+            print(punched);
+          }
+        }
+        returnTasks.add(task.copyWith(recentPunched: recentPunch));
+      }
+      tasks.clear();
+      return returnTasks;
+    }
+    return tasks;
   }
 
   Future closeDb() async {

@@ -29,14 +29,17 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
   }
 
   Stream<TasksState> _mapLoadTasksToState() async* {
-    try {
-      final tasks = await this.darkaDb.getTasks();
-      yield TasksLoaded(
-        tasks.toList(),
-      );
-    } catch (_) {
-      yield TasksNotLoaded();
-    }
+    final tasks = await this.darkaDb.getTasks();
+    yield TasksLoaded(tasks.toList());
+
+    // try {
+    //   final tasks = await this.darkaDb.getTasks();
+    //   yield TasksLoaded(
+    //     tasks.toList(),
+    //   );
+    // } catch (_) {
+    //   yield TasksNotLoaded();
+    // }
   }
 
   Stream<TasksState> _mapAddTaskToState(

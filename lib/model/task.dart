@@ -4,10 +4,11 @@ class Task {
   final bool punchedToday;
   final bool isDeleted;
   List<bool> recentPunched;
+  List<DateTime> punchedDates;
 
   Task(this.uuid, this.name,
       {this.punchedToday = false, this.isDeleted = false}) {
-    this.recentPunched = List.filled(8, true);
+    this.recentPunched = List.filled(8, false);
   }
 
   Task copyWith({

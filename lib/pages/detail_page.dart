@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_calendar/flutter_calendar.dart';
+
 import 'package:darka/model/task.dart';
-import 'package:intl/intl.dart';
+import 'package:darka/darka_utils.dart';
 
 class TaskDetail extends StatelessWidget {
   final Task task;
@@ -11,7 +11,7 @@ class TaskDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String addDate = DateFormat.yMd().format(DateTime.now());
+    String addDate = DarkaUtils().dateFormat(DateTime.now());
     return Scaffold(
       appBar: AppBar(
         title: Text(task.name),
