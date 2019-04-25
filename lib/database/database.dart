@@ -7,8 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DarkaDatabase {
-  factory DarkaDatabase() => _instance;
   static final DarkaDatabase _instance = DarkaDatabase._internal();
+
+  factory DarkaDatabase() => _instance;
 
   static Database _db;
 
@@ -79,6 +80,7 @@ class DarkaDatabase {
     var dbClient = await db;
     List<Map> storedTask = await dbClient
         .query("TASK_LIST", where: "is_deleted = ?", whereArgs: [0]);
+    print(storedTask.toString());
 
     return storedTask.length > 0
         ? storedTask.map((task) => Task.fromDb(task)).toList()

@@ -16,7 +16,8 @@ class DarkaApp extends StatefulWidget {
 }
 
 class _DarkaAppState extends State<DarkaApp> {
-  final taskBloc = TaskBloc(darkaDb: DarkaDatabase());
+  static final db = DarkaDatabase();
+  final taskBloc = TaskBloc(darkaDb: db);
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TaskBloc>(

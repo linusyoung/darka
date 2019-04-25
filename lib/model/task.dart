@@ -41,7 +41,11 @@ class Task {
   }
 
   factory Task.fromDb(Map map) {
-    return Task(map['uuid'], map['task_name'],
-        punchedToday: map['punched_today'], isDeleted: map['is_deleted']);
+    return Task(
+      map['uuid'],
+      map['task_name'],
+      punchedToday: map['punched_today'] == 1 ? true : false,
+      isDeleted: map['is_deleted'] == 1 ? true : false,
+    );
   }
 }
