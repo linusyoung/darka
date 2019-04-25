@@ -155,6 +155,7 @@ class TaskItem extends StatelessWidget {
       );
       cal.add(historyDay);
     }
+
     cal.add(punchDay);
     cal.add(viewDetailButton);
     return cal;

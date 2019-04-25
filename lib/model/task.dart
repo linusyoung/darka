@@ -1,21 +1,26 @@
-// import 'package:uuid/uuid.dart';
-
 class Task {
+  final String uuid;
   final String name;
-  bool punchedToday;
+  final bool punchedToday;
+  final bool isDeleted;
   List<bool> recentPunched;
-  // bool isDeleted;
-  // bool isVisible;
-  // final Uuid uuid;
 
-  Task(this.name, {this.punchedToday = false}) {
+  Task(this.uuid, this.name,
+      {this.punchedToday = false, this.isDeleted = false}) {
     this.recentPunched = List.filled(8, true);
   }
 
-  Task copyWith({String name, bool punchedToday, List<bool> recentPunched}) {
+  Task copyWith({
+    String name,
+    bool punchedToday,
+    bool isDeleted,
+    List<bool> recentPunched,
+  }) {
     Task _task = Task(
+      uuid ?? this.uuid,
       name ?? this.name,
       punchedToday: punchedToday ?? this.punchedToday,
+      isDeleted: isDeleted ?? this.isDeleted,
     );
 
     _task.recentPunched = recentPunched ?? this.recentPunched;
@@ -25,19 +30,18 @@ class Task {
 
   @override
   String toString() => 'name: $name, punchedToday: $punchedToday';
-  // Map<String, dynamic> toMap() {
-  //   var map = Map<String, dynamic>();
-  //   map['uid'] = uuid;
-  //   map['task_name'] = taskName;
-  //   map['is_deleted'] = isDeleted;
-  //   map['is_visilbe'] = isVisible;
-  //   return map;
-  // }
+
+  Map<String, dynamic> toMap() {
+    var map = Map<String, dynamic>();
+    map['uuid'] = uuid;
+    map['task_name'] = name;
+    map['punched_today'] = punchedToday;
+    map['is_deleted'] = isDeleted;
+    return map;
+  }
 
   factory Task.fromDb(Map map) {
-    return Task(
-        // uuid: map['uid'],
-        map['task_name'],
-        punchedToday: map['punchedToday']);
+    return Task(map['uuid'], map['task_name'],
+        punchedToday: map['punched_today'], isDeleted: map['is_deleted']);
   }
 }
