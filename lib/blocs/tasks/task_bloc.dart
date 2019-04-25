@@ -60,8 +60,7 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
         return task.uuid == event.updatedTask.uuid ? event.updatedTask : task;
       }).toList();
       yield TasksLoaded(updatedTasks);
-      // TODO: add to db
-      // _saveTasks(updatedTasks);
+      _updateTask(event.updatedTask);
     }
   }
 
@@ -71,9 +70,11 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
   ) async* {
     if (currentState is TasksLoaded) {
       final updatedTasks = currentState.tasks
-          .where((task) => task.name != event.deletedTask.name)
+          .where((task) => task.uuid != event.deletedTask.uuid)
           .toList();
       yield TasksLoaded(updatedTasks);
+
+      _updateTask(event.deletedTask.copyWith(isDeleted: true));
     }
   }
 
@@ -81,6 +82,12 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
     DarkaDatabase db = DarkaDatabase();
     await db.createTask(task);
   }
+
+  Future _updateTask(Task task) async {
+    DarkaDatabase db = DarkaDatabase();
+    await db.updateTask(task);
+  }
+
   // Future _saveTask(List<Task> tasks){
 
   // }

@@ -66,21 +66,18 @@ class DarkaDatabase {
     return res;
   }
 
-  // Future<int> updateTask(Task task) async {
-  //   var dbClient = await db;
+  Future<int> updateTask(Task task) async {
+    var dbClient = await db;
 
-  //   int res = await dbClient.update("TASK_LIST", task.toMap(),
-  //       where: "uid = ?", whereArgs: [task.uuid]);
-  //   // TODO: remove debug text
-  //   print('Task $res is updated.');
-  //   return res;
-  // }
+    int res = await dbClient.update("TASK_LIST", task.toMap(),
+        where: "uuid = ?", whereArgs: [task.uuid]);
+    return res;
+  }
 
   Future<List<Task>> getTasks() async {
     var dbClient = await db;
     List<Map> storedTask = await dbClient
         .query("TASK_LIST", where: "is_deleted = ?", whereArgs: [0]);
-    print(storedTask.toString());
 
     return storedTask.length > 0
         ? storedTask.map((task) => Task.fromDb(task)).toList()
