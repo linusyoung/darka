@@ -55,9 +55,6 @@ class TaskItem extends StatelessWidget {
   }
 
   List<Widget> _constructCalendar(BuildContext context) {
-    // TODO: days to show needs to be adjusted based on screen size.
-
-    print(MediaQuery.of(context).size.width);
     final daysToShow = MediaQuery.of(context).size.width <= 360 ? 7 : 8;
     bool isPunchedToday = task.punchedToday;
     List<Widget> cal = [];

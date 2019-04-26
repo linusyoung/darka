@@ -1,7 +1,7 @@
 class Task {
   final String uuid;
   final String name;
-  final bool punchedToday;
+  bool punchedToday;
   final bool isDeleted;
   List<bool> recentPunched;
   List<DateTime> punchedDates;

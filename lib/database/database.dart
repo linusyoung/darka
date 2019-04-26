@@ -93,17 +93,18 @@ class DarkaDatabase {
       List<Task> tasks = storedTasks.map((task) => Task.fromDb(task)).toList();
       for (var task in tasks) {
         List<bool> recentPunch = List.filled(8, false);
-        for (var i = 8; i > 0; i--) {
+        bool punchedToday = false;
+        for (var i = 8; i >= 0; i--) {
           var recentDate = DarkaUtils()
               .dateFormat(DateTime.now().subtract(Duration(days: i)));
           List<Map> punched = await dbClient.query("PUNCH_LIST",
               where: "task_id = ? and date = ?",
               whereArgs: [task.uuid, recentDate]);
           if (punched.length > 0) {
-            recentPunch[8 - i] = true;
-            print(punched);
+            i == 0 ? punchedToday = true : recentPunch[8 - i] = true;
           }
         }
+        task.punchedToday = punchedToday;
         returnTasks.add(task.copyWith(recentPunched: recentPunch));
       }
       tasks.clear();

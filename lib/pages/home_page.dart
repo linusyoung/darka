@@ -116,7 +116,6 @@ class _TaskPageState extends State<TaskPage> {
           );
         } else if (state is TasksNotLoaded) {
           // TODO: handle load error.
-          Future.delayed(Duration(seconds: 5));
           return Text('not loaded');
         }
       },
@@ -133,7 +132,6 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   void _punchTask(Task task) {
-    print(!task.punchedToday);
     print(task.copyWith(punchedToday: !task.punchedToday).toString());
     if (!task.punchedToday) {
       _taskBloc.dispatch(
