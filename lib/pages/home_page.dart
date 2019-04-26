@@ -141,8 +141,12 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   void _viewTaskDetail(Task task) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => TaskDetail(task)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => TaskDetail(task))).then((task) {
+      _taskBloc.dispatch(UpdateTask(task));
+    });
   }
 
   Future<String> _showTaskInput(BuildContext context) async {

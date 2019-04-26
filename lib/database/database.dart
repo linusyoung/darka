@@ -73,13 +73,19 @@ class DarkaDatabase {
 
     await dbClient.update("TASK_LIST", task.toMap(),
         where: "uuid = ?", whereArgs: [task.uuid]);
-    var punchValue = Map<String, dynamic>();
-    punchValue['uuid'] = DarkaUtils().generateV4();
-    punchValue['task_id'] = task.uuid;
-    punchValue['date'] = DarkaUtils().dateFormat(DateTime.now());
-
-    int res = await dbClient.insert("PUNCH_LIST", punchValue);
-    print(res);
+    if (task.punchedToday) {
+      String today = DarkaUtils().dateFormat(DateTime.now());
+      List<Map> isTodayPunched = await dbClient.query("PUNCH_LIST",
+          where: "task_id = ? and date = ?", whereArgs: [task.uuid, today]);
+      if (isTodayPunched.length == 0) {
+        var punchValue = Map<String, dynamic>();
+        punchValue['uuid'] = DarkaUtils().generateV4();
+        punchValue['task_id'] = task.uuid;
+        punchValue['date'] = DarkaUtils().dateFormat(DateTime.now());
+        int res = await dbClient.insert("PUNCH_LIST", punchValue);
+        print(res);
+      }
+    }
   }
 
   Future<List<Task>> getTasks() async {

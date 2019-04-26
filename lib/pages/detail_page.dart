@@ -28,7 +28,13 @@ class TaskDetail extends StatelessWidget {
             ),
           ),
           style: Theme.of(context).textTheme.display1,
-          onChanged: (text) => task.name = text,
+          onChanged: (text) {
+            task.name = text;
+          },
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context, task),
         ),
       ),
       body: Container(

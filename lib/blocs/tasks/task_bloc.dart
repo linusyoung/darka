@@ -32,7 +32,7 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
     try {
       final tasks = await this.darkaDb.getTasks();
       yield TasksLoaded(
-        tasks.toList(),
+        tasks.reversed.toList(),
       );
     } catch (_) {
       yield TasksNotLoaded();
@@ -45,7 +45,7 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
   ) async* {
     if (currentState is TasksLoaded) {
       final List<Task> updatedTasks = List.from(currentState.tasks)
-        ..add(event.task);
+        ..insert(0, event.task);
       yield TasksLoaded(updatedTasks);
       _addTask(event.task);
     }
