@@ -1,6 +1,6 @@
 class Task {
   final String uuid;
-  final String name;
+  String name;
   bool punchedToday;
   final bool isDeleted;
   List<bool> recentPunched;

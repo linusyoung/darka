@@ -20,14 +20,17 @@ class TaskItem extends StatelessWidget {
       padding: const EdgeInsets.only(top: 4.0),
       child: Row(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 12.0,
-              top: 4.0,
-            ),
-            child: Text(
-              task.name,
-              style: Theme.of(context).textTheme.title,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 12.0,
+                right: 4.0,
+              ),
+              child: Text(
+                task.name,
+                style: Theme.of(context).textTheme.title,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           )
         ],
@@ -117,7 +120,7 @@ class TaskItem extends StatelessWidget {
       showDay = showDay > calendarDays['lastDayOfLastMonth']
           ? showDay - calendarDays['lastDayOfLastMonth']
           : showDay;
-      bool isPunched = task.recentPunched[i];
+      bool isPunched = task.recentPunched[i + 8 - daysToShow];
 
       var historyDay = Padding(
         padding: const EdgeInsets.all(2.5),

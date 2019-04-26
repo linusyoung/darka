@@ -12,9 +12,24 @@ class TaskDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String addDate = DarkaUtils().dateFormat(DateTime.now());
+    var _titleEdit = TextEditingController.fromValue(TextEditingValue(
+      text: task.name,
+      selection: TextSelection.collapsed(offset: task.name.length),
+    ));
     return Scaffold(
       appBar: AppBar(
-        title: Text(task.name),
+        title: TextField(
+          textAlign: TextAlign.start,
+          controller: _titleEdit,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            suffixIcon: Icon(
+              Icons.edit,
+            ),
+          ),
+          style: Theme.of(context).textTheme.display1,
+          onChanged: (text) => task.name = text,
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(
