@@ -40,6 +40,7 @@ class Task {
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     map['uuid'] = uuid;
+    map['date_added'] = dateAdded;
     map['task_name'] = name;
     map['punched_today'] = punchedToday;
     map['is_deleted'] = isDeleted;
