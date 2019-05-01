@@ -25,12 +25,6 @@ class _SummaryState extends State<Summary> {
   }
 
   @override
-  void dispose() {
-    _taskBloc.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder(
       bloc: _taskBloc,
@@ -55,14 +49,14 @@ class _SummaryState extends State<Summary> {
                         itemCount: tasks.length,
                         itemBuilder: (BuildContext context, int index) {
                           var task = tasks[index];
-                          var punched = task.punchedDates.length ?? 0;
+                          var punched = task.punchedDates ?? [];
                           return ListTile(
                             title: Text(
                               task.name,
                               overflow: TextOverflow.ellipsis,
                             ),
                             subtitle: Text("""date added: ${task.dateAdded}
-total punched: $punched"""),
+total punched: ${punched.length}"""),
                             trailing: IconButton(
                               icon: Icon(Icons.info),
                               onPressed: () => _viewTaskDetail(task),
