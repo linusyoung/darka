@@ -125,18 +125,23 @@ class _TaskPageState extends State<TaskPage> {
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
       if (value != null) {
-        var task = Task(DarkaUtils().generateV4(), value, punchedToday: false);
+        var task = Task(
+          DarkaUtils().generateV4(),
+          value,
+          DarkaUtils().dateFormat(DateTime.now()),
+          punchedToday: false,
+        );
         _taskBloc.dispatch(AddTask(task));
       }
     });
   }
 
   void _punchTask(Task task) {
-    print(task.copyWith(punchedToday: !task.punchedToday).toString());
     if (!task.punchedToday) {
       _taskBloc.dispatch(
           UpdateTask(task.copyWith(punchedToday: !task.punchedToday)));
       player.play(holePunchAudioPath);
+      _taskBloc.dispatch(LoadTasks());
     }
   }
 

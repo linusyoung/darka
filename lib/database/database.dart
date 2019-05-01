@@ -49,6 +49,7 @@ class DarkaDatabase {
     await db.execute('''CREATE TABLE TASK_LIST (
       uuid TEXT PRIMARY KEY,
       task_name TEXT,
+      data_added TEXT,
       is_deleted BIT,
       punched_today BIT)''');
 
@@ -63,8 +64,6 @@ class DarkaDatabase {
     var dbClient = await db;
     int res;
     res = await dbClient.insert("TASK_LIST", task.toMap());
-    // TODO: remove debug text
-    print('Task added $res');
     return res;
   }
 
@@ -111,12 +110,17 @@ class DarkaDatabase {
           }
         }
         task.punchedToday = punchedToday;
-        List<Map> allPunched = await dbClient.query("PUNCH_LIST",
-            columns: ['date'], where: "task_id = ?", whereArgs: [task.uuid]);
-        print(task.name);
-        print(allPunched.map((punch) => punch['date']).toList());
-        print(recentPunched);
-        returnTasks.add(task.copyWith(recentPunched: recentPunched));
+        List<Map<String, dynamic>> allPunched = await dbClient.query(
+            "PUNCH_LIST",
+            columns: ['date'],
+            where: "task_id = ?",
+            whereArgs: [task.uuid]);
+        var punchedDates =
+            allPunched.map((punch) => punch['date'].toString()).toList();
+        returnTasks.add(task.copyWith(
+          recentPunched: recentPunched,
+          punchedDates: punchedDates,
+        ));
       }
       tasks.clear();
       return returnTasks;

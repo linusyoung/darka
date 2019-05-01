@@ -6,7 +6,6 @@ import 'package:darka/model/app_tab.dart';
 
 class TabBloc extends Bloc<TabEvent, AppTab> {
   @override
-  // TODO: implement initialState
   AppTab get initialState => AppTab.tasks;
 
   @override
