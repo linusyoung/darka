@@ -18,6 +18,7 @@ class TaskDetail extends StatelessWidget {
     ));
     print(task.punchedDates);
     String totalPunched = task.punchedDates.length.toString() ?? '0';
+    // TODO: update detail punched check method to a neat way.
     List<String> last7days = [];
     List<String> last30days = [];
     List<String> last365days = [];

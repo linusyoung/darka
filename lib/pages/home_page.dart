@@ -56,7 +56,9 @@ class _TaskPageState extends State<TaskPage> {
                     activeTab == AppTab.tasks ? Text('Darka') : Text('Summary'),
                 centerTitle: true,
               ),
-              body: activeTab == AppTab.tasks ? taskPage(context) : Summary(),
+              body: activeTab == AppTab.tasks
+                  ? taskPage(context)
+                  : Summary(context),
               floatingActionButtonLocation: activeTab == AppTab.tasks
                   ? FloatingActionButtonLocation.centerDocked
                   : null,
@@ -145,6 +147,7 @@ class _TaskPageState extends State<TaskPage> {
     }
   }
 
+  // TODO: change view task detail to global
   void _viewTaskDetail(Task task) {
     Navigator.push(
         context,
