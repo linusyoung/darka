@@ -26,6 +26,8 @@ dependencies:
   audioplayers: ^0.11.0
   bloc: ^0.12.0
   flutter_bloc: ^0.11.1
+  percent_indicator: ^1.0.16
+
 
 
 

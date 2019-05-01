@@ -25,6 +25,7 @@ class TaskItem extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 12.0,
                 right: 4.0,
+                top: 8.0,
               ),
               child: Text(
                 task.name,
@@ -74,8 +75,8 @@ class TaskItem extends StatelessWidget {
             isPunchedToday
                 ? Center(
                     child: Container(
-                      width: 10.0,
-                      height: 10.0,
+                      width: 6.0,
+                      height: 6.0,
                       decoration: ShapeDecoration(
                         shape: CircleBorder(),
                         color: Colors.white,

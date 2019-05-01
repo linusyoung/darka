@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:darka/model/task.dart';
 import 'package:darka/darka_utils.dart';
@@ -22,7 +23,6 @@ class TaskDetail extends StatelessWidget {
     List<String> last7days = [];
     List<String> last30days = [];
     List<String> last365days = [];
-
     for (var i = 1; i <= 365; i++) {
       if (i <= 7) {
         last7days.add(DarkaUtils()
@@ -111,8 +111,12 @@ class TaskDetail extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
                             width: 200.0,
-                            child: LinearProgressIndicator(
-                              value: (checked7days.length / last7days.length),
+                            child: LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 1000,
+                              percent: (checked7days.length / last7days.length),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              progressColor: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -129,8 +133,13 @@ class TaskDetail extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
                             width: 200.0,
-                            child: LinearProgressIndicator(
-                              value: (checked30days.length / last30days.length),
+                            child: LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 1000,
+                              percent:
+                                  (checked30days.length / last30days.length),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              progressColor: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
@@ -147,9 +156,13 @@ class TaskDetail extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
                             width: 200.0,
-                            child: LinearProgressIndicator(
-                              value:
+                            child: LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 1000,
+                              percent:
                                   (checked365days.length / last365days.length),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              progressColor: Theme.of(context).primaryColor,
                             ),
                           ),
                         ),
