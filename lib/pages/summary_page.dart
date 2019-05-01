@@ -20,7 +20,6 @@ class _SummaryState extends State<Summary> {
   @override
   void initState() {
     _taskBloc = BlocProvider.of<TaskBloc>(context);
-    _taskBloc.dispatch(LoadTasks());
     super.initState();
   }
 
