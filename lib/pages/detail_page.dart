@@ -23,12 +23,12 @@ class TaskDetail extends StatelessWidget {
     List<String> last7days = [];
     List<String> last30days = [];
     List<String> last365days = [];
-    for (var i = 1; i <= 365; i++) {
-      if (i <= 7) {
+    for (var i = 0; i < 365; i++) {
+      if (i < 7) {
         last7days.add(DarkaUtils()
             .dateFormat(DateTime.now().subtract(Duration(days: i))));
       }
-      if (i <= 30) {
+      if (i < 30) {
         last30days.add(DarkaUtils()
             .dateFormat(DateTime.now().subtract(Duration(days: i))));
       }

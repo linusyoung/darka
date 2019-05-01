@@ -49,7 +49,7 @@ class DarkaDatabase {
     await db.execute('''CREATE TABLE TASK_LIST (
       uuid TEXT PRIMARY KEY,
       task_name TEXT,
-      data_added TEXT,
+      date_added TEXT,
       is_deleted BIT,
       punched_today BIT)''');
 
