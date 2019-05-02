@@ -2,12 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:darka/database/database.dart';
 import 'package:darka/pages/pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:darka/blocs/blocs.dart';
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
-  runApp(DarkaApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) => runApp(DarkaApp()));
+  // runApp(DarkaApp());
 }
 
 class DarkaApp extends StatefulWidget {
