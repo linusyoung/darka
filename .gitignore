@@ -75,3 +75,8 @@ design/
 android/fastlane/Fastfile
 android/fastlane/Appfile
 android/Gemfile
+
+keys
+android/key.properties
+android/fastlane/report.xml
+android/fastlane/README.md
