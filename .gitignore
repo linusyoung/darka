@@ -72,3 +72,6 @@ build/
 
 # local design files.
 design/
+android/fastlane/Fastfile
+android/fastlane/Appfile
+android/Gemfile
