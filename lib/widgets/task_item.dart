@@ -70,13 +70,18 @@ class TaskItem extends StatelessWidget {
           children: [
             Text(
               calendarDays['dayOfToday'].toString(),
-              style: Theme.of(context).textTheme.subtitle,
+              style: isPunchedToday
+                  ? TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.0,
+                    )
+                  : Theme.of(context).textTheme.subtitle,
             ),
             isPunchedToday
                 ? Center(
                     child: Container(
-                      width: 6.0,
-                      height: 6.0,
+                      width: 5.0,
+                      height: 5.0,
                       decoration: ShapeDecoration(
                         shape: CircleBorder(),
                         color: Colors.white,
@@ -88,13 +93,12 @@ class TaskItem extends StatelessWidget {
         ),
       ),
       shape: CircleBorder(),
-      // color: Theme.of(context).accentColor,
       disabledElevation: 0.0,
-      disabledTextColor: Colors.white,
-      elevation: 4.0,
+      elevation: 5.0,
       onPressed: isPunchedToday ? null : punchToday,
     );
     var punchDay = ButtonTheme(
+      disabledColor: Theme.of(context).disabledColor,
       minWidth: 50.0,
       height: 50.0,
       child: Padding(
@@ -126,6 +130,7 @@ class TaskItem extends StatelessWidget {
       var historyDay = Padding(
         padding: const EdgeInsets.all(2.5),
         child: Container(
+          alignment: Alignment.center,
           child: Center(
             child: Stack(
               alignment: Alignment.center,
@@ -138,8 +143,8 @@ class TaskItem extends StatelessWidget {
                 ),
                 isPunched
                     ? Container(
-                        width: 6.0,
-                        height: 6.0,
+                        width: 5.0,
+                        height: 5.0,
                         decoration: ShapeDecoration(
                           shape: CircleBorder(),
                           color: Colors.white,
@@ -149,9 +154,9 @@ class TaskItem extends StatelessWidget {
               ],
             ),
           ),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.grey,
+          decoration: ShapeDecoration(
+            shape: CircleBorder(),
+            color: Theme.of(context).disabledColor,
           ),
           width: 32.0,
           height: 32.0,

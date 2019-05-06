@@ -18,7 +18,7 @@ class TaskDetail extends StatelessWidget {
       selection: TextSelection.collapsed(offset: task.name.length),
     ));
     print(task.punchedDates);
-    String totalPunched = task.punchedDates.length.toString() ?? '0';
+    String totalPunched = task.punchedDates?.length.toString() ?? '0';
     // TODO: update detail punched check method to a neat way.
     List<String> last7days = [];
     List<String> last30days = [];
@@ -37,16 +37,16 @@ class TaskDetail extends StatelessWidget {
     }
     var checked7days = task.punchedDates
         .map((punched) => last7days.contains(punched))
-        .toList();
-    checked7days.retainWhere((p) => p == true);
+        .toList()
+          ..retainWhere((p) => p == true);
     var checked30days = task.punchedDates
         .map((punched) => last30days.contains(punched))
-        .toList();
-    checked30days.retainWhere((p) => p == true);
+        .toList()
+          ..retainWhere((p) => p == true);
     var checked365days = task.punchedDates
         .map((punched) => last365days.contains(punched))
-        .toList();
-    checked365days.retainWhere((p) => p == true);
+        .toList()
+          ..retainWhere((p) => p == true);
 
     return Scaffold(
       appBar: AppBar(
@@ -81,10 +81,10 @@ class TaskDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Data added: $addDate'),
+                  Text('Date added: $addDate'),
                   Padding(
                     padding: const EdgeInsets.only(right: 18.0),
-                    child: Text('Summary: $totalPunched'),
+                    child: Text('Total punched: $totalPunched'),
                   ),
                 ],
               ),
@@ -182,7 +182,7 @@ class TaskDetail extends StatelessWidget {
                   child: Container(
                     decoration: ShapeDecoration(
                       shape: CircleBorder(),
-                      color: Colors.grey,
+                      color: Theme.of(context).disabledColor,
                     ),
                     child: Center(
                       child: Stack(
@@ -194,8 +194,8 @@ class TaskDetail extends StatelessWidget {
                           ),
                           task.punchedDates.contains(dayString)
                               ? Container(
-                                  width: 8.0,
-                                  height: 8.0,
+                                  width: 5.0,
+                                  height: 5.0,
                                   decoration: ShapeDecoration(
                                     shape: CircleBorder(),
                                     color: Colors.white,

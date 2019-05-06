@@ -30,21 +30,24 @@ class _DarkaAppState extends State<DarkaApp> {
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
           textTheme: TextTheme(
-              title: TextStyle(
-                fontSize: 20.0,
-              ),
-              subtitle: TextStyle(
-                fontSize: 18.0,
-                color: Colors.black,
-              ),
-              display1: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-              ),
-              body2: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              )),
+            title: TextStyle(
+              fontSize: 20.0,
+            ),
+            subtitle: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+            ),
+            display1: TextStyle(
+              fontSize: 20.0,
+              color: Colors.white,
+            ),
+            body2: TextStyle(
+              fontSize: 16.0,
+              color: Colors.black,
+            ),
+          ),
+          disabledColor: Colors.grey[300],
+          // buttonColor: Theme.of(context).primaryColor,
         ),
         home: TaskPage(
           title: 'Darka',
