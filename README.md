@@ -1,16 +1,20 @@
-# darka
+# Darka - yet another task tracking app
 
-Task tracking app
+[![Codemagic build status](https://api.codemagic.io/apps/5ccf97a9443815000aa21902/5ccf97a9443815000aa21901/status_badge.svg)](https://codemagic.io/apps/5ccf97a9443815000aa21902/5ccf97a9443815000aa21901/latest_build)
 
-## Getting Started
+## Introduction
 
-This project is a starting point for a Flutter application.
+Darka pronounced like da ka(打卡) in Chinese, which means punching a hole on a card.
 
-A few resources to get you started if this is your first Flutter project:
+Hole punch is a common way to track how many times you did a task. This app is designed to help you to track and improve your habit by self-motivation.
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+## How to use
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Darka is deadly simple to use. 
+1. Add a task
+2. Punch it when you done
+
+You can see a summary for single task or a summary of all tasks you added.
+
+## Download
+<!-- TODO: add download link -->
