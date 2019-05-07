@@ -1,3 +1,4 @@
+import 'package:darka/locale/locales.dart';
 import 'package:darka/model/models.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,9 @@ class TabSelector extends StatelessWidget {
           icon: Icon(
             tab == AppTab.tasks ? Icons.chat : Icons.history,
           ),
-          title: Text(tab == AppTab.tasks ? 'Tasks' : 'Summary'),
+          title: Text(tab == AppTab.tasks
+              ? AppLocalizations.of(context).bottomNavTask
+              : AppLocalizations.of(context).bottomNavSummary),
         );
       }).toList(),
     );

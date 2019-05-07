@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:darka/locale/locales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -14,10 +15,6 @@ import 'package:darka/darka_utils.dart';
 const holePunchAudioPath = 'sound/hole_punch.mp3';
 
 class TaskPage extends StatefulWidget {
-  TaskPage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _TaskPageState createState() => _TaskPageState();
 }
@@ -42,6 +39,9 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: uncomment if needs to set different format based on locale.
+    // Locale locale = Localizations.localeOf(context);
+
     return BlocBuilder(
         bloc: _tabBloc,
         builder: (BuildContext context, AppTab activeTab) {
@@ -52,8 +52,9 @@ class _TaskPageState extends State<TaskPage> {
             ],
             child: Scaffold(
               appBar: AppBar(
-                title:
-                    activeTab == AppTab.tasks ? Text('Darka') : Text('Summary'),
+                title: activeTab == AppTab.tasks
+                    ? Text(AppLocalizations.of(context).title)
+                    : Text(AppLocalizations.of(context).bottomNavSummary),
                 centerTitle: true,
               ),
               body: activeTab == AppTab.tasks
@@ -160,11 +161,11 @@ class _TaskPageState extends State<TaskPage> {
   Future<String> _showTaskInput(BuildContext context) async {
     String taskName;
     var inputText = AlertDialog(
-      title: Text('Task name'),
+      title: Text(AppLocalizations.of(context).taskName),
       content: TextField(
         autofocus: true,
         decoration: InputDecoration(
-          hintText: 'Give a short name to track your task.',
+          hintText: AppLocalizations.of(context).newTaskHintText,
         ),
         onChanged: (text) {
           taskName = text;
@@ -172,13 +173,17 @@ class _TaskPageState extends State<TaskPage> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: const Text('Cancel'),
+          child: Text(
+            AppLocalizations.of(context).buttonCancel,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         RaisedButton(
-          child: const Text('Confirm'),
+          child: Text(
+            AppLocalizations.of(context).buttonConfirm,
+          ),
           textColor: Colors.white,
           onPressed: () => Navigator.of(context).pop(taskName),
         ),
