@@ -1,0 +1,75 @@
+{
+  "title": "打卡",
+  "@title": {
+    "description": "应用标题",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bottomNavSummary": "汇总",
+  "@bottomNavSummary": {
+    "description": "底部导航汇总",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bottomNavTask": "任务",
+  "@bottomNavTask": {
+    "description": "底部导航任务",
+    "type": "text",
+    "placeholders": {}
+  },
+  "taskName": "任务名",
+  "@taskName": {
+    "description": "Text for new task input box",
+    "type": "text",
+    "placeholders": {}
+  },
+  "buttonCancel": "取消",
+  "@buttonCancel": {
+    "description": "Cancel button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "buttonConfirm": "确认",
+  "@buttonConfirm": {
+    "description": "Cancel button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newTaskHintText": "输入任务名...",
+  "@newTaskHintText": {
+    "description": "hint text when creating a new task.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "totalTasks": "任务总数",
+  "@totalTasks": {
+    "description": "display total tasks in summary",
+    "type": "text",
+    "placeholders": {}
+  },
+  "totalPunched": "打卡总数",
+  "@totalPunched": {
+    "description": "display total punched in single task detail",
+    "type": "text",
+    "placeholders": {}
+  },
+  "dateAdded": "添加日期",
+  "@dateAdded": {
+    "description": "display added date.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "recentActivities": "最近动态",
+  "@recentActivities": {
+    "description": "single task detail recent activities.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "days": "天",
+  "@days": {
+    "description": "display days in single task details",
+    "type": "text",
+    "placeholders": {}
+  }
+
+}

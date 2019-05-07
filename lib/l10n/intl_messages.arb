@@ -1,0 +1,75 @@
+{
+  "@@last_modified": "2019-05-07T21:52:00.046833",
+  "title": "Darka",
+  "@title": {
+    "description": "The title of the application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bottomNavSummary": "Summary",
+  "@bottomNavSummary": {
+    "description": "Text for summary in bottom nav",
+    "type": "text",
+    "placeholders": {}
+  },
+  "bottomNavTask": "Tasks",
+  "@bottomNavTask": {
+    "description": "Text for tasks in bottom nav",
+    "type": "text",
+    "placeholders": {}
+  },
+  "taskName": "Task name",
+  "@taskName": {
+    "description": "Text for new task input box",
+    "type": "text",
+    "placeholders": {}
+  },
+  "buttonCancel": "Cancel",
+  "@buttonCancel": {
+    "description": "Cancel button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "buttonConfirm": "Confirm",
+  "@buttonConfirm": {
+    "description": "Cancel button text",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newTaskHintText": "Give a task name...",
+  "@newTaskHintText": {
+    "description": "hint text when creating a new task.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "totalTasks": "Total Tasks",
+  "@totalTasks": {
+    "description": "display total tasks in summary",
+    "type": "text",
+    "placeholders": {}
+  },
+  "totalPunched": "Total punched",
+  "@totalPunched": {
+    "description": "display total punched in single task detail",
+    "type": "text",
+    "placeholders": {}
+  },
+  "dateAdded": "Date added",
+  "@dateAdded": {
+    "description": "display added date.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "recentActivities": "Recent Activities",
+  "@recentActivities": {
+    "description": "single task detail recent activities.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "days": "days",
+  "@days": {
+    "description": "display days in single task details",
+    "type": "text",
+    "placeholders": {}
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:darka/locale/locales.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -17,9 +18,8 @@ class TaskDetail extends StatelessWidget {
       text: task.name,
       selection: TextSelection.collapsed(offset: task.name.length),
     ));
-    print(task.punchedDates);
-    String totalPunched = task.punchedDates?.length.toString() ?? '0';
-    // TODO: update detail punched check method to a neat way.
+    List<String> punchedDates = task.punchedDates ?? [];
+    String totalPunched = punchedDates?.length.toString() ?? '0';
     List<String> last7days = [];
     List<String> last30days = [];
     List<String> last365days = [];
@@ -35,15 +35,15 @@ class TaskDetail extends StatelessWidget {
       last365days.add(
           DarkaUtils().dateFormat(DateTime.now().subtract(Duration(days: i))));
     }
-    var checked7days = task.punchedDates
+    var checked7days = punchedDates
         .map((punched) => last7days.contains(punched))
         .toList()
           ..retainWhere((p) => p == true);
-    var checked30days = task.punchedDates
+    var checked30days = punchedDates
         .map((punched) => last30days.contains(punched))
         .toList()
           ..retainWhere((p) => p == true);
-    var checked365days = task.punchedDates
+    var checked365days = punchedDates
         .map((punched) => last365days.contains(punched))
         .toList()
           ..retainWhere((p) => p == true);
@@ -81,10 +81,11 @@ class TaskDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Date added: $addDate'),
+                  Text('${AppLocalizations.of(context).dateAdded}: $addDate'),
                   Padding(
                     padding: const EdgeInsets.only(right: 18.0),
-                    child: Text('Total punched: $totalPunched'),
+                    child: Text(
+                        '${AppLocalizations.of(context).totalPunched}: $totalPunched'),
                   ),
                 ],
               ),
@@ -97,7 +98,7 @@ class TaskDetail extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
                       children: <Widget>[
-                        Text('Recent Activities'),
+                        Text(AppLocalizations.of(context).recentActivities),
                       ],
                     ),
                   ),
@@ -106,7 +107,7 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('    7 days'),
+                        Text('    7 ${AppLocalizations.of(context).days}'),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
@@ -128,7 +129,7 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('  30 days'),
+                        Text('  30 ${AppLocalizations.of(context).days}'),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
@@ -151,7 +152,7 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('365 days'),
+                        Text('365 ${AppLocalizations.of(context).days}'),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
@@ -192,7 +193,7 @@ class TaskDetail extends StatelessWidget {
                             day.day.toString(),
                             style: Theme.of(context).textTheme.body2,
                           ),
-                          task.punchedDates.contains(dayString)
+                          punchedDates.contains(dayString)
                               ? Container(
                                   width: 5.0,
                                   height: 5.0,

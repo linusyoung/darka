@@ -1,4 +1,5 @@
 import 'package:darka/blocs/blocs.dart';
+import 'package:darka/locale/locales.dart';
 import 'package:darka/model/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +39,7 @@ class _SummaryState extends State<Summary> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  'Total tasks: ${tasks.length}',
+                  '${AppLocalizations.of(context).totalTasks}: ${tasks.length}',
                   style: Theme.of(context).textTheme.display2,
                 ),
               ),

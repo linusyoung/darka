@@ -1,10 +1,12 @@
-import 'package:bloc/bloc.dart';
-import 'package:darka/database/database.dart';
-import 'package:darka/pages/pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:darka/blocs/blocs.dart';
+import 'package:darka/database/database.dart';
+import 'package:darka/pages/pages.dart';
+import 'package:darka/locale/locales.dart';
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
@@ -26,6 +28,15 @@ class _DarkaAppState extends State<DarkaApp> {
     return BlocProvider<TaskBloc>(
       bloc: taskBloc,
       child: MaterialApp(
+        localizationsDelegates: [
+          AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en', ""),
+          const Locale('zh', ""),
+        ],
         title: 'Darka',
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
@@ -49,9 +60,7 @@ class _DarkaAppState extends State<DarkaApp> {
           disabledColor: Colors.grey[300],
           // buttonColor: Theme.of(context).primaryColor,
         ),
-        home: TaskPage(
-          title: 'Darka',
-        ),
+        home: TaskPage(),
       ),
     );
   }
