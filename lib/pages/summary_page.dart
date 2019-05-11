@@ -55,8 +55,9 @@ class _SummaryState extends State<Summary> {
                               task.name,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            subtitle: Text("""date added: ${task.dateAdded}
-total punched: $punched"""),
+                            subtitle: Text(
+                                """${AppLocalizations.of(context).dateAdded}: ${task.dateAdded}
+${AppLocalizations.of(context).totalPunched}: $punched"""),
                             trailing: IconButton(
                               icon: Icon(Icons.info),
                               onPressed: () => _viewTaskDetail(task),
