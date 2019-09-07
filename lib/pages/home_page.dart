@@ -117,7 +117,6 @@ class _TaskPageState extends State<TaskPage> {
                   ),
           );
         } else if (state is TasksNotLoaded) {
-          // TODO: handle load error.
           return Text('not loaded');
         }
         return null;
