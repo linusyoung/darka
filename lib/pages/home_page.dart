@@ -39,9 +39,8 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: uncomment if needs to set different format based on locale.
-    Locale locale = Localizations.localeOf(context);
-    print(locale.languageCode);
+    // Locale locale = Localizations.localeOf(context);
+    // print(locale.languageCode);
     return BlocBuilder(
         bloc: _tabBloc,
         builder: (BuildContext context, AppTab activeTab) {
@@ -121,6 +120,7 @@ class _TaskPageState extends State<TaskPage> {
           // TODO: handle load error.
           return Text('not loaded');
         }
+        return null;
       },
     );
   }

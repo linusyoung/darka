@@ -80,6 +80,7 @@ ${AppLocalizations.of(context).totalPunched}: $punched"""),
         } else if (state is TasksNotLoaded) {
           return Text('not loaded');
         }
+        return null;
       },
     );
   }
