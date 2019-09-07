@@ -180,12 +180,14 @@ class _TaskPageState extends State<TaskPage> {
           },
         ),
         RaisedButton(
-          child: Text(
-            AppLocalizations.of(context).buttonConfirm,
-          ),
-          textColor: Colors.white,
-          onPressed: () => Navigator.of(context).pop(taskName),
-        ),
+            child: Text(
+              AppLocalizations.of(context).buttonConfirm,
+            ),
+            textColor: Colors.red,
+            onPressed: () {
+              Navigator.of(context).pop(taskName);
+              print(taskName);
+            }),
       ],
     );
 

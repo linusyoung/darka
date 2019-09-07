@@ -6,5 +6,5 @@ class DarkaUtils {
     return Uuid().v4().toString();
   }
 
-  String dateFormat(DateTime d) => DateFormat("yyyy.MM.dd").format(d);
+  String dateFormat(DateTime d) => DateFormat("yyyy.MM.dd", "en_US").format(d);
 }

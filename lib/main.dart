@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
@@ -10,6 +10,7 @@ import 'package:darka/locale/locales.dart';
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) => runApp(DarkaApp()));
   // runApp(DarkaApp());
@@ -30,8 +31,8 @@ class _DarkaAppState extends State<DarkaApp> {
       child: MaterialApp(
         localizationsDelegates: [
           AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
+          // GlobalMaterialLocalizations.delegate,
+          // GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: [
           const Locale('en', ""),
