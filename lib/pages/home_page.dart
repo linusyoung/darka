@@ -159,11 +159,11 @@ class _TaskPageState extends State<TaskPage> {
   Future<String> _showTaskInput(BuildContext context) async {
     String taskName;
     var inputText = AlertDialog(
-      title: Text(AppLocalizations.of(context).taskName),
+      title: Text('Task Name'),
       content: TextField(
         autofocus: true,
         decoration: InputDecoration(
-          hintText: AppLocalizations.of(context).newTaskHintText,
+          hintText: 'Give a task name...',
         ),
         onChanged: (text) {
           taskName = text;
@@ -172,7 +172,7 @@ class _TaskPageState extends State<TaskPage> {
       actions: <Widget>[
         FlatButton(
           child: Text(
-            AppLocalizations.of(context).buttonCancel,
+            'Cancel',
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -180,7 +180,7 @@ class _TaskPageState extends State<TaskPage> {
         ),
         RaisedButton(
             child: Text(
-              AppLocalizations.of(context).buttonConfirm,
+              'Confirm',
             ),
             textColor: Colors.white,
             onPressed: () {
