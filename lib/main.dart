@@ -29,6 +29,7 @@ class _DarkaAppState extends State<DarkaApp> {
     return BlocProvider<TaskBloc>(
       bloc: taskBloc,
       child: MaterialApp(
+        // TODO: fix locale
         // localizationsDelegates: [
         //   AppLocalizationsDelegate(),
         //   // GlobalMaterialLocalizations.delegate,
@@ -59,7 +60,6 @@ class _DarkaAppState extends State<DarkaApp> {
             ),
           ),
           disabledColor: Colors.grey[300],
-          // buttonColor: Theme.of(context).primaryColor,
         ),
         home: TaskPage(),
       ),
