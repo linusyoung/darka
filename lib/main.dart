@@ -29,15 +29,15 @@ class _DarkaAppState extends State<DarkaApp> {
     return BlocProvider<TaskBloc>(
       bloc: taskBloc,
       child: MaterialApp(
-        localizationsDelegates: [
-          AppLocalizationsDelegate(),
-          // GlobalMaterialLocalizations.delegate,
-          // GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('en', ""),
-          const Locale('zh', ""),
-        ],
+        // localizationsDelegates: [
+        //   AppLocalizationsDelegate(),
+        //   // GlobalMaterialLocalizations.delegate,
+        //   // GlobalWidgetsLocalizations.delegate,
+        // ],
+        // supportedLocales: [
+        //   const Locale('en', ""),
+        //   const Locale('zh', ""),
+        // ],
         title: 'Darka',
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,

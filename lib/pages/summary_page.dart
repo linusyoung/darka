@@ -39,7 +39,7 @@ class _SummaryState extends State<Summary> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  '${AppLocalizations.of(context).totalTasks}: ${tasks.length}',
+                  'Total Tasks: ${tasks.length}',
                   style: Theme.of(context).textTheme.display2,
                 ),
               ),
@@ -55,9 +55,8 @@ class _SummaryState extends State<Summary> {
                               task.name,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            subtitle: Text(
-                                """${AppLocalizations.of(context).dateAdded}: ${task.dateAdded}
-${AppLocalizations.of(context).totalPunched}: $punched"""),
+                            subtitle: Text("""Date Added: ${task.dateAdded} 
+TotalPunched: $punched"""),
                             trailing: IconButton(
                               icon: Icon(Icons.info),
                               onPressed: () => _viewTaskDetail(task),

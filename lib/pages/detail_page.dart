@@ -81,11 +81,11 @@ class TaskDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('${AppLocalizations.of(context).dateAdded}: $addDate'),
+                  // Text('${AppLocalizations.of(context).dateAdded}: $addDate'),
+                  Text('Date added: $addDate'),
                   Padding(
                     padding: const EdgeInsets.only(right: 18.0),
-                    child: Text(
-                        '${AppLocalizations.of(context).totalPunched}: $totalPunched'),
+                    child: Text('Total Punched: $totalPunched'),
                   ),
                 ],
               ),
@@ -98,7 +98,7 @@ class TaskDetail extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
                       children: <Widget>[
-                        Text(AppLocalizations.of(context).recentActivities),
+                        Text('Recent Activities'),
                       ],
                     ),
                   ),
@@ -107,7 +107,7 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('    7 ${AppLocalizations.of(context).days}'),
+                        Text('    7 days'),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
@@ -129,7 +129,7 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('  30 ${AppLocalizations.of(context).days}'),
+                        Text('  30 days'),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
@@ -152,7 +152,7 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('365 ${AppLocalizations.of(context).days}'),
+                        Text('365 days'),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(

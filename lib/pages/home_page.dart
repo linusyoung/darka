@@ -51,9 +51,8 @@ class _TaskPageState extends State<TaskPage> {
             ],
             child: Scaffold(
               appBar: AppBar(
-                title: activeTab == AppTab.tasks
-                    ? Text(AppLocalizations.of(context).title)
-                    : Text(AppLocalizations.of(context).bottomNavSummary),
+                title:
+                    activeTab == AppTab.tasks ? Text('Tasks') : Text('Summary'),
                 centerTitle: true,
               ),
               body: activeTab == AppTab.tasks
@@ -183,7 +182,7 @@ class _TaskPageState extends State<TaskPage> {
             child: Text(
               AppLocalizations.of(context).buttonConfirm,
             ),
-            textColor: Colors.red,
+            textColor: Colors.white,
             onPressed: () {
               Navigator.of(context).pop(taskName);
               print(taskName);

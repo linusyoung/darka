@@ -22,9 +22,7 @@ class TabSelector extends StatelessWidget {
           icon: Icon(
             tab == AppTab.tasks ? Icons.chat : Icons.history,
           ),
-          title: Text(tab == AppTab.tasks
-              ? AppLocalizations.of(context).bottomNavTask
-              : AppLocalizations.of(context).bottomNavSummary),
+          title: Text(tab == AppTab.tasks ? 'Task' : 'Summary'),
         );
       }).toList(),
     );
