@@ -82,3 +82,5 @@ android/fastlane/report.xml
 android/fastlane/README.md
 ios/Flutter/flutter_export_environment.sh
 ios/Runner.xcodeproj/project.pbxproj
+android/gradle.properties
+.flutter-plugins-dependencies

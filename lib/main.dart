@@ -39,6 +39,7 @@ class _DarkaAppState extends State<DarkaApp> {
         //   const Locale('en', ""),
         //   const Locale('zh', ""),
         // ],
+        debugShowCheckedModeBanner: false,
         title: 'Darka',
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
