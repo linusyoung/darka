@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:darka/locale/locales.dart';
+// import 'package:darka/locale/locales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';

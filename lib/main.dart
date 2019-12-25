@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:darka/blocs/blocs.dart';
 import 'package:darka/database/database.dart';
 import 'package:darka/pages/pages.dart';
-import 'package:darka/locale/locales.dart';
+// import 'package:darka/locale/locales.dart';
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();

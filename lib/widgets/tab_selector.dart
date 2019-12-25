@@ -1,4 +1,4 @@
-import 'package:darka/locale/locales.dart';
+// import 'package:darka/locale/locales.dart';
 import 'package:darka/model/models.dart';
 import 'package:flutter/material.dart';
 
