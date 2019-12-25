@@ -182,7 +182,7 @@ class _TaskPageState extends State<TaskPage> {
             child: Text(
               'Confirm',
             ),
-            textColor: Colors.white,
+            textColor: Colors.orange,
             onPressed: () {
               Navigator.of(context).pop(taskName);
               print(taskName);
