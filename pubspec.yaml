@@ -20,8 +20,8 @@ dependencies:
   #   sdk: flutter
   
   cupertino_icons: ^0.1.2
-  sqflite: ^1.1.5
-  path_provider: ^1.1.0
+  sqflite: ^1.2.0
+  path_provider: ^1.5.1
   uuid: ^2.0.0
   flutter_calendar: ^0.0.8
   audioplayers: ^0.13.1
