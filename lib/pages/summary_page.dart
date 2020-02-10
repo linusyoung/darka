@@ -40,6 +40,7 @@ class _SummaryState extends State<Summary> {
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   'Total Tasks: ${tasks.length}',
+                  semanticsLabel: 'Total Tasks ${tasks.length}',
                   style: Theme.of(context).textTheme.display2,
                 ),
               ),
@@ -54,11 +55,19 @@ class _SummaryState extends State<Summary> {
                             title: Text(
                               task.name,
                               overflow: TextOverflow.ellipsis,
+                              semanticsLabel: task.name,
                             ),
-                            subtitle: Text("""Date Added: ${task.dateAdded} 
-TotalPunched: $punched"""),
+                            subtitle: Text(
+                              """Date Added: ${task.dateAdded} 
+Total Punched: $punched""",
+                              semanticsLabel:
+                                  'Date Added ${task.dateAdded}, Total Punched $punched',
+                            ),
                             trailing: IconButton(
-                              icon: Icon(Icons.info),
+                              icon: Icon(
+                                Icons.info,
+                                semanticLabel: 'more information',
+                              ),
                               onPressed: () => _viewTaskDetail(task),
                             ),
                             contentPadding: const EdgeInsets.symmetric(
@@ -77,7 +86,10 @@ TotalPunched: $punched"""),
             ],
           );
         } else if (state is TasksNotLoaded) {
-          return Text('not loaded');
+          return Text(
+            'not loaded',
+            semanticsLabel: 'data is not loaded.',
+          );
         }
         return null;
       },
