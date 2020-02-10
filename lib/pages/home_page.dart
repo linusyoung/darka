@@ -51,8 +51,15 @@ class _TaskPageState extends State<TaskPage> {
             ],
             child: Scaffold(
               appBar: AppBar(
-                title:
-                    activeTab == AppTab.tasks ? Text('Tasks') : Text('Summary'),
+                title: activeTab == AppTab.tasks
+                    ? Text(
+                        'Tasks',
+                        semanticsLabel: 'Tasks',
+                      )
+                    : Text(
+                        'Summary',
+                        semanticsLabel: 'Summary',
+                      ),
                 centerTitle: true,
               ),
               body: activeTab == AppTab.tasks
@@ -78,7 +85,10 @@ class _TaskPageState extends State<TaskPage> {
 
   Widget taskPage(BuildContext context) {
     var snackBar = SnackBar(
-      content: Text('Task is removed.'),
+      content: Text(
+        'Task is removed.',
+        semanticsLabel: 'Task is removed.',
+      ),
     );
 
     return BlocBuilder(
@@ -116,7 +126,10 @@ class _TaskPageState extends State<TaskPage> {
                   ),
           );
         } else if (state is TasksNotLoaded) {
-          return Text('not loaded');
+          return Text(
+            'not loaded',
+            semanticsLabel: 'data is not loaded.',
+          );
         }
         return null;
       },
@@ -159,12 +172,15 @@ class _TaskPageState extends State<TaskPage> {
   Future<String> _showTaskInput(BuildContext context) async {
     String taskName;
     var inputText = AlertDialog(
-      title: Text('Task Name'),
+      title: Text(
+        'Task Name',
+        semanticsLabel: 'Task Name',
+      ),
       content: TextField(
         autofocus: true,
         decoration: InputDecoration(
-          hintText: 'Give a task name...',
-        ),
+            hintText: 'Type your task name...',
+            semanticCounterText: 'Type your task name...'),
         onChanged: (text) {
           taskName = text;
         },
@@ -181,11 +197,12 @@ class _TaskPageState extends State<TaskPage> {
         RaisedButton(
             child: Text(
               'Confirm',
+              semanticsLabel: 'Confirm',
             ),
             textColor: Colors.deepOrange,
             onPressed: () {
               Navigator.of(context).pop(taskName);
-              print(taskName);
+              // print(taskName);
             }),
       ],
     );
