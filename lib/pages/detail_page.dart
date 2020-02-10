@@ -65,7 +65,10 @@ class TaskDetail extends StatelessWidget {
           },
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_back,
+            semanticLabel: 'back',
+          ),
           onPressed: () => Navigator.pop(context, task),
         ),
       ),
@@ -82,10 +85,16 @@ class TaskDetail extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   // Text('${AppLocalizations.of(context).dateAdded}: $addDate'),
-                  Text('Date added: $addDate'),
+                  Text(
+                    'Date added: $addDate',
+                    semanticsLabel: 'Date added $addDate',
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(right: 18.0),
-                    child: Text('Total Punched: $totalPunched'),
+                    child: Text(
+                      'Total Punched: $totalPunched',
+                      semanticsLabel: 'Total punched $totalPunched',
+                    ),
                   ),
                 ],
               ),
@@ -107,7 +116,10 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('    7 days'),
+                        Text(
+                          '    7 days',
+                          semanticsLabel: '7 days',
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
@@ -129,7 +141,10 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('  30 days'),
+                        Text(
+                          '  30 days',
+                          semanticsLabel: '30 days',
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
@@ -152,7 +167,10 @@ class TaskDetail extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('365 days'),
+                        Text(
+                          '365 days',
+                          semanticsLabel: '365 days',
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: SizedBox(
