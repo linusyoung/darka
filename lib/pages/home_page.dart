@@ -27,13 +27,13 @@ class _TaskPageState extends State<TaskPage> {
   @override
   void initState() {
     _taskBloc = BlocProvider.of<TaskBloc>(context);
-    _taskBloc.dispatch(LoadTasks());
+    _taskBloc.add(LoadTasks());
     super.initState();
   }
 
   @override
   void dispose() {
-    _taskBloc.dispose();
+    _taskBloc.close();
     super.dispose();
   }
 
@@ -78,7 +78,7 @@ class _TaskPageState extends State<TaskPage> {
                   activeTab == AppTab.tasks ? CustomFabAnimation() : null,
               bottomNavigationBar: TabSelector(
                 activeTab: activeTab,
-                onTabSelected: (tab) => _tabBloc.dispatch(UpdateTab(tab)),
+                onTabSelected: (tab) => _tabBloc.add(UpdateTab(tab)),
               ),
             ),
           );
@@ -116,7 +116,7 @@ class _TaskPageState extends State<TaskPage> {
                         viewDetail: () => _viewTaskDetail(task),
                         punchToday: () => _punchTask(task),
                         onDismissed: (direction) {
-                          _taskBloc.dispatch(DeleteTask(task));
+                          _taskBloc.add(DeleteTask(task));
                           Scaffold.of(context).showSnackBar(snackBar);
                         },
                       );
@@ -147,17 +147,17 @@ class _TaskPageState extends State<TaskPage> {
           DarkaUtils().dateFormat(DateTime.now()),
           punchedToday: false,
         );
-        _taskBloc.dispatch(AddTask(task));
+        _taskBloc.add(AddTask(task));
       }
     });
   }
 
   void _punchTask(Task task) {
     if (!task.punchedToday) {
-      _taskBloc.dispatch(
-          UpdateTask(task.copyWith(punchedToday: !task.punchedToday)));
+      _taskBloc
+          .add(UpdateTask(task.copyWith(punchedToday: !task.punchedToday)));
       player.play(holePunchAudioPath);
-      _taskBloc.dispatch(LoadTasks());
+      _taskBloc.add(LoadTasks());
     }
   }
 
@@ -167,7 +167,7 @@ class _TaskPageState extends State<TaskPage> {
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => TaskDetail(task))).then((task) {
-      _taskBloc.dispatch(UpdateTask(task));
+      _taskBloc.add(UpdateTask(task));
     });
   }
 

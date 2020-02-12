@@ -25,8 +25,8 @@ dependencies:
   uuid: ^2.0.0
   flutter_calendar: ^0.0.8
   audioplayers: ^0.13.1
-  bloc: ^0.16.1
-  flutter_bloc: ^0.22.0
+  bloc: ^1.0.0
+  flutter_bloc: ^1.0.0
   percent_indicator: ^2.1.1
   intl_translation: ^0.17.4
 
