@@ -27,7 +27,7 @@ class _DarkaAppState extends State<DarkaApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TaskBloc>(
-      builder: (BuildContext context) => taskBloc,
+      create: (BuildContext context) => taskBloc,
       child: MaterialApp(
         // TODO: fix locale
         // localizationsDelegates: [
