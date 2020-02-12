@@ -2,14 +2,14 @@ import 'package:bloc/bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
-  void onTransition(Transition transition) {
+  void onTransition(Bloc bloc, Transition transition) {
     print(transition);
-    super.onTransition(transition);
+    super.onTransition(bloc, transition);
   }
 
   @override
-  void onError(Object error, StackTrace stacktrace) {
+  void onError(Bloc bloc, Object error, StackTrace stacktrace) {
     print(error);
-    super.onError(error, stacktrace);
+    super.onError(bloc, error, stacktrace);
   }
 }
