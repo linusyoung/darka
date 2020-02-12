@@ -44,10 +44,12 @@ class _TaskPageState extends State<TaskPage> {
     return BlocBuilder(
         bloc: _tabBloc,
         builder: (BuildContext context, AppTab activeTab) {
-          return BlocProviderTree(
-            blocProviders: [
-              BlocProvider<TabBloc>(bloc: _tabBloc),
-              BlocProvider<TaskBloc>(bloc: _taskBloc),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<TabBloc>(
+                  builder: (BuildContext context) => _tabBloc),
+              BlocProvider<TaskBloc>(
+                  builder: (BuildContext context) => _taskBloc),
             ],
             child: Scaffold(
               appBar: AppBar(
