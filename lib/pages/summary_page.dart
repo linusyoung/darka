@@ -101,7 +101,7 @@ Total Punched: $punched""",
         widget.context,
         MaterialPageRoute(
             builder: (BuildContext context) => TaskDetail(task))).then((task) {
-      _taskBloc.dispatch(UpdateTask(task));
+      _taskBloc.add(UpdateTask(task));
     });
   }
 }

@@ -9,7 +9,7 @@ import 'package:darka/pages/pages.dart';
 // import 'package:darka/locale/locales.dart';
 
 void main() {
-  BlocSupervisor().delegate = SimpleBlocDelegate();
+  BlocSupervisor.delegate = SimpleBlocDelegate();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) => runApp(DarkaApp()));
@@ -27,7 +27,7 @@ class _DarkaAppState extends State<DarkaApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TaskBloc>(
-      bloc: taskBloc,
+      create: (BuildContext context) => taskBloc,
       child: MaterialApp(
         // TODO: fix locale
         // localizationsDelegates: [

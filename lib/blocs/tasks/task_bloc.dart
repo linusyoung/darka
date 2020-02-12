@@ -20,11 +20,11 @@ class TaskBloc extends Bloc<TaskEvent, TasksState> {
     if (event is LoadTasks) {
       yield* _mapLoadTasksToState();
     } else if (event is AddTask) {
-      yield* _mapAddTaskToState(currentState, event);
+      yield* _mapAddTaskToState(state, event);
     } else if (event is UpdateTask) {
-      yield* _mapUpdateTaskToState(currentState, event);
+      yield* _mapUpdateTaskToState(state, event);
     } else if (event is DeleteTask) {
-      yield* _mapDeleteTaskToState(currentState, event);
+      yield* _mapDeleteTaskToState(state, event);
     }
   }
 
