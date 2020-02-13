@@ -1,6 +1,6 @@
 import 'dart:async';
 
-// import 'package:darka/locale/locales.dart';
+import 'package:darka/locale/locales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -39,8 +39,6 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Locale locale = Localizations.localeOf(context);
-    // print(locale.languageCode);
     return BlocBuilder(
         bloc: _tabBloc,
         builder: (BuildContext context, AppTab activeTab) {
@@ -54,12 +52,14 @@ class _TaskPageState extends State<TaskPage> {
               appBar: AppBar(
                 title: activeTab == AppTab.tasks
                     ? Text(
-                        'Tasks',
-                        semanticsLabel: 'Tasks',
+                        '${AppLocalizations.of(context).bottomNavTask}',
+                        semanticsLabel:
+                            '${AppLocalizations.of(context).bottomNavTask}',
                       )
                     : Text(
-                        'Summary',
-                        semanticsLabel: 'Summary',
+                        '${AppLocalizations.of(context).bottomNavSummary}',
+                        semanticsLabel:
+                            '${AppLocalizations.of(context).bottomNavSummary}',
                       ),
                 centerTitle: true,
               ),
@@ -174,14 +174,15 @@ class _TaskPageState extends State<TaskPage> {
     String taskName;
     var inputText = AlertDialog(
       title: Text(
-        'Task Name',
-        semanticsLabel: 'Task Name',
+        '${AppLocalizations.of(context).taskName}',
+        semanticsLabel: '${AppLocalizations.of(context).taskName}',
       ),
       content: TextField(
         autofocus: true,
         decoration: InputDecoration(
-            hintText: 'Type your task name...',
-            semanticCounterText: 'Type your task name...'),
+            hintText: '${AppLocalizations.of(context).newTaskHintText}',
+            semanticCounterText:
+                '${AppLocalizations.of(context).newTaskHintText}'),
         onChanged: (text) {
           taskName = text;
         },
@@ -189,7 +190,8 @@ class _TaskPageState extends State<TaskPage> {
       actions: <Widget>[
         FlatButton(
           child: Text(
-            'Cancel',
+            '${AppLocalizations.of(context).buttonCancel}',
+            semanticsLabel: '${AppLocalizations.of(context).buttonCancel}',
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -197,13 +199,12 @@ class _TaskPageState extends State<TaskPage> {
         ),
         RaisedButton(
             child: Text(
-              'Confirm',
-              semanticsLabel: 'Confirm',
+              '${AppLocalizations.of(context).buttonConfirm}',
+              semanticsLabel: '${AppLocalizations.of(context).buttonConfirm}',
             ),
             textColor: Colors.deepOrange,
             onPressed: () {
               Navigator.of(context).pop(taskName);
-              // print(taskName);
             }),
       ],
     );

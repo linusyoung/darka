@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:darka/blocs/blocs.dart';
 import 'package:darka/database/database.dart';
 import 'package:darka/pages/pages.dart';
-// import 'package:darka/locale/locales.dart';
+import 'package:darka/locale/locales.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -30,15 +30,15 @@ class _DarkaAppState extends State<DarkaApp> {
       create: (BuildContext context) => taskBloc,
       child: MaterialApp(
         // TODO: fix locale
-        // localizationsDelegates: [
-        //   AppLocalizationsDelegate(),
-        //   // GlobalMaterialLocalizations.delegate,
-        //   // GlobalWidgetsLocalizations.delegate,
-        // ],
-        // supportedLocales: [
-        //   const Locale('en', ""),
-        //   const Locale('zh', ""),
-        // ],
+        localizationsDelegates: [
+          AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en', ""),
+          const Locale('zh', ""),
+        ],
         debugShowCheckedModeBanner: false,
         title: 'Darka',
         theme: ThemeData(

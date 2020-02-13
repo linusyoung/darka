@@ -35,7 +35,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "newTaskHintText": "Give a task name...",
+  "newTaskHintText": "Type your task name...",
   "@newTaskHintText": {
     "description": "hint text when creating a new task.",
     "type": "text",
