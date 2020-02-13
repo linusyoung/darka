@@ -84,16 +84,17 @@ class TaskDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  // Text('${AppLocalizations.of(context).dateAdded}: $addDate'),
                   Text(
-                    'Date added: $addDate',
-                    semanticsLabel: 'Date added $addDate',
+                    '${AppLocalizations.of(context).dateAdded}: $addDate',
+                    semanticsLabel:
+                        '${AppLocalizations.of(context).dateAdded} $addDate',
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 18.0),
                     child: Text(
-                      'Total Punched: $totalPunched',
-                      semanticsLabel: 'Total punched $totalPunched',
+                      '${AppLocalizations.of(context).totalPunched}: $totalPunched',
+                      semanticsLabel:
+                          '${AppLocalizations.of(context).totalPunched} $totalPunched',
                     ),
                   ),
                 ],
@@ -107,7 +108,11 @@ class TaskDetail extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
                       children: <Widget>[
-                        Text('Recent Activities'),
+                        Text(
+                          '${AppLocalizations.of(context).recentActivities}',
+                          semanticsLabel:
+                              '${AppLocalizations.of(context).recentActivities}',
+                        ),
                       ],
                     ),
                   ),
@@ -117,8 +122,9 @@ class TaskDetail extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '    7 days',
-                          semanticsLabel: '7 days',
+                          '    7 ${AppLocalizations.of(context).days}',
+                          semanticsLabel:
+                              '7 ${AppLocalizations.of(context).days}',
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
@@ -142,8 +148,9 @@ class TaskDetail extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '  30 days',
-                          semanticsLabel: '30 days',
+                          '  30 ${AppLocalizations.of(context).days}',
+                          semanticsLabel:
+                              '30 ${AppLocalizations.of(context).days}',
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
@@ -168,8 +175,9 @@ class TaskDetail extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '365 days',
-                          semanticsLabel: '365 days',
+                          '365 ${AppLocalizations.of(context).days}',
+                          semanticsLabel:
+                              '365 ${AppLocalizations.of(context).days}',
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),

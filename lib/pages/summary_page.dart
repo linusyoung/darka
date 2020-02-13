@@ -1,5 +1,5 @@
 import 'package:darka/blocs/blocs.dart';
-// import 'package:darka/locale/locales.dart';
+import 'package:darka/locale/locales.dart';
 import 'package:darka/model/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,8 +39,9 @@ class _SummaryState extends State<Summary> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  'Total Tasks: ${tasks.length}',
-                  semanticsLabel: 'Total Tasks ${tasks.length}',
+                  '${AppLocalizations.of(context).totalTasks}: ${tasks.length}',
+                  semanticsLabel:
+                      '${AppLocalizations.of(context).totalTasks} ${tasks.length}',
                   style: Theme.of(context).textTheme.display2,
                 ),
               ),
@@ -58,10 +59,10 @@ class _SummaryState extends State<Summary> {
                               semanticsLabel: task.name,
                             ),
                             subtitle: Text(
-                              """Date Added: ${task.dateAdded} 
-Total Punched: $punched""",
+                              """${AppLocalizations.of(context).dateAdded}: ${task.dateAdded} 
+${AppLocalizations.of(context).totalPunched}: $punched""",
                               semanticsLabel:
-                                  'Date Added ${task.dateAdded}, Total Punched $punched',
+                                  '${AppLocalizations.of(context).dateAdded} ${task.dateAdded}, ${AppLocalizations.of(context).totalPunched} $punched',
                             ),
                             trailing: IconButton(
                               icon: Icon(
