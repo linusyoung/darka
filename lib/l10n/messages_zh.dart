@@ -19,18 +19,19 @@ class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'zh';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "bottomNavSummary" : MessageLookupByLibrary.simpleMessage("汇总"),
-    "bottomNavTask" : MessageLookupByLibrary.simpleMessage("任务"),
-    "buttonCancel" : MessageLookupByLibrary.simpleMessage("取消"),
-    "buttonConfirm" : MessageLookupByLibrary.simpleMessage("确认"),
-    "dateAdded" : MessageLookupByLibrary.simpleMessage("添加日期"),
-    "days" : MessageLookupByLibrary.simpleMessage("天"),
-    "newTaskHintText" : MessageLookupByLibrary.simpleMessage("输入任务名..."),
-    "recentActivities" : MessageLookupByLibrary.simpleMessage("最近动态"),
-    "taskName" : MessageLookupByLibrary.simpleMessage("任务名"),
-    "title" : MessageLookupByLibrary.simpleMessage("打卡"),
-    "totalPunched" : MessageLookupByLibrary.simpleMessage("打卡总数"),
-    "totalTasks" : MessageLookupByLibrary.simpleMessage("任务总数")
-  };
+  // TODO: add setting translation
+  static _notInlinedMessages(_) => <String, Function>{
+        "bottomNavSummary": MessageLookupByLibrary.simpleMessage("汇总"),
+        "bottomNavTask": MessageLookupByLibrary.simpleMessage("任务"),
+        "buttonCancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "buttonConfirm": MessageLookupByLibrary.simpleMessage("确认"),
+        "dateAdded": MessageLookupByLibrary.simpleMessage("添加日期"),
+        "days": MessageLookupByLibrary.simpleMessage("天"),
+        "newTaskHintText": MessageLookupByLibrary.simpleMessage("输入任务名..."),
+        "recentActivities": MessageLookupByLibrary.simpleMessage("最近动态"),
+        "taskName": MessageLookupByLibrary.simpleMessage("任务名"),
+        "title": MessageLookupByLibrary.simpleMessage("打卡"),
+        "totalPunched": MessageLookupByLibrary.simpleMessage("打卡总数"),
+        "totalTasks": MessageLookupByLibrary.simpleMessage("任务总数")
+      };
 }
