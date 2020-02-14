@@ -62,6 +62,12 @@ class _TaskPageState extends State<TaskPage> {
                             '${AppLocalizations.of(context).bottomNavSummary}',
                       ),
                 centerTitle: true,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.settings),
+                    onPressed: () => _viewSetting(),
+                  )
+                ],
               ),
               body: activeTab == AppTab.tasks
                   ? taskPage(context)
@@ -168,6 +174,13 @@ class _TaskPageState extends State<TaskPage> {
             builder: (BuildContext context) => TaskDetail(task))).then((task) {
       _taskBloc.add(UpdateTask(task));
     });
+  }
+
+  void _viewSetting() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => SettingPage()),
+    );
   }
 
   Future<String> _showTaskInput(BuildContext context) async {
