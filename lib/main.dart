@@ -23,13 +23,11 @@ class DarkaApp extends StatefulWidget {
 
 class _DarkaAppState extends State<DarkaApp> {
   static final db = DarkaDatabase();
-  final taskBloc = TaskBloc(darkaDb: db);
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TaskBloc>(
-      create: (BuildContext context) => taskBloc,
+      create: (BuildContext context) => TaskBloc(darkaDb: db),
       child: MaterialApp(
-        // TODO: fix locale
         localizationsDelegates: [
           AppLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
