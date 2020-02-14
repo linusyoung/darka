@@ -19,18 +19,20 @@ class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "bottomNavSummary" : MessageLookupByLibrary.simpleMessage("Summary"),
-    "bottomNavTask" : MessageLookupByLibrary.simpleMessage("Tasks"),
-    "buttonCancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
-    "buttonConfirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
-    "dateAdded" : MessageLookupByLibrary.simpleMessage("Date added"),
-    "days" : MessageLookupByLibrary.simpleMessage("days"),
-    "newTaskHintText" : MessageLookupByLibrary.simpleMessage("Give a task name..."),
-    "recentActivities" : MessageLookupByLibrary.simpleMessage("Recent Activities"),
-    "taskName" : MessageLookupByLibrary.simpleMessage("Task name"),
-    "title" : MessageLookupByLibrary.simpleMessage("Darka"),
-    "totalPunched" : MessageLookupByLibrary.simpleMessage("Total punched"),
-    "totalTasks" : MessageLookupByLibrary.simpleMessage("Total Tasks")
-  };
+  static _notInlinedMessages(_) => <String, Function>{
+        "bottomNavSummary": MessageLookupByLibrary.simpleMessage("Summary"),
+        "bottomNavTask": MessageLookupByLibrary.simpleMessage("Tasks"),
+        "buttonCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "buttonConfirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+        "dateAdded": MessageLookupByLibrary.simpleMessage("Date added"),
+        "days": MessageLookupByLibrary.simpleMessage("days"),
+        "newTaskHintText":
+            MessageLookupByLibrary.simpleMessage("Type your task name..."),
+        "recentActivities":
+            MessageLookupByLibrary.simpleMessage("Recent Activities"),
+        "taskName": MessageLookupByLibrary.simpleMessage("Task name"),
+        "title": MessageLookupByLibrary.simpleMessage("Darka"),
+        "totalPunched": MessageLookupByLibrary.simpleMessage("Total punched"),
+        "totalTasks": MessageLookupByLibrary.simpleMessage("Total Tasks")
+      };
 }

@@ -71,7 +71,7 @@ class AppLocalizations {
 
   String get newTaskHintText {
     return Intl.message(
-      'Give a task name...',
+      'Type your task name...',
       name: 'newTaskHintText',
       desc: 'hint text when creating a new task.',
     );
