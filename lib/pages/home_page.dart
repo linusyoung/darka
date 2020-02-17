@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:darka/blocs/setting/setting_bloc.dart';
 import 'package:darka/locale/locales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,9 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Brightness brightnessValue =
+        MediaQuery.of(context).platformBrightness;
+    print(brightnessValue);
     return BlocBuilder(
         bloc: _tabBloc,
         builder: (BuildContext context, AppTab activeTab) {
@@ -47,6 +51,9 @@ class _TaskPageState extends State<TaskPage> {
               BlocProvider<TabBloc>(create: (BuildContext context) => _tabBloc),
               BlocProvider<TaskBloc>(
                   create: (BuildContext context) => _taskBloc),
+              BlocProvider<SettingBloc>(
+                  create: (BuildContext context) =>
+                      BlocProvider.of<SettingBloc>(context)),
             ],
             child: Scaffold(
               appBar: AppBar(

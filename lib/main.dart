@@ -60,6 +60,7 @@ class _DarkaAppState extends State<DarkaApp> {
           ),
           disabledColor: Colors.grey[300],
         ),
+        darkTheme: ThemeData.dark(),
         home: TaskPage(),
       ),
     );

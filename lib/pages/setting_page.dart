@@ -1,8 +1,11 @@
+import 'package:darka/blocs/setting/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool _darkModeIsEnable;
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -21,8 +24,11 @@ class SettingPage extends StatelessWidget {
                   semanticsLabel: 'Enable dark mode',
                 ),
                 trailing: Switch(
-                  value: true,
-                  onChanged: (bool newValue) => _update(),
+                  value: _darkModeIsEnable,
+                  onChanged: (bool newValue) => {
+                    BlocProvider.of<SettingBloc>(context)
+                        .add(ToggleDarkMode(newValue))
+                  },
                   activeColor: Theme.of(context).primaryColor,
                   activeTrackColor: Theme.of(context).primaryColorLight,
                 ),
@@ -30,9 +36,5 @@ class SettingPage extends StatelessWidget {
             ),
           ],
         ));
-  }
-
-  bool _update() {
-    return false;
   }
 }
