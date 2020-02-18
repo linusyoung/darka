@@ -1,11 +1,14 @@
-import 'package:darka/blocs/setting/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
+  @override
+  _SettingPageState createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
+  List<bool> _isSelected = [false, false, true];
   @override
   Widget build(BuildContext context) {
-    bool _darkModeIsEnable;
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -19,18 +22,31 @@ class SettingPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: ListTile(
                 leading: Text(
-                  'Enable Dark Mode',
+                  'Theme',
                   style: Theme.of(context).textTheme.body2,
-                  semanticsLabel: 'Enable dark mode',
+                  semanticsLabel: 'Theme',
                 ),
-                trailing: Switch(
-                  value: _darkModeIsEnable,
-                  onChanged: (bool newValue) => {
-                    BlocProvider.of<SettingBloc>(context)
-                        .add(ToggleDarkMode(newValue))
+                trailing: ToggleButtons(
+                  children: <Widget>[
+                    Icon(Icons.brightness_5),
+                    Icon(Icons.brightness_2),
+                    Icon(Icons.settings),
+                  ],
+                  onPressed: (int index) {
+                    setState(() {
+                      for (int buttonIndex = 0;
+                          buttonIndex < _isSelected.length;
+                          buttonIndex++) {
+                        if (buttonIndex == index) {
+                          _isSelected[buttonIndex] = true;
+                        } else {
+                          _isSelected[buttonIndex] = false;
+                        }
+                      }
+                    });
+                    print(_isSelected);
                   },
-                  activeColor: Theme.of(context).primaryColor,
-                  activeTrackColor: Theme.of(context).primaryColorLight,
+                  isSelected: _isSelected,
                 ),
               ),
             ),

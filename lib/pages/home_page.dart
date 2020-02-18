@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:darka/blocs/setting/setting_bloc.dart';
 import 'package:darka/locale/locales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +52,6 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
               BlocProvider<TabBloc>(create: (BuildContext context) => _tabBloc),
               BlocProvider<TaskBloc>(
                   create: (BuildContext context) => _taskBloc),
-              BlocProvider<SettingBloc>(
-                  create: (BuildContext context) =>
-                      BlocProvider.of<SettingBloc>(context)),
             ],
             child: Scaffold(
               appBar: AppBar(
