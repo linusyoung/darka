@@ -20,7 +20,7 @@ class TaskPage extends StatefulWidget {
   _TaskPageState createState() => _TaskPageState();
 }
 
-class _TaskPageState extends State<TaskPage> {
+class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
   static AudioCache player = AudioCache();
   final TabBloc _tabBloc = TabBloc();
   TaskBloc _taskBloc;
@@ -30,11 +30,13 @@ class _TaskPageState extends State<TaskPage> {
     _taskBloc = BlocProvider.of<TaskBloc>(context);
     _taskBloc.add(LoadTasks());
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     _taskBloc.close();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

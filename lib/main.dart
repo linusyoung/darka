@@ -40,6 +40,7 @@ class _DarkaAppState extends State<DarkaApp> {
         debugShowCheckedModeBanner: false,
         title: 'Darka',
         theme: ThemeData(
+          brightness: Brightness.light,
           primarySwatch: Colors.deepOrange,
           textTheme: TextTheme(
             title: TextStyle(
@@ -60,7 +61,10 @@ class _DarkaAppState extends State<DarkaApp> {
           ),
           disabledColor: Colors.grey[300],
         ),
-        darkTheme: ThemeData.dark(),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.teal,
+        ),
         home: TaskPage(),
       ),
     );
