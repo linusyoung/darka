@@ -1,3 +1,5 @@
+import 'package:darka/setting.dart';
+import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
@@ -7,12 +9,20 @@ import 'package:darka/blocs/blocs.dart';
 import 'package:darka/database/database.dart';
 import 'package:darka/pages/pages.dart';
 import 'package:darka/locale/locales.dart';
+import 'package:provider/provider.dart';
 
 void main() {
+  final db = DarkaDatabase();
   BlocSupervisor.delegate = SimpleBlocDelegate();
   WidgetsFlutterBinding.ensureInitialized();
+  // TODO: update theme mode to sqlite and use bloc to update theme setting.
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) => runApp(DarkaApp()));
+      .then((_) => runApp(ChangeNotifierProvider<SettingStateNotifier>(
+            create: (context) => SettingStateNotifier(),
+            child: BlocProvider<TaskBloc>(
+                create: (BuildContext context) => TaskBloc(darkaDb: db),
+                child: DarkaApp()),
+          )));
   // runApp(DarkaApp());
 }
 
@@ -22,12 +32,11 @@ class DarkaApp extends StatefulWidget {
 }
 
 class _DarkaAppState extends State<DarkaApp> {
-  static final db = DarkaDatabase();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TaskBloc>(
-      create: (BuildContext context) => TaskBloc(darkaDb: db),
-      child: MaterialApp(
+    return Consumer<SettingStateNotifier>(
+        builder: (context, settingState, child) {
+      return MaterialApp(
         localizationsDelegates: [
           AppLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
@@ -39,29 +48,11 @@ class _DarkaAppState extends State<DarkaApp> {
         ],
         debugShowCheckedModeBanner: false,
         title: 'Darka',
-        theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
-          textTheme: TextTheme(
-            title: TextStyle(
-              fontSize: 20.0,
-            ),
-            subtitle: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-            ),
-            display1: TextStyle(
-              fontSize: 20.0,
-              color: Colors.white,
-            ),
-            body2: TextStyle(
-              fontSize: 16.0,
-              color: Colors.black,
-            ),
-          ),
-          disabledColor: Colors.grey[300],
-        ),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         home: TaskPage(),
-      ),
-    );
+        themeMode: settingState.themeMode,
+      );
+    });
   }
 }
