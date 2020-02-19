@@ -1,3 +1,4 @@
+import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
@@ -39,33 +40,10 @@ class _DarkaAppState extends State<DarkaApp> {
         ],
         debugShowCheckedModeBanner: false,
         title: 'Darka',
-        theme: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: Colors.deepOrange,
-          textTheme: TextTheme(
-            title: TextStyle(
-              fontSize: 20.0,
-            ),
-            subtitle: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-            ),
-            display1: TextStyle(
-              fontSize: 20.0,
-              color: Colors.white,
-            ),
-            body2: TextStyle(
-              fontSize: 16.0,
-              color: Colors.black,
-            ),
-          ),
-          disabledColor: Colors.grey[300],
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.teal,
-        ),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         home: TaskPage(),
+        themeMode: ThemeMode.light,
       ),
     );
   }
