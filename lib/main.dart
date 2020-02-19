@@ -1,3 +1,4 @@
+import 'package:darka/setting.dart';
 import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,12 +9,19 @@ import 'package:darka/blocs/blocs.dart';
 import 'package:darka/database/database.dart';
 import 'package:darka/pages/pages.dart';
 import 'package:darka/locale/locales.dart';
+import 'package:provider/provider.dart';
 
 void main() {
+  final db = DarkaDatabase();
   BlocSupervisor.delegate = SimpleBlocDelegate();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) => runApp(DarkaApp()));
+      .then((_) => runApp(ChangeNotifierProvider<SettingStateNotifier>(
+            create: (context) => SettingStateNotifier(),
+            child: BlocProvider<TaskBloc>(
+                create: (BuildContext context) => TaskBloc(darkaDb: db),
+                child: DarkaApp()),
+          )));
   // runApp(DarkaApp());
 }
 
@@ -23,12 +31,11 @@ class DarkaApp extends StatefulWidget {
 }
 
 class _DarkaAppState extends State<DarkaApp> {
-  static final db = DarkaDatabase();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TaskBloc>(
-      create: (BuildContext context) => TaskBloc(darkaDb: db),
-      child: MaterialApp(
+    return Consumer<SettingStateNotifier>(
+        builder: (context, settingState, child) {
+      return MaterialApp(
         localizationsDelegates: [
           AppLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
@@ -43,8 +50,8 @@ class _DarkaAppState extends State<DarkaApp> {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         home: TaskPage(),
-        themeMode: ThemeMode.light,
-      ),
-    );
+        themeMode: settingState.themeMode,
+      );
+    });
   }
 }

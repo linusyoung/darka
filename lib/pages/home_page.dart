@@ -41,9 +41,6 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightnessValue =
-        MediaQuery.of(context).platformBrightness;
-    print(brightnessValue);
     return BlocBuilder(
         bloc: _tabBloc,
         builder: (BuildContext context, AppTab activeTab) {

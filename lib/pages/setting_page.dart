@@ -1,4 +1,6 @@
+import 'package:darka/setting.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
   @override
@@ -43,8 +45,9 @@ class _SettingPageState extends State<SettingPage> {
                           _isSelected[buttonIndex] = false;
                         }
                       }
+                      Provider.of<SettingStateNotifier>(context, listen: false)
+                          .updateTheme(_isSelected);
                     });
-                    print(_isSelected);
                   },
                   isSelected: _isSelected,
                 ),
