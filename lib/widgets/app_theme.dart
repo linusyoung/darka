@@ -29,5 +29,23 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primarySwatch: Colors.teal,
+    textTheme: TextTheme(
+      title: TextStyle(
+        fontSize: 20.0,
+      ),
+      subtitle: TextStyle(
+        fontSize: 18.0,
+        // color: Colors.white,
+      ),
+      display1: TextStyle(
+        fontSize: 20.0,
+        // color: Colors.white,
+      ),
+      body2: TextStyle(
+        fontSize: 16.0,
+        // color: Colors.black,
+      ),
+    ),
+    // disabledColor: Colors.grey[300],
   );
 }
