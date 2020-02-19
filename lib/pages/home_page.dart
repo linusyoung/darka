@@ -217,7 +217,6 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
               '${AppLocalizations.of(context).buttonConfirm}',
               semanticsLabel: '${AppLocalizations.of(context).buttonConfirm}',
             ),
-            textColor: Colors.deepOrange,
             onPressed: () {
               Navigator.of(context).pop(taskName);
             }),
