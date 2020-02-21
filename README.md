@@ -17,4 +17,4 @@ Darka is deadly simple to use.
 You can see a summary for single task or a summary of all tasks you added.
 
 ## Download
-<!-- TODO: add download link -->
+[![Play Store Badge](/assets/badges/google-play-badge.png)](https://play.google.com/store/apps/details?id=club.swimmingbeaver.darka)
