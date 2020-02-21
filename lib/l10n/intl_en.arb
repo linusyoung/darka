@@ -70,5 +70,17 @@
     "description": "display days in single task details",
     "type": "text",
     "placeholders": {}
+  },
+  "setting": "setting",
+  "@setting": {
+    "description": "setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "theme": "theme",
+  "@theme": {
+    "description": "setting theme mode",
+    "type": "text",
+    "placeholders": {}
   }
 }

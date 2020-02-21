@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "taskName": MessageLookupByLibrary.simpleMessage("Task name"),
         "title": MessageLookupByLibrary.simpleMessage("Darka"),
         "totalPunched": MessageLookupByLibrary.simpleMessage("Total punched"),
-        "totalTasks": MessageLookupByLibrary.simpleMessage("Total Tasks")
+        "totalTasks": MessageLookupByLibrary.simpleMessage("Total Tasks"),
+        "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "theme": MessageLookupByLibrary.simpleMessage("Theme")
       };
 }
