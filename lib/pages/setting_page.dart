@@ -1,3 +1,4 @@
+import 'package:darka/locale/locales.dart';
 import 'package:darka/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +15,8 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Setting',
-            semanticsLabel: 'Setting',
+            '${AppLocalizations.of(context).setting}',
+            semanticsLabel: '${AppLocalizations.of(context).setting}',
           ),
         ),
         body: ListView(
@@ -24,9 +25,9 @@ class _SettingPageState extends State<SettingPage> {
               padding: const EdgeInsets.all(16.0),
               child: ListTile(
                 leading: Text(
-                  'Theme',
+                  '${AppLocalizations.of(context).theme}',
                   style: Theme.of(context).textTheme.body2,
-                  semanticsLabel: 'Theme',
+                  semanticsLabel: '${AppLocalizations.of(context).theme}',
                 ),
                 trailing: ToggleButtons(
                   children: <Widget>[

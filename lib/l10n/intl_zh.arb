@@ -70,6 +70,17 @@
     "description": "display days in single task details",
     "type": "text",
     "placeholders": {}
+  },
+  "setting": "设置",
+  "@setting": {
+    "description": "setting",
+    "type": "text",
+    "placeholders": {}
+  },
+  "theme": "主题模式",
+  "@theme": {
+    "description": "setting theme mode",
+    "type": "text",
+    "placeholders": {}
   }
-
 }

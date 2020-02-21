@@ -3,6 +3,7 @@
 // messages from the main program should be duplicated here with the same
 // function name.
 
+import 'package:darka/l10n/messages_zh.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
@@ -33,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "taskName": MessageLookupByLibrary.simpleMessage("Task name"),
         "title": MessageLookupByLibrary.simpleMessage("Darka"),
         "totalPunched": MessageLookupByLibrary.simpleMessage("Total punched"),
-        "totalTasks": MessageLookupByLibrary.simpleMessage("Total Tasks")
+        "totalTasks": MessageLookupByLibrary.simpleMessage("Total Tasks"),
+        "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "theme": MessageLookupByLibrary.simpleMessage("Theme")
       };
 }

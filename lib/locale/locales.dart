@@ -116,6 +116,22 @@ class AppLocalizations {
       desc: 'display days in single task details.',
     );
   }
+
+  String get setting {
+    return Intl.message(
+      'Setting',
+      name: 'setting',
+      desc: 'setting',
+    );
+  }
+
+  String get theme {
+    return Intl.message(
+      'Theme',
+      name: 'theme',
+      desc: 'setting theme mode',
+    );
+  }
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
