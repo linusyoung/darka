@@ -1,5 +1,6 @@
 name: Flutter action
-on: push
+# TODO: update trigger
+on: release
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
