@@ -45,9 +45,12 @@ class TaskItem extends StatelessWidget {
           taskName,
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: _constructCalendar(context),
+            child: GestureDetector(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: _constructCalendar(context),
+              ),
+              onTap: viewDetail,
             ),
           ),
           Divider(
