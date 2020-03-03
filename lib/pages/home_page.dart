@@ -152,6 +152,7 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
           DarkaUtils().generateV4(),
           value,
           DarkaUtils().dateFormat(DateTime.now()),
+          'red',
           punchedToday: false,
         );
         _taskBloc.add(AddTask(task));

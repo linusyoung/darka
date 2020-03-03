@@ -16,25 +16,56 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: take label color from task
+    bool _isLabelled;
+    Color _labelColor;
+    switch (task.labelColor) {
+      case 'red':
+        _labelColor = Colors.amber;
+        _isLabelled = true;
+        break;
+      default:
+        _isLabelled = false;
+    }
     var taskName = Padding(
       padding: const EdgeInsets.only(top: 4.0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 12.0,
-                right: 4.0,
-                top: 8.0,
-              ),
-              child: Text(
-                task.name,
-                style: Theme.of(context).textTheme.title,
-                overflow: TextOverflow.ellipsis,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 4.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 0, 8.0, 0),
+                child: Text(
+                  task.name,
+                  style: Theme.of(context).textTheme.title,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
-          )
-        ],
+            _isLabelled
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: ButtonTheme(
+                      height: 25.0,
+                      child: FlatButton(
+                        child: Container(),
+                        disabledColor: _labelColor,
+                        onPressed: null,
+                        // TODO: update bottomRight to bottomLight when flutter updated
+                        shape: ContinuousRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20.0),
+                            bottomRight: Radius.circular(20.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
+          ],
+        ),
       ),
     );
     return Dismissible(
@@ -44,7 +75,7 @@ class TaskItem extends StatelessWidget {
         children: <Widget>[
           taskName,
           Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+            padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +162,7 @@ class TaskItem extends StatelessWidget {
       bool isPunched = task.recentPunched[i + 8 - daysToShow];
 
       var historyDay = Padding(
-        padding: const EdgeInsets.all(2.5),
+        padding: const EdgeInsets.all(3.5),
         child: Container(
           alignment: Alignment.center,
           child: Center(

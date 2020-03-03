@@ -4,10 +4,11 @@ class Task {
   String name;
   bool punchedToday;
   bool isDeleted;
+  String labelColor;
   List<bool> recentPunched;
   List<String> punchedDates;
 
-  Task(this.uuid, this.name, this.dateAdded,
+  Task(this.uuid, this.name, this.dateAdded, this.labelColor,
       {this.punchedToday = false, this.isDeleted = false}) {
     this.recentPunched = List.filled(8, false);
   }
@@ -19,11 +20,13 @@ class Task {
     bool isDeleted,
     List<bool> recentPunched,
     List<String> punchedDates,
+    String labelColor,
   }) {
     Task _task = Task(
       uuid ?? this.uuid,
       name ?? this.name,
       dateAdded ?? this.dateAdded,
+      labelColor ?? this.labelColor,
       punchedToday: punchedToday ?? this.punchedToday,
       isDeleted: isDeleted ?? this.isDeleted,
     );
@@ -52,6 +55,7 @@ class Task {
       map['uuid'],
       map['task_name'],
       map['date_added'],
+      'red',
       punchedToday: map['punched_today'] == 1 ? true : false,
       isDeleted: map['is_deleted'] == 1 ? true : false,
     );

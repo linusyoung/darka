@@ -17,7 +17,6 @@ class AddTask extends TaskEvent {
 
 class UpdateTask extends TaskEvent {
   final Task updatedTask;
-
   UpdateTask(this.updatedTask);
 
   @override
