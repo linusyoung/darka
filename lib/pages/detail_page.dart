@@ -5,6 +5,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:darka/model/task.dart';
 import 'package:darka/darka_utils.dart';
+import 'package:darka/widgets/widgets.dart';
 
 class TaskDetail extends StatelessWidget {
   final Task task;
@@ -107,12 +108,14 @@ class TaskDetail extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           '${AppLocalizations.of(context).recentActivities}',
                           semanticsLabel:
                               '${AppLocalizations.of(context).recentActivities}',
                         ),
+                        Label(color: task.labelColor)
                       ],
                     ),
                   ),

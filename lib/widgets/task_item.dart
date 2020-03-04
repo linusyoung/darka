@@ -1,6 +1,8 @@
 import 'package:darka/model/models.dart';
 import 'package:flutter/material.dart';
 
+import 'label.dart';
+
 class TaskItem extends StatelessWidget {
   final GestureTapCallback viewDetail;
   final DismissDirectionCallback onDismissed;
@@ -17,16 +19,11 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: take label color from task
-    bool _isLabelled;
-    Color _labelColor;
-    switch (task.labelColor) {
-      case 'red':
-        _labelColor = Colors.amber;
-        _isLabelled = true;
-        break;
-      default:
-        _isLabelled = false;
+    bool _isLabelled = false;
+    if (task.labelColor != null) {
+      _isLabelled = true;
     }
+
     var taskName = Padding(
       padding: const EdgeInsets.only(top: 4.0),
       child: Padding(
@@ -47,22 +44,7 @@ class TaskItem extends StatelessWidget {
             _isLabelled
                 ? Padding(
                     padding: const EdgeInsets.only(right: 4.0),
-                    child: ButtonTheme(
-                      height: 25.0,
-                      child: FlatButton(
-                        child: Container(),
-                        disabledColor: _labelColor,
-                        onPressed: null,
-                        // TODO: update bottomRight to bottomLight when flutter updated
-                        shape: ContinuousRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20.0),
-                            bottomRight: Radius.circular(20.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                    child: Label(color: task.labelColor))
                 : Container(),
           ],
         ),
