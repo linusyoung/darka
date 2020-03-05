@@ -18,7 +18,6 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: take label color from task
     bool _isLabelled = false;
     if (task.labelColor != null) {
       _isLabelled = true;

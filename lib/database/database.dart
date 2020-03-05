@@ -31,19 +31,19 @@ class DarkaDatabase {
     print(path);
     var theDb = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
-      // onUpgrade: _onUpgrade,
+      onUpgrade: _onUpgrade,
     );
     return theDb;
   }
 
-  // void _onUpgrade(Database db, int oldVersion, int newVersion) async {
-  //   await db.execute('''CREATE TABLE APIKey(
-  //     api_key TEXT PRIMARY KEY,
-  //     key_type TEXT
-  //   )''');
-  // }
+  void _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < newVersion) {
+      await db
+          .execute('''ALTER TABLE TASK_LIST ADD COLUMN label_color TEXT)''');
+    }
+  }
 
   void _onCreate(Database db, int version) async {
     await db.execute('''CREATE TABLE TASK_LIST (
@@ -51,6 +51,7 @@ class DarkaDatabase {
       task_name TEXT,
       date_added TEXT,
       is_deleted BIT,
+      label_color TEXT,
       punched_today BIT)''');
 
     await db.execute('''CREATE TABLE PUNCH_LIST(
@@ -69,20 +70,22 @@ class DarkaDatabase {
 
   Future<void> updateTask(Task task) async {
     var dbClient = await db;
-
-    await dbClient.update("TASK_LIST", task.toMap(),
-        where: "uuid = ?", whereArgs: [task.uuid]);
-    if (task.punchedToday) {
-      String today = DarkaUtils().dateFormat(DateTime.now());
-      List<Map> isTodayPunched = await dbClient.query("PUNCH_LIST",
-          where: "task_id = ? and date = ?", whereArgs: [task.uuid, today]);
-      if (isTodayPunched.length == 0) {
-        var punchValue = Map<String, dynamic>();
-        punchValue['uuid'] = DarkaUtils().generateV4();
-        punchValue['task_id'] = task.uuid;
-        punchValue['date'] = DarkaUtils().dateFormat(DateTime.now());
-        int res = await dbClient.insert("PUNCH_LIST", punchValue);
-        print(res);
+    print(task.runtimeType != null);
+    if (task.runtimeType != null) {
+      await dbClient.update("TASK_LIST", task.toMap(),
+          where: "uuid = ?", whereArgs: [task.uuid]);
+      if (task.punchedToday) {
+        String today = DarkaUtils().dateFormat(DateTime.now());
+        List<Map> isTodayPunched = await dbClient.query("PUNCH_LIST",
+            where: "task_id = ? and date = ?", whereArgs: [task.uuid, today]);
+        if (isTodayPunched.length == 0) {
+          var punchValue = Map<String, dynamic>();
+          punchValue['uuid'] = DarkaUtils().generateV4();
+          punchValue['task_id'] = task.uuid;
+          punchValue['date'] = DarkaUtils().dateFormat(DateTime.now());
+          int res = await dbClient.insert("PUNCH_LIST", punchValue);
+          print(res);
+        }
       }
     }
   }

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
 class Label extends StatelessWidget {
-  final String color;
+  final int color;
 
   Label({@required this.color});
 
   @override
   Widget build(BuildContext context) {
     Color _labelColor;
-    switch (color) {
-      case 'red':
-        _labelColor = Colors.amber;
-        break;
-      default:
-        _labelColor = Theme.of(context).canvasColor;
+    if (color == 0) {
+      _labelColor = Theme.of(context).canvasColor;
+    } else {
+      _labelColor = Color(color);
     }
     return Container(
       height: 20.0,
