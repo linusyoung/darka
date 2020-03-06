@@ -248,20 +248,3 @@ class TaskDetail extends StatelessWidget {
     );
   }
 }
-
-void _settingTaskLabelColor(context) {
-  showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Row(
-          children: <Widget>[
-            Container(
-                height: 55.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.amber,
-                )),
-          ],
-        );
-      });
-}
