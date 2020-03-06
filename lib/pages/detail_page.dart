@@ -244,6 +244,24 @@ class TaskDetail extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: ColorFab(),
     );
   }
+}
+
+void _settingTaskLabelColor(context) {
+  showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Row(
+          children: <Widget>[
+            Container(
+                height: 55.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.amber,
+                )),
+          ],
+        );
+      });
 }

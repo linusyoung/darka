@@ -79,7 +79,9 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
                   : null,
               floatingActionButton: activeTab == AppTab.tasks
                   ? FloatingActionButton(
-                      child: Icon(Icons.add), onPressed: _addNewTask)
+                      heroTag: 'add_task',
+                      child: Icon(Icons.add),
+                      onPressed: _addNewTask)
                   : null,
               floatingActionButtonAnimator:
                   activeTab == AppTab.tasks ? CustomFabAnimation() : null,
