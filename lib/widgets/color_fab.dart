@@ -63,21 +63,22 @@ class _ColorFabState extends State<ColorFab>
     }
     isOpened = !isOpened;
 
-    if (color != Colors.black) {
+    if (widget.colorNotifier.value == color.value) {
+      widget.colorNotifier.value = 0;
+    } else if (color != Colors.black) {
       widget.colorNotifier.value = color.value;
-      print(color.toString());
     }
   }
 
-  Widget add() {
+  Widget redLabel() {
     return colorPicker(Colors.red, 'red');
   }
 
-  Widget image() {
+  Widget amberLabel() {
     return colorPicker(Colors.amber, 'amber');
   }
 
-  Widget inbox() {
+  Widget greeLabel() {
     return colorPicker(Colors.green, 'green');
   }
 
@@ -117,7 +118,7 @@ class _ColorFabState extends State<ColorFab>
             0.0,
             0.0,
           ),
-          child: add(),
+          child: redLabel(),
         ),
         Transform(
           transform: Matrix4.translationValues(
@@ -125,7 +126,7 @@ class _ColorFabState extends State<ColorFab>
             0.0,
             0.0,
           ),
-          child: image(),
+          child: amberLabel(),
         ),
         Transform(
           transform: Matrix4.translationValues(
@@ -133,7 +134,7 @@ class _ColorFabState extends State<ColorFab>
             0.0,
             0.0,
           ),
-          child: inbox(),
+          child: greeLabel(),
         ),
         toggle(),
       ],
