@@ -6,8 +6,8 @@ description: Task tracking app
 # followed by an optional build number separated by a +.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
-version: 1.0.5+7
+# Read more about versioning at server.org.
+version: 1.0.6+8
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
