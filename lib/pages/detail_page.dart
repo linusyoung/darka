@@ -5,6 +5,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:darka/model/task.dart';
 import 'package:darka/darka_utils.dart';
+import 'package:darka/widgets/widgets.dart';
 
 class TaskDetail extends StatelessWidget {
   final Task task;
@@ -14,6 +15,8 @@ class TaskDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String addDate = task.dateAdded;
+
+    ValueNotifier<int> _lableColor = ValueNotifier<int>(task.labelColor);
     var _titleEdit = TextEditingController.fromValue(TextEditingValue(
       text: task.name,
       selection: TextSelection.collapsed(offset: task.name.length),
@@ -107,12 +110,19 @@ class TaskDetail extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           '${AppLocalizations.of(context).recentActivities}',
                           semanticsLabel:
                               '${AppLocalizations.of(context).recentActivities}',
                         ),
+                        ValueListenableBuilder<int>(
+                            valueListenable: _lableColor,
+                            builder: (context, int value, _) {
+                              task.labelColor = value;
+                              return Label(color: value);
+                            }),
                       ],
                     ),
                   ),
@@ -241,6 +251,7 @@ class TaskDetail extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: ColorFab(_lableColor),
     );
   }
 }

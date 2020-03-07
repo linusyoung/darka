@@ -1,6 +1,8 @@
 import 'package:darka/model/models.dart';
 import 'package:flutter/material.dart';
 
+import 'label.dart';
+
 class TaskItem extends StatelessWidget {
   final GestureTapCallback viewDetail;
   final DismissDirectionCallback onDismissed;
@@ -16,25 +18,35 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _isLabelled = false;
+    if (task.labelColor != null) {
+      _isLabelled = true;
+    }
+
     var taskName = Padding(
       padding: const EdgeInsets.only(top: 4.0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 12.0,
-                right: 4.0,
-                top: 8.0,
-              ),
-              child: Text(
-                task.name,
-                style: Theme.of(context).textTheme.title,
-                overflow: TextOverflow.ellipsis,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 4.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 0, 8.0, 0),
+                child: Text(
+                  task.name,
+                  style: Theme.of(context).textTheme.title,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
-          )
-        ],
+            _isLabelled
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: Label(color: task.labelColor))
+                : Container(),
+          ],
+        ),
       ),
     );
     return Dismissible(
@@ -44,7 +56,7 @@ class TaskItem extends StatelessWidget {
         children: <Widget>[
           taskName,
           Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+            padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +143,7 @@ class TaskItem extends StatelessWidget {
       bool isPunched = task.recentPunched[i + 8 - daysToShow];
 
       var historyDay = Padding(
-        padding: const EdgeInsets.all(2.5),
+        padding: const EdgeInsets.all(3.5),
         child: Container(
           alignment: Alignment.center,
           child: Center(
