@@ -15,6 +15,8 @@ class TaskDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String addDate = task.dateAdded;
+
+    ValueNotifier<int> _lableColor = ValueNotifier<int>(task.labelColor);
     var _titleEdit = TextEditingController.fromValue(TextEditingValue(
       text: task.name,
       selection: TextSelection.collapsed(offset: task.name.length),
@@ -115,7 +117,12 @@ class TaskDetail extends StatelessWidget {
                           semanticsLabel:
                               '${AppLocalizations.of(context).recentActivities}',
                         ),
-                        Label(color: task.labelColor)
+                        ValueListenableBuilder<int>(
+                            valueListenable: _lableColor,
+                            builder: (context, int value, _) {
+                              task.labelColor = value;
+                              return Label(color: value);
+                            }),
                       ],
                     ),
                   ),
@@ -244,7 +251,7 @@ class TaskDetail extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: ColorFab(),
+      floatingActionButton: ColorFab(_lableColor),
     );
   }
 }

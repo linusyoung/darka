@@ -1,4 +1,4 @@
-import 'package:darka/setting.dart';
+import 'package:darka/darka_utils.dart';
 import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

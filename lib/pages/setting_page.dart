@@ -1,5 +1,5 @@
 import 'package:darka/locale/locales.dart';
-import 'package:darka/setting.dart';
+import 'package:darka/darka_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

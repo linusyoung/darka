@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ColorFab extends StatefulWidget {
   final Function() onPressed;
   final String tooltip;
+  final ValueNotifier<int> colorNotifier;
 
-  ColorFab({this.onPressed, this.tooltip});
+  ColorFab(this.colorNotifier, {this.onPressed, this.tooltip});
 
   @override
   _ColorFabState createState() => _ColorFabState();
@@ -19,6 +20,7 @@ class _ColorFabState extends State<ColorFab>
   Animation<double> _translateButton;
   Curve _curve = Curves.easeOut;
   double _fabHeight = 56.0;
+
   // final Color _beginColor;
 
   // _ColorFabState(this._beginColor);
@@ -53,13 +55,18 @@ class _ColorFabState extends State<ColorFab>
     super.dispose();
   }
 
-  animate() {
+  animate(Color color) {
     if (!isOpened) {
       _animationController.forward();
     } else {
       _animationController.reverse();
     }
     isOpened = !isOpened;
+
+    if (color != Colors.black) {
+      widget.colorNotifier.value = color.value;
+      print(color.toString());
+    }
   }
 
   Widget add() {
@@ -78,7 +85,7 @@ class _ColorFabState extends State<ColorFab>
     return Container(
       child: FloatingActionButton(
         heroTag: heroTag,
-        onPressed: animate,
+        onPressed: () => animate(color),
         backgroundColor: color,
       ),
     );
@@ -89,7 +96,7 @@ class _ColorFabState extends State<ColorFab>
       child: FloatingActionButton(
         heroTag: 'edit_color',
         backgroundColor: Theme.of(context).primaryColor,
-        onPressed: animate,
+        onPressed: () => animate(Colors.black),
         tooltip: 'Toggle',
         child: AnimatedIcon(
           icon: AnimatedIcons.menu_close,

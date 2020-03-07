@@ -40,8 +40,7 @@ class DarkaDatabase {
 
   void _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < newVersion) {
-      await db
-          .execute('''ALTER TABLE TASK_LIST ADD COLUMN label_color TEXT)''');
+      await db.execute('''ALTER TABLE TASK_LIST ADD COLUMN label_color TEXT''');
     }
   }
 
