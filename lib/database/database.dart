@@ -41,6 +41,7 @@ class DarkaDatabase {
   void _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < newVersion) {
       await db.execute('''ALTER TABLE TASK_LIST ADD COLUMN label_color TEXT''');
+      await db.execute('''INSERT INTO TASK_LIST (label_color) VALUES ('0')''');
     }
   }
 
@@ -58,6 +59,7 @@ class DarkaDatabase {
       task_id TEXT,
       date TEXT,
       FOREIGN KEY (task_id) REFERENCES TASK_LIST(uuid))''');
+    print('db created');
   }
 
   Future<int> createTask(Task task) async {
