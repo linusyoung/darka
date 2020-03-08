@@ -59,7 +59,6 @@ class DarkaDatabase {
       task_id TEXT,
       date TEXT,
       FOREIGN KEY (task_id) REFERENCES TASK_LIST(uuid))''');
-    print('db created');
   }
 
   Future<int> createTask(Task task) async {
