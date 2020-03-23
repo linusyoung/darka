@@ -123,7 +123,7 @@ class TaskItem extends StatelessWidget {
     );
     var viewDetailButton = GestureDetector(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 8.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 4.0, 0.0),
         child: Align(
           alignment: Alignment.centerRight,
           child: Icon(
