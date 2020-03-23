@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+import 'package:darka/user_setting.dart';
 
 class DarkaUtils {
   String generateV4() {
@@ -12,14 +13,16 @@ class DarkaUtils {
 
 class SettingStateNotifier extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
-  void updateTheme(List<bool> theme) {
-    if (theme[0]) {
+  void updateTheme(int index) async {
+    if (index == 0) {
       this.themeMode = ThemeMode.light;
-    } else if (theme[1]) {
+    } else if (index == 1) {
       this.themeMode = ThemeMode.dark;
     } else {
       this.themeMode = ThemeMode.system;
     }
     notifyListeners();
+
+    await UserSettingHelper.setThemeMode(this.themeMode.index);
   }
 }
