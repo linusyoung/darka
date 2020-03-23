@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:darka/locale/locales.dart';
+import 'package:darka/user_setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -11,6 +12,7 @@ import 'package:darka/pages/pages.dart';
 import 'package:darka/widgets/widgets.dart';
 import 'package:darka/blocs/blocs.dart';
 import 'package:darka/darka_utils.dart';
+import 'package:provider/provider.dart';
 
 const holePunchAudioPath = 'sound/hole_punch.mp3';
 
@@ -28,6 +30,11 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
   void initState() {
     _taskBloc = BlocProvider.of<TaskBloc>(context);
     _taskBloc.add(LoadTasks());
+    UserSettingHelper.getThemeMode().then((int value) {
+      int _index = (value + 2) % 3;
+      Provider.of<SettingStateNotifier>(context, listen: false)
+          .updateTheme(_index);
+    });
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
