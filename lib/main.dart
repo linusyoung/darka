@@ -15,7 +15,6 @@ void main() {
   final db = DarkaDatabase();
   BlocSupervisor.delegate = SimpleBlocDelegate();
   WidgetsFlutterBinding.ensureInitialized();
-  // TODO: update theme mode to sqlite and use bloc to update theme setting.
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) => runApp(ChangeNotifierProvider<SettingStateNotifier>(
             create: (context) => SettingStateNotifier(),
