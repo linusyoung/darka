@@ -1,7 +1,6 @@
 import 'package:darka/model/models.dart';
+import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-
-import 'label.dart';
 
 class TaskItem extends StatelessWidget {
   final GestureTapCallback viewDetail;
@@ -93,15 +92,8 @@ class TaskItem extends StatelessWidget {
                   : Theme.of(context).textTheme.subtitle,
             ),
             isPunchedToday
-                ? Center(
-                    child: Container(
-                      width: 5.0,
-                      height: 5.0,
-                      decoration: ShapeDecoration(
-                        shape: CircleBorder(),
-                        color: Colors.white,
-                      ),
-                    ),
+                ? PunchHole(
+                    shape: 'circle',
                   )
                 : Container(),
           ],
@@ -157,13 +149,8 @@ class TaskItem extends StatelessWidget {
                   ),
                 ),
                 isPunched
-                    ? Container(
-                        width: 5.0,
-                        height: 5.0,
-                        decoration: ShapeDecoration(
-                          shape: CircleBorder(),
-                          color: Colors.white,
-                        ),
+                    ? PunchHole(
+                        shape: 'circle',
                       )
                     : Container(),
               ],
