@@ -7,7 +7,7 @@ class UserSettingHelper {
   static Future<int> getThemeMode() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    return prefs.getInt(_kThemePrefs) ?? ThemeMode.system;
+    return prefs.getInt(_kThemePrefs) ?? ThemeMode.system.index;
   }
 
   static Future<bool> setThemeMode(int value) async {
