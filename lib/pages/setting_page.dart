@@ -11,6 +11,7 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   List<bool> _isSelected = [false, false, true];
+  List<bool> _holeShapeSelected = [false, true];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +27,19 @@ class _SettingPageState extends State<SettingPage> {
                 future: UserSettingHelper.getThemeMode(),
                 initialData: 0,
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  print("pref: ${snapshot.data}");
                   return snapshot.hasData
                       ? _themeSetting(snapshot.data)
                       : _themeSetting(0); //0 is ThemeMode.system
-                })
+                }),
+            FutureBuilder<int>(
+              future: UserSettingHelper.getHoleShape(),
+              initialData: 1,
+              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                return snapshot.hasData
+                    ? _holeShapeSetting(snapshot.data)
+                    : _holeShapeSetting(1);
+              },
+            ),
           ],
         ));
   }
@@ -72,6 +81,47 @@ class _SettingPageState extends State<SettingPage> {
         _isSelected[buttonIndex] = false;
       }
     }
-    print(_isSelected);
+  }
+
+  Widget _holeShapeSetting(int userHoleShapeSetting) {
+    _setShape(userHoleShapeSetting);
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListTile(
+        leading: Text(
+          'Hole Shape',
+          style: Theme.of(context).textTheme.body2,
+        ),
+        trailing: ToggleButtons(
+          children: <Widget>[
+            Icon(Icons.stop),
+            Icon(
+              Icons.lens,
+              size: 15.0,
+            ),
+          ],
+          onPressed: (int index) {
+            setState(() {
+              _setShape(index);
+            });
+          },
+          isSelected: _holeShapeSelected,
+        ),
+      ),
+    );
+  }
+
+  void _setShape(int index) {
+    _holeShapeSelected[index] = true;
+    _holeShapeSelected[1 - index] = false;
+    switch (index) {
+      case 0:
+        UserSettingHelper.setHoleShape('box');
+        break;
+      case 1:
+        UserSettingHelper.setHoleShape('circle');
+        break;
+      default:
+    }
   }
 }
