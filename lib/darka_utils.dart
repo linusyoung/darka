@@ -1,7 +1,7 @@
+import 'package:darka/user_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-import 'package:darka/user_setting.dart';
 
 class DarkaUtils {
   String generateV4() {

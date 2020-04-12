@@ -1,4 +1,5 @@
 import 'package:darka/locale/locales.dart';
+import 'package:darka/user_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -230,13 +231,15 @@ class TaskDetail extends StatelessWidget {
                             style: Theme.of(context).textTheme.body2,
                           ),
                           punchedDates.contains(dayString)
-                              ? Container(
-                                  width: 5.0,
-                                  height: 5.0,
-                                  decoration: ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Colors.white,
-                                  ),
+                              ? FutureBuilder<int>(
+                                  future: UserSettingHelper.getHoleShape(),
+                                  initialData: 1,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<int> snapshot) {
+                                    return snapshot.hasData
+                                        ? PunchHole(shapeIndex: snapshot.data)
+                                        : PunchHole(shapeIndex: 1);
+                                  },
                                 )
                               : Container(),
                         ],

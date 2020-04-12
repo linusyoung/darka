@@ -1,7 +1,7 @@
 import 'package:darka/model/models.dart';
+import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-
-import 'label.dart';
+import 'package:darka/user_setting.dart';
 
 class TaskItem extends StatelessWidget {
   final GestureTapCallback viewDetail;
@@ -93,15 +93,15 @@ class TaskItem extends StatelessWidget {
                   : Theme.of(context).textTheme.subtitle,
             ),
             isPunchedToday
-                ? Center(
-                    child: Container(
-                      width: 5.0,
-                      height: 5.0,
-                      decoration: ShapeDecoration(
-                        shape: CircleBorder(),
-                        color: Colors.white,
-                      ),
-                    ),
+                ? FutureBuilder<int>(
+                    future: UserSettingHelper.getHoleShape(),
+                    initialData: 1,
+                    builder:
+                        (BuildContext context, AsyncSnapshot<int> snapshot) {
+                      return snapshot.hasData
+                          ? PunchHole(shapeIndex: snapshot.data)
+                          : PunchHole(shapeIndex: 1);
+                    },
                   )
                 : Container(),
           ],
@@ -157,13 +157,15 @@ class TaskItem extends StatelessWidget {
                   ),
                 ),
                 isPunched
-                    ? Container(
-                        width: 5.0,
-                        height: 5.0,
-                        decoration: ShapeDecoration(
-                          shape: CircleBorder(),
-                          color: Colors.white,
-                        ),
+                    ? FutureBuilder<int>(
+                        future: UserSettingHelper.getHoleShape(),
+                        initialData: 1,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<int> snapshot) {
+                          return snapshot.hasData
+                              ? PunchHole(shapeIndex: snapshot.data)
+                              : PunchHole(shapeIndex: 1);
+                        },
                       )
                     : Container(),
               ],
