@@ -20,8 +20,8 @@ class PunchHole extends StatelessWidget {
     }
     return Center(
       child: Container(
-        width: 7.0,
-        height: 7.0,
+        width: 5.5,
+        height: 5.5,
         decoration: ShapeDecoration(
           shape: _shapeBorder,
           color: Colors.white,

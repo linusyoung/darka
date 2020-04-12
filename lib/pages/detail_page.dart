@@ -230,14 +230,7 @@ class TaskDetail extends StatelessWidget {
                             style: Theme.of(context).textTheme.body2,
                           ),
                           punchedDates.contains(dayString)
-                              ? Container(
-                                  width: 5.0,
-                                  height: 5.0,
-                                  decoration: ShapeDecoration(
-                                    shape: CircleBorder(),
-                                    color: Colors.white,
-                                  ),
-                                )
+                              ? PunchHole(shape: 'circle')
                               : Container(),
                         ],
                       ),
