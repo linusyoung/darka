@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class PunchHole extends StatelessWidget {
-  final String shape;
+  final int shapeIndex;
 
-  PunchHole({@required this.shape});
+  PunchHole({@required this.shapeIndex});
 
   @override
   Widget build(BuildContext context) {
     ShapeBorder _shapeBorder;
-    switch (shape) {
-      case "circle":
+    switch (shapeIndex) {
+      case 1:
         _shapeBorder = CircleBorder();
         break;
-      case "box":
+      case 0:
         _shapeBorder = ContinuousRectangleBorder();
         break;
       default:
