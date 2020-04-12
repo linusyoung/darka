@@ -93,7 +93,7 @@ class TaskItem extends StatelessWidget {
             ),
             isPunchedToday
                 ? PunchHole(
-                    shape: 'circle',
+                    shape: 'box',
                   )
                 : Container(),
           ],
@@ -150,7 +150,7 @@ class TaskItem extends StatelessWidget {
                 ),
                 isPunched
                     ? PunchHole(
-                        shape: 'circle',
+                        shape: 'box',
                       )
                     : Container(),
               ],
