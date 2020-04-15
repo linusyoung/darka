@@ -231,14 +231,20 @@ class TaskDetail extends StatelessWidget {
                             style: Theme.of(context).textTheme.body2,
                           ),
                           punchedDates.contains(dayString)
-                              ? FutureBuilder<int>(
-                                  future: UserSettingHelper.getHoleShape(),
-                                  initialData: 1,
+                              ? FutureBuilder<List<dynamic>>(
+                                  future: Future.wait([
+                                    UserSettingHelper.getHoleShape(),
+                                    UserSettingHelper.getHoleSize(),
+                                  ]),
+                                  initialData: [1, 5.0],
                                   builder: (BuildContext context,
-                                      AsyncSnapshot<int> snapshot) {
+                                      AsyncSnapshot<dynamic> snapshot) {
                                     return snapshot.hasData
-                                        ? PunchHole(shapeIndex: snapshot.data)
-                                        : PunchHole(shapeIndex: 1);
+                                        ? PunchHole(
+                                            shapeIndex: snapshot.data[0],
+                                            holeSize: snapshot.data[1],
+                                          )
+                                        : PunchHole();
                                   },
                                 )
                               : Container(),

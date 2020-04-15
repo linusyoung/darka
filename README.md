@@ -14,7 +14,7 @@ Darka is deadly simple to use.
 1. Add a task
 2. Punch it when you done
 
-You can see a summary for single task or a summary of all tasks you added.
+You can see a summary for single task or a summary of all tasks you added. Also, you can switch themes and change hole shape setting.
 
 ## Download
 [![Play Store Badge](/assets/badges/google-play-badge.png)](https://play.google.com/store/apps/details?id=club.swimmingbeaver.darka)
