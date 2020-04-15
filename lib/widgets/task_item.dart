@@ -93,14 +93,20 @@ class TaskItem extends StatelessWidget {
                   : Theme.of(context).textTheme.subtitle,
             ),
             isPunchedToday
-                ? FutureBuilder<int>(
-                    future: UserSettingHelper.getHoleShape(),
-                    initialData: 1,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<int> snapshot) {
+                ? FutureBuilder<List<dynamic>>(
+                    future: Future.wait([
+                      UserSettingHelper.getHoleShape(),
+                      UserSettingHelper.getHoleSize()
+                    ]),
+                    initialData: [1, 5.0],
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<dynamic>> snapshot) {
                       return snapshot.hasData
-                          ? PunchHole(shapeIndex: snapshot.data)
-                          : PunchHole(shapeIndex: 1);
+                          ? PunchHole(
+                              shapeIndex: snapshot.data[0],
+                              holeSize: snapshot.data[1],
+                            )
+                          : PunchHole();
                     },
                   )
                 : Container(),
@@ -157,14 +163,20 @@ class TaskItem extends StatelessWidget {
                   ),
                 ),
                 isPunched
-                    ? FutureBuilder<int>(
-                        future: UserSettingHelper.getHoleShape(),
-                        initialData: 1,
+                    ? FutureBuilder<List<dynamic>>(
+                        future: Future.wait([
+                          UserSettingHelper.getHoleShape(),
+                          UserSettingHelper.getHoleSize(),
+                        ]),
+                        initialData: [1, 5.0],
                         builder: (BuildContext context,
-                            AsyncSnapshot<int> snapshot) {
+                            AsyncSnapshot<List<dynamic>> snapshot) {
                           return snapshot.hasData
-                              ? PunchHole(shapeIndex: snapshot.data)
-                              : PunchHole(shapeIndex: 1);
+                              ? PunchHole(
+                                  shapeIndex: snapshot.data[0],
+                                  holeSize: snapshot.data[1],
+                                )
+                              : PunchHole();
                         },
                       )
                     : Container(),
