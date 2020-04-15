@@ -6,7 +6,7 @@ class PunchHole extends StatelessWidget {
   final double holeHeight;
 
   PunchHole(
-      {@required this.shapeIndex, this.holeWidth = 5.5, this.holeHeight = 5.5});
+      {@required this.shapeIndex, this.holeWidth = 5.0, this.holeHeight = 5.0});
 
   @override
   Widget build(BuildContext context) {

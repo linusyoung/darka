@@ -41,7 +41,16 @@ class _SettingPageState extends State<SettingPage> {
                     : _holeShapeSetting(1);
               },
             ),
-            _sizeSetting(),
+            FutureBuilder<double>(
+              future: UserSettingHelper.getHoleSize(),
+              initialData: 5.0,
+              builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
+                _holeSize = snapshot.hasData
+                    ? _holeSize = snapshot.data
+                    : _holeSize = 5.0;
+                return _sizeSetting();
+              },
+            ),
           ],
         ));
   }
@@ -143,10 +152,13 @@ class _SettingPageState extends State<SettingPage> {
             child: Slider(
               value: _holeSize,
               onChanged: (newValue) {
-                setState(() => _holeSize = newValue);
+                setState(() {
+                  _holeSize = newValue;
+                  UserSettingHelper.setHoleSize(newValue);
+                });
               },
               min: 4.0,
-              max: 7.0,
+              max: 10.0,
               divisions: 6,
               label: "$_holeSize",
             ),
