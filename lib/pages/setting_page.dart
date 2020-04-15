@@ -12,6 +12,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   List<bool> _isSelected = [false, false, true];
   List<bool> _holeShapeSelected = [false, true];
+  double _holeSize = 6;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +41,7 @@ class _SettingPageState extends State<SettingPage> {
                     : _holeShapeSetting(1);
               },
             ),
+            _sizeSetting(),
           ],
         ));
   }
@@ -123,5 +125,32 @@ class _SettingPageState extends State<SettingPage> {
         break;
       default:
     }
+  }
+
+  Widget _sizeSetting() {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(32.0, 8.0, 16.0, 0.0),
+            child: Text(
+              'Hole Size',
+              style: Theme.of(context).textTheme.body2,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Slider(
+              value: _holeSize,
+              onChanged: (newValue) {
+                setState(() => _holeSize = newValue);
+              },
+              min: 4.0,
+              max: 7.0,
+              divisions: 6,
+              label: "$_holeSize",
+            ),
+          ),
+        ]);
   }
 }

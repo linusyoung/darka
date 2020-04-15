@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class PunchHole extends StatelessWidget {
   final int shapeIndex;
+  final double holeWidth;
+  final double holeHeight;
 
-  PunchHole({@required this.shapeIndex});
+  PunchHole(
+      {@required this.shapeIndex, this.holeWidth = 5.5, this.holeHeight = 5.5});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +23,8 @@ class PunchHole extends StatelessWidget {
     }
     return Center(
       child: Container(
-        width: 5.5,
-        height: 5.5,
+        width: holeWidth,
+        height: holeHeight,
         decoration: ShapeDecoration(
           shape: _shapeBorder,
           color: Colors.white,
