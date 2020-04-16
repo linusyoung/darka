@@ -39,7 +39,7 @@ class UserSettingHelper {
 
   static Future<double> getHoleSize() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble(_kHoleSizePrefs);
+    return prefs.getDouble(_kHoleSizePrefs) ?? 5.0;
   }
 
   static Future<bool> setHoleSize(double value) async {
