@@ -49,7 +49,7 @@ class _DarkaAppState extends State<DarkaApp> {
         title: 'Darka',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        home: TaskPage(),
+        home: HomePage(),
         themeMode: settingState.themeMode,
       );
     });

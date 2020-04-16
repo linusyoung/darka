@@ -1,28 +1,37 @@
 import 'package:darka/locale/locales.dart';
 import 'package:darka/user_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'package:darka/model/task.dart';
+import 'package:darka/blocs/blocs.dart';
 import 'package:darka/darka_utils.dart';
+import 'package:darka/model/task.dart';
 import 'package:darka/widgets/widgets.dart';
 
-class TaskDetail extends StatelessWidget {
+class TaskDetail extends StatefulWidget {
   final Task task;
 
   TaskDetail(this.task);
 
   @override
-  Widget build(BuildContext context) {
-    String addDate = task.dateAdded;
+  _TaskDetailState createState() => _TaskDetailState();
+}
 
-    ValueNotifier<int> _lableColor = ValueNotifier<int>(task.labelColor);
+class _TaskDetailState extends State<TaskDetail> {
+  TaskBloc _taskBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    String addDate = widget.task.dateAdded;
+    _taskBloc = BlocProvider.of<TaskBloc>(context);
+    ValueNotifier<int> _lableColor = ValueNotifier<int>(widget.task.labelColor);
     var _titleEdit = TextEditingController.fromValue(TextEditingValue(
-      text: task.name,
-      selection: TextSelection.collapsed(offset: task.name.length),
+      text: widget.task.name,
+      selection: TextSelection.collapsed(offset: widget.task.name.length),
     ));
-    List<String> punchedDates = task.punchedDates ?? [];
+    List<String> punchedDates = widget.task.punchedDates ?? [];
     String totalPunched = punchedDates?.length.toString() ?? '0';
     List<String> last7days = [];
     List<String> last30days = [];
@@ -51,7 +60,7 @@ class TaskDetail extends StatelessWidget {
         .map((punched) => last365days.contains(punched))
         .toList()
           ..retainWhere((p) => p == true);
-
+    _taskBloc.add(UpdateTask(widget.task));
     return Scaffold(
       appBar: AppBar(
         title: TextField(
@@ -65,7 +74,7 @@ class TaskDetail extends StatelessWidget {
           ),
           style: Theme.of(context).textTheme.display1,
           onChanged: (text) {
-            task.name = text;
+            widget.task.name = text;
           },
         ),
         leading: IconButton(
@@ -73,7 +82,7 @@ class TaskDetail extends StatelessWidget {
             Icons.arrow_back,
             semanticLabel: 'back',
           ),
-          onPressed: () => Navigator.pop(context, task),
+          onPressed: () => Navigator.pop(context, widget.task),
         ),
       ),
       body: Container(
@@ -121,7 +130,7 @@ class TaskDetail extends StatelessWidget {
                         ValueListenableBuilder<int>(
                             valueListenable: _lableColor,
                             builder: (context, int value, _) {
-                              task.labelColor = value;
+                              widget.task.labelColor = value;
                               return Label(color: value);
                             }),
                       ],

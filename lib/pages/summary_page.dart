@@ -1,10 +1,8 @@
 import 'package:darka/blocs/blocs.dart';
 import 'package:darka/locale/locales.dart';
-import 'package:darka/model/models.dart';
+import 'package:darka/pages/pages_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'pages.dart';
 
 class Summary extends StatefulWidget {
   final BuildContext context;
@@ -16,16 +14,9 @@ class Summary extends StatefulWidget {
 }
 
 class _SummaryState extends State<Summary> {
-  TaskBloc _taskBloc;
-
-  @override
-  void initState() {
-    _taskBloc = BlocProvider.of<TaskBloc>(context);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    TaskBloc _taskBloc = BlocProvider.of<TaskBloc>(context);
     return BlocBuilder(
       bloc: _taskBloc,
       builder: (BuildContext context, TasksState state) {
@@ -69,7 +60,8 @@ ${AppLocalizations.of(context).totalPunched}: $punched""",
                                 Icons.info,
                                 semanticLabel: 'more information',
                               ),
-                              onPressed: () => _viewTaskDetail(task),
+                              onPressed: () =>
+                                  viewTaskDetail(context, task, _taskBloc),
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20.0,
@@ -95,14 +87,5 @@ ${AppLocalizations.of(context).totalPunched}: $punched""",
         return null;
       },
     );
-  }
-
-  void _viewTaskDetail(Task task) {
-    Navigator.push(
-        widget.context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => TaskDetail(task))).then((task) {
-      _taskBloc.add(UpdateTask(task));
-    });
   }
 }
