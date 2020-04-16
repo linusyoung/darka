@@ -82,5 +82,17 @@
     "description": "setting theme mode",
     "type": "text",
     "placeholders": {}
+  },
+  "holeShape", "hole shape",
+  "@holeShape": {
+    "description":  "setting hole shape",
+    "type": "text",
+    "placeholders": {}
+  },
+  "holeSize", "hole size",
+  "@holeSize": {
+    "description": "setting hole size",
+    "type": "text",
+    "placeholders": {}
   }
 }

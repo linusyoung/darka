@@ -82,5 +82,17 @@
     "description": "setting theme mode",
     "type": "text",
     "placeholders": {}
+  },
+  "holeShape", "打孔形状",
+  "@holeShape": {
+    "description":  "setting hole shape",
+    "type": "text",
+    "placeholders": {}
+  },
+  "holeSize", "打孔尺寸",
+  "@holeSize": {
+    "description": "setting hole size",
+    "type": "text",
+    "placeholders": {}
   }
 }

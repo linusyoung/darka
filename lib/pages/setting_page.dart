@@ -100,8 +100,9 @@ class _SettingPageState extends State<SettingPage> {
       padding: const EdgeInsets.all(16.0),
       child: ListTile(
         leading: Text(
-          'Hole Shape',
+          '${AppLocalizations.of(context).holeShape}',
           style: Theme.of(context).textTheme.body2,
+          semanticsLabel: '${AppLocalizations.of(context).holeShape}',
         ),
         trailing: ToggleButtons(
           children: <Widget>[
@@ -143,8 +144,9 @@ class _SettingPageState extends State<SettingPage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(32.0, 8.0, 16.0, 0.0),
             child: Text(
-              'Hole Size',
+              '${AppLocalizations.of(context).holeSize}',
               style: Theme.of(context).textTheme.body2,
+              semanticsLabel: '${AppLocalizations.of(context).holeSize}',
             ),
           ),
           Padding(
