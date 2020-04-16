@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalPunched": MessageLookupByLibrary.simpleMessage("打卡总数"),
         "totalTasks": MessageLookupByLibrary.simpleMessage("任务总数"),
         "setting": MessageLookupByLibrary.simpleMessage("设置"),
-        "theme": MessageLookupByLibrary.simpleMessage("主题模式")
+        "theme": MessageLookupByLibrary.simpleMessage("主题模式"),
+        "holeShape": MessageLookupByLibrary.simpleMessage("打孔形状"),
+        "holeSize": MessageLookupByLibrary.simpleMessage("打孔尺寸 ")
       };
 }

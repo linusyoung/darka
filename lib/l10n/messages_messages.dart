@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "totalPunched": MessageLookupByLibrary.simpleMessage("Total punched"),
         "totalTasks": MessageLookupByLibrary.simpleMessage("Total Tasks"),
         "setting": MessageLookupByLibrary.simpleMessage("Setting"),
-        "theme": MessageLookupByLibrary.simpleMessage("Theme")
+        "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "holeShape": MessageLookupByLibrary.simpleMessage("Hole Shape"),
+        "holeSize": MessageLookupByLibrary.simpleMessage("Hole Size")
       };
 }

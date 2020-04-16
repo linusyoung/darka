@@ -132,6 +132,22 @@ class AppLocalizations {
       desc: 'setting theme mode',
     );
   }
+
+  String get holeShape {
+    return Intl.message(
+      'Hole Shape',
+      name: 'holeShape',
+      desc: 'setting hole shape',
+    );
+  }
+
+  String get holeSize {
+    return Intl.message(
+      'Hole Size',
+      name: 'holeSize',
+      desc: 'setting hole size',
+    );
+  }
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
