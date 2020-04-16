@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:darka/locale/locales.dart';
-import 'package:darka/pages/pages_helper.dart';
 import 'package:darka/user_setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +14,14 @@ import 'package:darka/blocs/blocs.dart';
 import 'package:darka/darka_utils.dart';
 import 'package:provider/provider.dart';
 
-const holePunchAudioPath = 'sound/hole_punch.mp3';
+// const holePunchAudioPath = 'sound/hole_punch.mp3';
 
-class TaskPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _TaskPageState createState() => _TaskPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   static AudioCache player = AudioCache();
   final TabBloc _tabBloc = TabBloc();
   TaskBloc _taskBloc;
@@ -80,7 +79,7 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
                 ],
               ),
               body: activeTab == AppTab.tasks
-                  ? taskPage(context)
+                  ? TaskPage(context)
                   : Summary(context),
               floatingActionButtonLocation: activeTab == AppTab.tasks
                   ? FloatingActionButtonLocation.centerDocked
@@ -102,59 +101,59 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
         });
   }
 
-  Widget taskPage(BuildContext context) {
-    var snackBar = SnackBar(
-      content: Text(
-        'Task is removed.',
-        semanticsLabel: 'Task is removed.',
-      ),
-    );
+  // Widget taskPage(BuildContext context) {
+  //   var snackBar = SnackBar(
+  //     content: Text(
+  //       'Task is removed.',
+  //       semanticsLabel: 'Task is removed.',
+  //     ),
+  //   );
 
-    return BlocBuilder(
-      bloc: _taskBloc,
-      builder: (
-        BuildContext context,
-        TasksState state,
-      ) {
-        if (state is TasksLoading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is TasksLoaded) {
-          final tasks = state.tasks;
-          return Center(
-            child: tasks.length > 0
-                ? ListView.builder(
-                    itemCount: tasks.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Task task = tasks[index];
-                      return TaskItem(
-                        task: task,
-                        viewDetail: () =>
-                            viewTaskDetail(context, task, _taskBloc),
-                        punchToday: () => _punchTask(task),
-                        onDismissed: (direction) {
-                          _taskBloc.add(DeleteTask(task));
-                          Scaffold.of(context).showSnackBar(snackBar);
-                        },
-                      );
-                    },
-                  )
-                : Text(
-                    'Add your first task',
-                    style: Theme.of(context).textTheme.display1,
-                  ),
-          );
-        } else if (state is TasksNotLoaded) {
-          return Text(
-            'not loaded',
-            semanticsLabel: 'data is not loaded.',
-          );
-        }
-        return null;
-      },
-    );
-  }
+  //   return BlocBuilder(
+  //     bloc: _taskBloc,
+  //     builder: (
+  //       BuildContext context,
+  //       TasksState state,
+  //     ) {
+  //       if (state is TasksLoading) {
+  //         return Center(
+  //           child: CircularProgressIndicator(),
+  //         );
+  //       } else if (state is TasksLoaded) {
+  //         final tasks = state.tasks;
+  //         return Center(
+  //           child: tasks.length > 0
+  //               ? ListView.builder(
+  //                   itemCount: tasks.length,
+  //                   itemBuilder: (BuildContext context, int index) {
+  //                     Task task = tasks[index];
+  //                     return TaskItem(
+  //                       task: task,
+  //                       viewDetail: () =>
+  //                           viewTaskDetail(context, task, _taskBloc),
+  //                       punchToday: () => _punchTask(task),
+  //                       onDismissed: (direction) {
+  //                         _taskBloc.add(DeleteTask(task));
+  //                         Scaffold.of(context).showSnackBar(snackBar);
+  //                       },
+  //                     );
+  //                   },
+  //                 )
+  //               : Text(
+  //                   'Add your first task',
+  //                   style: Theme.of(context).textTheme.display1,
+  //                 ),
+  //         );
+  //       } else if (state is TasksNotLoaded) {
+  //         return Text(
+  //           'not loaded',
+  //           semanticsLabel: 'data is not loaded.',
+  //         );
+  //       }
+  //       return null;
+  //     },
+  //   );
+  // }
 
   void _addNewTask() {
     _showTaskInput(context).then((String value) {
@@ -168,15 +167,6 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
         _taskBloc.add(AddTask(task));
       }
     });
-  }
-
-  void _punchTask(Task task) {
-    if (!task.punchedToday) {
-      _taskBloc
-          .add(UpdateTask(task.copyWith(punchedToday: !task.punchedToday)));
-      player.play(holePunchAudioPath);
-      _taskBloc.add(LoadTasks());
-    }
   }
 
   void _viewSetting() {
