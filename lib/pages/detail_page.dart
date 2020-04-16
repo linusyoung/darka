@@ -1,22 +1,25 @@
 import 'package:darka/locale/locales.dart';
 import 'package:darka/user_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'package:darka/model/task.dart';
+import 'package:darka/blocs/blocs.dart';
 import 'package:darka/darka_utils.dart';
+import 'package:darka/model/task.dart';
 import 'package:darka/widgets/widgets.dart';
 
 class TaskDetail extends StatelessWidget {
   final Task task;
+  TaskBloc _taskBloc;
 
   TaskDetail(this.task);
 
   @override
   Widget build(BuildContext context) {
     String addDate = task.dateAdded;
-
+    _taskBloc = BlocProvider.of<TaskBloc>(context);
     ValueNotifier<int> _lableColor = ValueNotifier<int>(task.labelColor);
     var _titleEdit = TextEditingController.fromValue(TextEditingValue(
       text: task.name,
@@ -51,7 +54,7 @@ class TaskDetail extends StatelessWidget {
         .map((punched) => last365days.contains(punched))
         .toList()
           ..retainWhere((p) => p == true);
-
+    _taskBloc.add(UpdateTask(task));
     return Scaffold(
       appBar: AppBar(
         title: TextField(

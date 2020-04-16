@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:darka/locale/locales.dart';
+import 'package:darka/pages/pages_helper.dart';
 import 'package:darka/user_setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +130,8 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
                       Task task = tasks[index];
                       return TaskItem(
                         task: task,
-                        viewDetail: () => _viewTaskDetail(task),
+                        viewDetail: () =>
+                            viewTaskDetail(context, task, _taskBloc),
                         punchToday: () => _punchTask(task),
                         onDismissed: (direction) {
                           _taskBloc.add(DeleteTask(task));
@@ -175,16 +177,6 @@ class _TaskPageState extends State<TaskPage> with WidgetsBindingObserver {
       player.play(holePunchAudioPath);
       _taskBloc.add(LoadTasks());
     }
-  }
-
-  // TODO: change view task detail to global
-  void _viewTaskDetail(Task task) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => TaskDetail(task))).then((task) {
-      _taskBloc.add(UpdateTask(task));
-    });
   }
 
   void _viewSetting() {
