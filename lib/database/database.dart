@@ -83,7 +83,7 @@ class DarkaDatabase {
           punchValue['uuid'] = DarkaUtils().generateV4();
           punchValue['task_id'] = task.uuid;
           punchValue['date'] = DarkaUtils().dateFormat(DateTime.now());
-          int res = await dbClient.insert("PUNCH_LIST", punchValue);
+          await dbClient.insert("PUNCH_LIST", punchValue);
           // print(res);
         }
       }
