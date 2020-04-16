@@ -43,7 +43,7 @@ class _SummaryState extends State<Summary> {
                         itemBuilder: (BuildContext context, int index) {
                           var task = tasks[index];
                           var punched = task.punchedDates?.length ?? 0;
-                          return ListTile(
+                          Widget taskItem = ListTile(
                             title: Text(
                               task.name,
                               overflow: TextOverflow.ellipsis,
@@ -55,17 +55,20 @@ ${AppLocalizations.of(context).totalPunched}: $punched""",
                               semanticsLabel:
                                   '${AppLocalizations.of(context).dateAdded} ${task.dateAdded}, ${AppLocalizations.of(context).totalPunched} $punched',
                             ),
-                            trailing: IconButton(
-                              icon: Icon(
-                                Icons.info,
-                                semanticLabel: 'more information',
-                              ),
-                              onPressed: () =>
-                                  viewTaskDetail(context, task, _taskBloc),
+                            trailing: Icon(
+                              Icons.info,
+                              color: Theme.of(context).primaryColor,
+                              semanticLabel: 'more information',
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 20.0,
                             ),
+                          );
+
+                          return GestureDetector(
+                            child: taskItem,
+                            onTap: () =>
+                                viewTaskDetail(context, task, _taskBloc),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {

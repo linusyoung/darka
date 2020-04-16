@@ -28,7 +28,7 @@ class DarkaDatabase {
   initDb() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, "main.db");
-    print(path);
+    // print(path);
     var theDb = await openDatabase(
       path,
       version: 2,
@@ -70,7 +70,7 @@ class DarkaDatabase {
 
   Future<void> updateTask(Task task) async {
     var dbClient = await db;
-    print(task.runtimeType != null);
+    // print(task.runtimeType != null);
     if (task.runtimeType != null) {
       await dbClient.update("TASK_LIST", task.toMap(),
           where: "uuid = ?", whereArgs: [task.uuid]);
@@ -83,8 +83,8 @@ class DarkaDatabase {
           punchValue['uuid'] = DarkaUtils().generateV4();
           punchValue['task_id'] = task.uuid;
           punchValue['date'] = DarkaUtils().dateFormat(DateTime.now());
-          int res = await dbClient.insert("PUNCH_LIST", punchValue);
-          print(res);
+          await dbClient.insert("PUNCH_LIST", punchValue);
+          // print(res);
         }
       }
     }
