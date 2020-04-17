@@ -85,3 +85,4 @@ ios/Runner.xcodeproj/project.pbxproj
 android/gradle.properties
 .flutter-plugins-dependencies
 screenshots
+android/app/google-services.json
