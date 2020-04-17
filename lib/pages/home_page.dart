@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:darka/locale/locales.dart';
 import 'package:darka/user_setting.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -14,7 +15,24 @@ import 'package:darka/blocs/blocs.dart';
 import 'package:darka/darka_utils.dart';
 import 'package:provider/provider.dart';
 
-// const holePunchAudioPath = 'sound/hole_punch.mp3';
+MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+  keywords: <String>['flutterio', 'beautiful apps'],
+  contentUrl: 'https://flutter.io',
+  childDirected: false,
+  testDevices: <String>[], // Android emulators are considered test devices
+);
+
+BannerAd myBanner = BannerAd(
+  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
+  // https://developers.google.com/admob/android/test-ads
+  // https://developers.google.com/admob/ios/test-ads
+  adUnitId: BannerAd.testAdUnitId,
+  size: AdSize.smartBanner,
+  targetingInfo: targetingInfo,
+  listener: (MobileAdEvent event) {
+    print("BannerAd event is $event");
+  },
+);
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,6 +46,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-3940256099942544~3347511713");
+
     _taskBloc = BlocProvider.of<TaskBloc>(context);
     _taskBloc.add(LoadTasks());
     UserSettingHelper.getThemeMode().then((int value) {
@@ -35,6 +56,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       Provider.of<SettingStateNotifier>(context, listen: false)
           .updateTheme(_index);
     });
+    myBanner
+      ..load()
+      ..show(
+        anchorOffset: 60.0,
+        horizontalCenterOffset: 10.0,
+        anchorType: AnchorType.bottom,
+      );
     super.initState();
     WidgetsBinding.instance.addObserver(this);
   }
