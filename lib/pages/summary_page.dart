@@ -1,3 +1,5 @@
+import 'package:admob_flutter/admob_flutter.dart';
+import 'package:darka/admob_utils.dart';
 import 'package:darka/blocs/blocs.dart';
 import 'package:darka/locale/locales.dart';
 import 'package:darka/pages/pages_helper.dart';
@@ -21,12 +23,24 @@ class _SummaryState extends State<Summary> {
       bloc: _taskBloc,
       builder: (BuildContext context, TasksState state) {
         if (state is TasksLoading) {
-          return Container();
+          return CircularProgressIndicator();
         } else if (state is TasksLoaded) {
           final tasks = state.tasks;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(bottom: 0.0),
+                    child: AdmobBanner(
+                      adUnitId: BannerAdUnitId,
+                      adSize: AdmobBannerSize.BANNER,
+                    ),
+                  ),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
@@ -50,7 +64,7 @@ class _SummaryState extends State<Summary> {
                               semanticsLabel: task.name,
                             ),
                             subtitle: Text(
-                              """${AppLocalizations.of(context).dateAdded}: ${task.dateAdded} 
+                              """${AppLocalizations.of(context).dateAdded}: ${task.dateAdded}
 ${AppLocalizations.of(context).totalPunched}: $punched""",
                               semanticsLabel:
                                   '${AppLocalizations.of(context).dateAdded} ${task.dateAdded}, ${AppLocalizations.of(context).totalPunched} $punched',

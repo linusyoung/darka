@@ -1,3 +1,5 @@
+import 'package:admob_flutter/admob_flutter.dart';
+import 'package:darka/admob_utils.dart';
 import 'package:darka/darka_utils.dart';
 import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,6 @@ void main() {
                 create: (BuildContext context) => TaskBloc(darkaDb: db),
                 child: DarkaApp()),
           )));
-  // runApp(DarkaApp());
 }
 
 class DarkaApp extends StatefulWidget {
@@ -31,6 +32,17 @@ class DarkaApp extends StatefulWidget {
 }
 
 class _DarkaAppState extends State<DarkaApp> {
+  @override
+  void initState() {
+    Admob.initialize(AdmobAppId);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SettingStateNotifier>(
@@ -50,6 +62,9 @@ class _DarkaAppState extends State<DarkaApp> {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         home: HomePage(),
+        builder: (BuildContext context, Widget child) {
+          return child;
+        },
         themeMode: settingState.themeMode,
       );
     });

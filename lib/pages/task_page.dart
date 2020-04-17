@@ -69,12 +69,4 @@ class _TaskPageState extends State<TaskPage> {
       },
     );
   }
-
-  // void _punchTask(Task task, TaskBloc taskBloc) {
-  //   if (!task.punchedToday) {
-  //     taskBloc.add(UpdateTask(task.copyWith(punchedToday: !task.punchedToday)));
-  //     TaskPage.player.play(holePunchAudioPath);
-  //     taskBloc.add(LoadTasks());
-  //   }
-  // }
 }
