@@ -3,6 +3,7 @@ import 'package:darka/darka_utils.dart';
 import 'package:darka/user_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:package_info/package_info.dart';
 
 class SettingPage extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _SettingPageState extends State<SettingPage> {
   List<bool> _isSelected = [false, false, true];
   List<bool> _holeShapeSelected = [false, true];
   double _holeSize = 6;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +53,15 @@ class _SettingPageState extends State<SettingPage> {
                 return _sizeSetting();
               },
             ),
+            FutureBuilder<PackageInfo>(
+              future: PackageInfo.fromPlatform(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                return snapshot.hasData
+                    ? _version(snapshot.data.version)
+                    : Container();
+              },
+            ),
           ],
         ));
   }
@@ -58,7 +69,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget _themeSetting(int userThemeIndex) {
     _setTheme((userThemeIndex + 2) % 3);
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: ListTile(
         leading: Text(
           '${AppLocalizations.of(context).theme}',
@@ -97,7 +108,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget _holeShapeSetting(int userHoleShapeSetting) {
     _setShape(userHoleShapeSetting);
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: ListTile(
         leading: Text(
           '${AppLocalizations.of(context).holeShape}',
@@ -142,7 +153,7 @@ class _SettingPageState extends State<SettingPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(32.0, 8.0, 16.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(24.0, 8.0, 16.0, 0.0),
             child: Text(
               '${AppLocalizations.of(context).holeSize}',
               style: Theme.of(context).textTheme.body2,
@@ -166,5 +177,18 @@ class _SettingPageState extends State<SettingPage> {
             ),
           ),
         ]);
+  }
+
+  Widget _version(String version) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Text(
+          'Version',
+          style: Theme.of(context).textTheme.body2,
+        ),
+        trailing: Text(version),
+      ),
+    );
   }
 }
