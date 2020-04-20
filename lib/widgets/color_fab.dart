@@ -104,7 +104,6 @@ class _ColorFabState extends State<ColorFab>
 
   @override
   Widget build(BuildContext context) {
-    print(_translateButton.value);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
