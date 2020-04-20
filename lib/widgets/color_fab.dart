@@ -15,11 +15,10 @@ class _ColorFabState extends State<ColorFab>
     with SingleTickerProviderStateMixin {
   bool isOpened = false;
   AnimationController _animationController;
-  // Animation<Color> _buttonColor;
   Animation<double> _animateIcon;
   Animation<double> _translateButton;
   Curve _curve = Curves.easeOut;
-  double _fabHeight = 56.0;
+  double _fabWidth = 56.0;
 
   // final Color _beginColor;
 
@@ -36,7 +35,7 @@ class _ColorFabState extends State<ColorFab>
         Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
 
     _translateButton = Tween<double>(
-      begin: _fabHeight,
+      begin: _fabWidth,
       end: -14.0,
     ).animate(CurvedAnimation(
       parent: _animationController,
@@ -83,32 +82,29 @@ class _ColorFabState extends State<ColorFab>
   }
 
   Widget colorPicker(Color color, Object heroTag) {
-    return Container(
-      child: FloatingActionButton(
-        heroTag: heroTag,
-        onPressed: () => animate(color),
-        backgroundColor: color,
-      ),
+    return FloatingActionButton(
+      heroTag: heroTag,
+      onPressed: () => animate(color),
+      backgroundColor: color,
     );
   }
 
   Widget toggle() {
-    return Container(
-      child: FloatingActionButton(
-        heroTag: 'edit_color',
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () => animate(Colors.black),
-        tooltip: 'Toggle',
-        child: AnimatedIcon(
-          icon: AnimatedIcons.menu_close,
-          progress: _animateIcon,
-        ),
+    return FloatingActionButton(
+      heroTag: 'edit_color',
+      backgroundColor: Theme.of(context).primaryColor,
+      onPressed: () => animate(Colors.black),
+      tooltip: 'Toggle',
+      child: AnimatedIcon(
+        icon: AnimatedIcons.menu_close,
+        progress: _animateIcon,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    print(_translateButton.value);
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
