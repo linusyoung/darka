@@ -1,18 +1,16 @@
 import 'dart:async';
 
-// import 'package:admob_flutter/admob_flutter.dart';
 import 'package:darka/locale/locales.dart';
 import 'package:darka/user_setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
-
 import 'package:darka/model/models.dart';
 import 'package:darka/animations/custom_fab_animation.dart';
 import 'package:darka/pages/pages.dart';
 import 'package:darka/widgets/widgets.dart';
 import 'package:darka/blocs/blocs.dart';
-import 'package:darka/darka_utils.dart';
+import 'package:darka/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,7 +29,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     _taskBloc.add(LoadTasks());
     UserSettingHelper.getThemeMode().then((int value) {
       int _index = (value + 2) % 3;
-      Provider.of<SettingStateNotifier>(context, listen: false)
+      Provider.of<ThemeStateNotifier>(context, listen: false)
           .updateTheme(_index);
     });
     super.initState();
@@ -87,7 +85,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   ? FloatingActionButton(
                       heroTag: 'add_task',
                       child: Icon(Icons.add),
-                      onPressed: _addNewTask)
+                      onPressed: () => _addNewTask())
                   : null,
               floatingActionButtonAnimator:
                   activeTab == AppTab.tasks ? CustomFabAnimation() : null,
@@ -114,6 +112,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
+  // TODO: change to push route by name
   void _viewSetting() {
     Navigator.push(
       context,
@@ -149,13 +148,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           },
         ),
         RaisedButton(
-            child: Text(
-              '${AppLocalizations.of(context).buttonConfirm}',
-              semanticsLabel: '${AppLocalizations.of(context).buttonConfirm}',
-            ),
-            onPressed: () {
-              Navigator.of(context).pop(taskName);
-            }),
+          child: Text(
+            '${AppLocalizations.of(context).buttonConfirm}',
+            semanticsLabel: '${AppLocalizations.of(context).buttonConfirm}',
+          ),
+          onPressed: () => Navigator.of(context).pop(taskName),
+        ),
       ],
     );
     return showDialog<String>(

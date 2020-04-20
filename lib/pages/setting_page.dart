@@ -1,9 +1,11 @@
 import 'package:darka/locale/locales.dart';
-import 'package:darka/darka_utils.dart';
 import 'package:darka/user_setting.dart';
+import 'package:darka/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:package_info/package_info.dart';
+
+enum HoleShape { box, circle }
 
 class SettingPage extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   List<bool> _isSelected = [false, false, true];
   List<bool> _holeShapeSelected = [false, true];
-  double _holeSize = 6;
+  double _holeSize = 5.0;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class _SettingPageState extends State<SettingPage> {
               builder:
                   (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
                 return snapshot.hasData
-                    ? _version(snapshot.data.version)
+                    ? _versionInfo(snapshot.data.version)
                     : Container();
               },
             ),
@@ -85,7 +87,7 @@ class _SettingPageState extends State<SettingPage> {
           onPressed: (int index) {
             setState(() {
               _setTheme(index);
-              Provider.of<SettingStateNotifier>(context, listen: false)
+              Provider.of<ThemeStateNotifier>(context, listen: false)
                   .updateTheme(index);
             });
           },
@@ -137,14 +139,11 @@ class _SettingPageState extends State<SettingPage> {
   void _setShape(int index) {
     _holeShapeSelected[index] = true;
     _holeShapeSelected[1 - index] = false;
-    switch (index) {
-      case 0:
-        UserSettingHelper.setHoleShape('box');
-        break;
-      case 1:
-        UserSettingHelper.setHoleShape('circle');
-        break;
-      default:
+    if (index == HoleShape.box.index) {
+      UserSettingHelper.setHoleShape('box');
+    }
+    if (index == HoleShape.circle.index) {
+      UserSettingHelper.setHoleShape('circle');
     }
   }
 
@@ -179,7 +178,7 @@ class _SettingPageState extends State<SettingPage> {
         ]);
   }
 
-  Widget _version(String version) {
+  Widget _versionInfo(String version) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(

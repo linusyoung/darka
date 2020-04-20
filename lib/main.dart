@@ -1,6 +1,5 @@
 import 'package:admob_flutter/admob_flutter.dart';
-import 'package:darka/admob_utils.dart';
-import 'package:darka/darka_utils.dart';
+import 'package:darka/utils/utils.dart';
 import 'package:darka/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,8 +17,8 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) => runApp(ChangeNotifierProvider<SettingStateNotifier>(
-            create: (context) => SettingStateNotifier(),
+      .then((_) => runApp(ChangeNotifierProvider<ThemeStateNotifier>(
+            create: (context) => ThemeStateNotifier(),
             child: BlocProvider<TaskBloc>(
                 create: (BuildContext context) => TaskBloc(darkaDb: db),
                 child: DarkaApp()),
@@ -45,7 +44,7 @@ class _DarkaAppState extends State<DarkaApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SettingStateNotifier>(
+    return Consumer<ThemeStateNotifier>(
         builder: (context, settingState, child) {
       return MaterialApp(
         localizationsDelegates: [

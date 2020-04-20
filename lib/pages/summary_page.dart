@@ -1,5 +1,5 @@
 import 'package:admob_flutter/admob_flutter.dart';
-import 'package:darka/admob_utils.dart';
+import 'package:darka/utils/utils.dart';
 import 'package:darka/blocs/blocs.dart';
 import 'package:darka/locale/locales.dart';
 import 'package:darka/pages/pages_helper.dart';
@@ -100,8 +100,9 @@ ${AppLocalizations.of(context).totalPunched}: $punched""",
             'not loaded',
             semanticsLabel: 'data is not loaded.',
           );
+        } else {
+          return Container();
         }
-        return null;
       },
     );
   }
