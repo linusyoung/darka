@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   ? FloatingActionButton(
                       heroTag: 'add_task',
                       child: Icon(Icons.add),
-                      onPressed: _addNewTask)
+                      onPressed: () => _addNewTask())
                   : null,
               floatingActionButtonAnimator:
                   activeTab == AppTab.tasks ? CustomFabAnimation() : null,
@@ -114,6 +114,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     });
   }
 
+  // TODO: change to push route by name
   void _viewSetting() {
     Navigator.push(
       context,
@@ -149,13 +150,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           },
         ),
         RaisedButton(
-            child: Text(
-              '${AppLocalizations.of(context).buttonConfirm}',
-              semanticsLabel: '${AppLocalizations.of(context).buttonConfirm}',
-            ),
-            onPressed: () {
-              Navigator.of(context).pop(taskName);
-            }),
+          child: Text(
+            '${AppLocalizations.of(context).buttonConfirm}',
+            semanticsLabel: '${AppLocalizations.of(context).buttonConfirm}',
+          ),
+          onPressed: () => Navigator.of(context).pop(taskName),
+        ),
       ],
     );
     return showDialog<String>(
