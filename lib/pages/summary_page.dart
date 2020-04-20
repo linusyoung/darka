@@ -100,8 +100,9 @@ ${AppLocalizations.of(context).totalPunched}: $punched""",
             'not loaded',
             semanticsLabel: 'data is not loaded.',
           );
+        } else {
+          return Container();
         }
-        return null;
       },
     );
   }
