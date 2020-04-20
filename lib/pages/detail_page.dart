@@ -6,7 +6,7 @@ import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'package:darka/blocs/blocs.dart';
-import 'package:darka/darka_utils.dart';
+import 'package:darka/utils/utils.dart';
 import 'package:darka/model/task.dart';
 import 'package:darka/widgets/widgets.dart';
 

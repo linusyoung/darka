@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:darka/darka_utils.dart';
+import 'package:darka/utils/utils.dart';
 
 void main() {
   test('date string format to yyyy.mm.dd', () {

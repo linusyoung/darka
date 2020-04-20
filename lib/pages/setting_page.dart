@@ -1,6 +1,6 @@
 import 'package:darka/locale/locales.dart';
-import 'package:darka/darka_utils.dart';
 import 'package:darka/user_setting.dart';
+import 'package:darka/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:package_info/package_info.dart';
@@ -87,7 +87,7 @@ class _SettingPageState extends State<SettingPage> {
           onPressed: (int index) {
             setState(() {
               _setTheme(index);
-              Provider.of<SettingStateNotifier>(context, listen: false)
+              Provider.of<ThemeStateNotifier>(context, listen: false)
                   .updateTheme(index);
             });
           },
