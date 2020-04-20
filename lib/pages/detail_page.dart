@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import 'package:darka/blocs/blocs.dart';
 import 'package:darka/utils/utils.dart';
 import 'package:darka/model/task.dart';
@@ -27,12 +26,15 @@ class _TaskDetailState extends State<TaskDetail> {
     String addDate = widget.task.dateAdded;
     _taskBloc = BlocProvider.of<TaskBloc>(context);
     ValueNotifier<int> _lableColor = ValueNotifier<int>(widget.task.labelColor);
-    var _titleEdit = TextEditingController.fromValue(TextEditingValue(
-      text: widget.task.name,
-      selection: TextSelection.collapsed(offset: widget.task.name.length),
-    ));
+    TextEditingController _titleEdit = TextEditingController.fromValue(
+      TextEditingValue(
+        text: widget.task.name,
+        selection: TextSelection.collapsed(offset: widget.task.name.length),
+      ),
+    );
     List<String> punchedDates = widget.task.punchedDates ?? [];
-    String totalPunched = punchedDates?.length.toString() ?? '0';
+    String totalPunched = punchedDates.length.toString();
+    // TODO: extract lastXdays to a summary widget
     List<String> last7days = [];
     List<String> last30days = [];
     List<String> last365days = [];
@@ -61,6 +63,53 @@ class _TaskDetailState extends State<TaskDetail> {
         .toList()
           ..retainWhere((p) => p == true);
     _taskBloc.add(UpdateTask(widget.task));
+    Calendar _calendar = Calendar(
+      isExpandable: true,
+      dayBuilder: (BuildContext context, DateTime day) {
+        String dayString = DarkaUtils().dateFormat(day);
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: ShapeDecoration(
+              shape: CircleBorder(),
+              color: Theme.of(context).disabledColor,
+            ),
+            child: Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Text(
+                    day.day.toString(),
+                    style: Theme.of(context).textTheme.body2,
+                  ),
+                  punchedDates.contains(dayString)
+                      ? FutureBuilder<List<dynamic>>(
+                          future: Future.wait([
+                            UserSettingHelper.getHoleShape(),
+                            UserSettingHelper.getHoleSize(),
+                          ]),
+                          initialData: [1, 5.0],
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            return snapshot.hasData
+                                ? PunchHole(
+                                    shapeIndex: snapshot.data[0],
+                                    holeSize: snapshot.data[1],
+                                  )
+                                : PunchHole();
+                          },
+                        )
+                      : Container(),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+      showCalendarPickerIcon: false,
+      showTodayAction: false,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: TextField(
@@ -82,7 +131,7 @@ class _TaskDetailState extends State<TaskDetail> {
             Icons.arrow_back,
             semanticLabel: 'back',
           ),
-          onPressed: () => Navigator.pop(context, widget.task),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Container(
@@ -141,6 +190,7 @@ class _TaskDetailState extends State<TaskDetail> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
+                        // TODO: update below to list with map function
                         Text(
                           '    7 ${AppLocalizations.of(context).days}',
                           semanticsLabel:
@@ -219,53 +269,7 @@ class _TaskDetailState extends State<TaskDetail> {
                 ],
               ),
             ),
-            Calendar(
-              showChevronsToChangeRange: true,
-              isExpandable: true,
-              dayBuilder: (BuildContext context, DateTime day) {
-                String dayString = DarkaUtils().dateFormat(day);
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: ShapeDecoration(
-                      shape: CircleBorder(),
-                      color: Theme.of(context).disabledColor,
-                    ),
-                    child: Center(
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: <Widget>[
-                          Text(
-                            day.day.toString(),
-                            style: Theme.of(context).textTheme.body2,
-                          ),
-                          punchedDates.contains(dayString)
-                              ? FutureBuilder<List<dynamic>>(
-                                  future: Future.wait([
-                                    UserSettingHelper.getHoleShape(),
-                                    UserSettingHelper.getHoleSize(),
-                                  ]),
-                                  initialData: [1, 5.0],
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<dynamic> snapshot) {
-                                    return snapshot.hasData
-                                        ? PunchHole(
-                                            shapeIndex: snapshot.data[0],
-                                            holeSize: snapshot.data[1],
-                                          )
-                                        : PunchHole();
-                                  },
-                                )
-                              : Container(),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-              showCalendarPickerIcon: false,
-              showTodayAction: false,
-            )
+            _calendar,
           ],
         ),
       ),
