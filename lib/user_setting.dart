@@ -5,6 +5,7 @@ class UserSettingHelper {
   static final String _kThemePrefs = "themeMode";
   static final String _kHoleShapePrefs = "holeShape";
   static final String _kHoleSizePrefs = "holeSize";
+  static final String _kLeftHandModePrefs = "leftHandMode";
 
   static Future<int> getThemeMode() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -45,5 +46,15 @@ class UserSettingHelper {
   static Future<bool> setHoleSize(double value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setDouble(_kHoleSizePrefs, value);
+  }
+
+  static Future<bool> getLeftHandMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_kLeftHandModePrefs) ?? false;
+  }
+
+  static Future<bool> setLeftHandMode(bool value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(_kLeftHandModePrefs, value);
   }
 }
