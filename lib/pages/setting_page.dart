@@ -16,6 +16,7 @@ class _SettingPageState extends State<SettingPage> {
   List<bool> _isSelected = [false, false, true];
   List<bool> _holeShapeSelected = [false, true];
   double _holeSize = 5.0;
+  bool _leftHand = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,14 @@ class _SettingPageState extends State<SettingPage> {
                     ? _holeSize = snapshot.data
                     : _holeSize = 5.0;
                 return _sizeSetting();
+              },
+            ),
+            FutureBuilder<bool>(
+              future: UserSettingHelper.getLeftHandMode(),
+              initialData: false,
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                _leftHand = snapshot.hasData ? snapshot.data : false;
+                return _leftHandMode();
               },
             ),
             FutureBuilder<PackageInfo>(
@@ -176,6 +185,26 @@ class _SettingPageState extends State<SettingPage> {
             ),
           ),
         ]);
+  }
+
+  Widget _leftHandMode() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        title: Text(
+          'Left Hand Mode',
+          style: Theme.of(context).textTheme.body2,
+        ),
+        trailing: Switch(
+            value: _leftHand,
+            onChanged: (newValue) {
+              setState(() {
+                _leftHand = newValue;
+                UserSettingHelper.setLeftHandMode(newValue);
+              });
+            }),
+      ),
+    );
   }
 
   Widget _versionInfo(String version) {

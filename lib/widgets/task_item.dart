@@ -8,12 +8,14 @@ class TaskItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
   final Function punchToday;
   final Task task;
+  final bool leftHandMode;
 
   TaskItem({
     @required this.task,
     @required this.viewDetail,
     @required this.punchToday,
     @required this.onDismissed,
+    this.leftHandMode = false,
   });
 
   @override
@@ -140,7 +142,9 @@ class TaskItem extends StatelessWidget {
       ),
       onTap: viewDetail,
     );
-
+    if (leftHandMode) {
+      cal.add(punchDay);
+    }
     for (var i = 0; i < daysToShow; i++) {
       int showDay = calendarDays['startDay'] + i;
       showDay = showDay > calendarDays['lastDayOfLastMonth']
@@ -191,10 +195,15 @@ class TaskItem extends StatelessWidget {
           height: 32.0,
         ),
       );
-      cal.add(historyDay);
+      if (leftHandMode) {
+        cal.insert(1, historyDay);
+      } else {
+        cal.add(historyDay);
+      }
     }
-
-    cal.add(punchDay);
+    if (!leftHandMode) {
+      cal.add(punchDay);
+    }
     cal.add(viewDetailButton);
     return cal;
   }
