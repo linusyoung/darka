@@ -126,7 +126,12 @@ class TaskItem extends StatelessWidget {
       height: 50.0,
       child: Padding(
         padding: const EdgeInsets.only(left: 1.0),
-        child: punchButton,
+        child: isPunchedToday
+            ? GestureDetector(
+                child: punchButton,
+                onTap: viewDetail,
+              )
+            : punchButton,
       ),
     );
     var viewDetailButton = GestureDetector(
