@@ -53,9 +53,11 @@ class _SummaryState extends State<Summary> {
                     margin: EdgeInsets.only(bottom: 0.0),
                     child: isAdLoaded
                         ? bannerAd
-                        : Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Ad failed to load.'),
+                        : Container(
+                            height: 50.0,
+                            width: 320.0,
+                            alignment: Alignment(0.0, 0.0),
+                            child: Text('Google Ads failed to load.'),
                           ),
                   ),
                 ],
