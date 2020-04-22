@@ -16,9 +16,25 @@ class Summary extends StatefulWidget {
 }
 
 class _SummaryState extends State<Summary> {
+  bool isAdLoaded = true;
   @override
   Widget build(BuildContext context) {
     TaskBloc _taskBloc = BlocProvider.of<TaskBloc>(context);
+    Widget bannerAd = AdmobBanner(
+      adUnitId: BannerAdUnitId,
+      adSize: AdmobBannerSize.BANNER,
+      listener: (AdmobAdEvent event, _) {
+        switch (event) {
+          case AdmobAdEvent.failedToLoad:
+            setState(() {
+              isAdLoaded = false;
+            });
+            break;
+          default:
+        }
+      },
+    );
+
     return BlocBuilder(
       bloc: _taskBloc,
       builder: (BuildContext context, TasksState state) {
@@ -31,13 +47,16 @@ class _SummaryState extends State<Summary> {
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(bottom: 0.0),
-                    child: AdmobBanner(
-                      adUnitId: BannerAdUnitId,
-                      adSize: AdmobBannerSize.BANNER,
-                    ),
+                    child: isAdLoaded
+                        ? bannerAd
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Ad failed to load.'),
+                          ),
                   ),
                 ],
               ),
