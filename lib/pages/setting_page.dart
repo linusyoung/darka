@@ -80,7 +80,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget _themeSetting(int userThemeIndex) {
     _setTheme((userThemeIndex + 2) % 3);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 8.0),
       child: ListTile(
         leading: Text(
           '${AppLocalizations.of(context).theme}',

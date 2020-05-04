@@ -16,6 +16,7 @@ void main() {
   final db = DarkaDatabase();
   BlocSupervisor.delegate = SimpleBlocDelegate();
   WidgetsFlutterBinding.ensureInitialized();
+  Admob.initialize(AdmobAppId);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) => runApp(ChangeNotifierProvider<ThemeStateNotifier>(
             create: (context) => ThemeStateNotifier(),
@@ -33,7 +34,6 @@ class DarkaApp extends StatefulWidget {
 class _DarkaAppState extends State<DarkaApp> {
   @override
   void initState() {
-    Admob.initialize(AdmobAppId);
     super.initState();
   }
 
