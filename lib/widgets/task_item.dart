@@ -37,7 +37,7 @@ class TaskItem extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(10.0, 0, 8.0, 0),
                 child: Text(
                   task.name,
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.headline6,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -92,7 +92,7 @@ class TaskItem extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 18.0,
                     )
-                  : Theme.of(context).textTheme.subtitle,
+                  : Theme.of(context).textTheme.subtitle2,
             ),
             isPunchedToday
                 ? FutureBuilder<List<dynamic>>(

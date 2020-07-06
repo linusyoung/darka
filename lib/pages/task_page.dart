@@ -63,7 +63,7 @@ class _TaskPageState extends State<TaskPage> {
                       )
                     : Text(
                         'Add your first task',
-                        style: Theme.of(context).textTheme.display1,
+                        style: Theme.of(context).textTheme.headline4,
                       ),
               );
             },

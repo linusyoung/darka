@@ -84,7 +84,7 @@ class _SettingPageState extends State<SettingPage> {
       child: ListTile(
         leading: Text(
           '${AppLocalizations.of(context).theme}',
-          style: Theme.of(context).textTheme.body2,
+          style: Theme.of(context).textTheme.bodyText1,
           semanticsLabel: '${AppLocalizations.of(context).theme}',
         ),
         trailing: ToggleButtons(
@@ -123,7 +123,7 @@ class _SettingPageState extends State<SettingPage> {
       child: ListTile(
         leading: Text(
           '${AppLocalizations.of(context).holeShape}',
-          style: Theme.of(context).textTheme.body2,
+          style: Theme.of(context).textTheme.bodyText1,
           semanticsLabel: '${AppLocalizations.of(context).holeShape}',
         ),
         trailing: ToggleButtons(
@@ -164,7 +164,7 @@ class _SettingPageState extends State<SettingPage> {
             padding: const EdgeInsets.fromLTRB(24.0, 8.0, 16.0, 0.0),
             child: Text(
               '${AppLocalizations.of(context).holeSize}',
-              style: Theme.of(context).textTheme.body2,
+              style: Theme.of(context).textTheme.bodyText1,
               semanticsLabel: '${AppLocalizations.of(context).holeSize}',
             ),
           ),
@@ -193,7 +193,7 @@ class _SettingPageState extends State<SettingPage> {
       child: ListTile(
         title: Text(
           'Left Hand Mode',
-          style: Theme.of(context).textTheme.body2,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
         trailing: Switch(
             value: _leftHand,
@@ -213,7 +213,7 @@ class _SettingPageState extends State<SettingPage> {
       child: ListTile(
         title: Text(
           'Version',
-          style: Theme.of(context).textTheme.body2,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
         trailing: Text(version),
       ),

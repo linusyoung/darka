@@ -7,18 +7,18 @@ class AppTheme {
     brightness: Brightness.light,
     primarySwatch: Colors.deepOrange,
     textTheme: TextTheme(
-      title: TextStyle(
+      headline6: TextStyle(
         fontSize: 20.0,
       ),
-      subtitle: TextStyle(
+      subtitle2: TextStyle(
         fontSize: 18.0,
         color: Colors.white,
       ),
-      display1: TextStyle(
+      headline4: TextStyle(
         fontSize: 20.0,
         color: Colors.white,
       ),
-      body2: TextStyle(
+      bodyText1: TextStyle(
         fontSize: 16.0,
         color: Colors.black,
       ),
@@ -31,18 +31,18 @@ class AppTheme {
     primarySwatch: Colors.teal,
     primaryColor: Colors.teal,
     textTheme: TextTheme(
-      title: TextStyle(
+      headline6: TextStyle(
         fontSize: 20.0,
       ),
-      subtitle: TextStyle(
+      subtitle2: TextStyle(
         fontSize: 18.0,
         // color: Colors.white,
       ),
-      display1: TextStyle(
+      headline4: TextStyle(
         fontSize: 20.0,
         // color: Colors.white,
       ),
-      body2: TextStyle(
+      bodyText1: TextStyle(
         fontSize: 16.0,
         // color: Colors.black,
       ),

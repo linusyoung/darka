@@ -68,7 +68,7 @@ class _SummaryState extends State<Summary> {
                   '${AppLocalizations.of(context).totalTasks}: ${tasks.length}',
                   semanticsLabel:
                       '${AppLocalizations.of(context).totalTasks} ${tasks.length}',
-                  style: Theme.of(context).textTheme.display2,
+                  style: Theme.of(context).textTheme.headline3,
                 ),
               ),
               Expanded(

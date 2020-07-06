@@ -4,7 +4,6 @@ import 'package:darka/locale/locales.dart';
 import 'package:darka/user_setting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:darka/model/models.dart';
 import 'package:darka/animations/custom_fab_animation.dart';
 import 'package:darka/pages/pages.dart';
@@ -19,7 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  static AudioCache player = AudioCache();
   final TabBloc _tabBloc = TabBloc();
   TaskBloc _taskBloc;
 

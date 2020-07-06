@@ -80,7 +80,7 @@ class _TaskDetailState extends State<TaskDetail> {
                 children: <Widget>[
                   Text(
                     day.day.toString(),
-                    style: Theme.of(context).textTheme.body2,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   punchedDates.contains(dayString)
                       ? FutureBuilder<List<dynamic>>(
@@ -121,7 +121,7 @@ class _TaskDetailState extends State<TaskDetail> {
               Icons.edit,
             ),
           ),
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.headline4,
           onChanged: (text) {
             widget.task.name = text;
           },
