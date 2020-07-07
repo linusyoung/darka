@@ -20,4 +20,4 @@ You can see a summary for single task or a summary of all tasks you added. Also,
 [![Play Store Badge](/assets/badges/google-play-badge.png)](https://play.google.com/store/apps/details?id=club.swimmingbeaver.darka)
 
 ## Support my work
-[![Buy me a coffee](https://cdn.buymeacoffee.com/buttons/default-blue.png =150x35)](https://www.buymeacoffee.com/linusyoung)
+<a href="https://www.buymeacoffee.com/linusyoung" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" width="150"></a>
